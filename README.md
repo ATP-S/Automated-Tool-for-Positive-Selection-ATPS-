@@ -1,2 +1,2 @@
 # APSP
-[![Visits Badge](https://badges.pufler.dev/visits/puf17640/git-badges)](https://badges.pufler.dev) [![Updated Badge](https://badges.pufler.dev/updated/puf17640/git-badges)](https://badges.pufler.dev) [![Created Badge](https://badges.pufler.dev/created/puf17640/git-badges)](https://badges.pufler.dev) ![GitHub all releases](https://img.shields.io/github/downloads/APS-P/APSP/total?color=%2300ff00&label=Downloads&logo=GitHub&logoColor=white&style=plastic)
+![GitHub all releases](https://img.shields.io/github/downloads/APS-P/APSP/total?color=%2300ff00&label=Downloads&logo=GitHub&logoColor=white&style=plastic) / ![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/APS-P/APSP?label=Python&logo=github&style=plastic)
