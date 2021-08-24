@@ -6,7 +6,8 @@
 # Wiki
 A detailed documentation can be found at the [GitHub Wiki](https://github.com/APS-P/APSP/wiki).
 
-# About
+# Technical support
 APSP is actively supported. Please use the [Issues section](https://github.com/APS-P/APSP/issues) to share any errors you get.
 
-# Support us
+# About
+## Citation
