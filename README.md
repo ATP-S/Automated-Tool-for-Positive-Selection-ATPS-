@@ -10,7 +10,7 @@ Automated Positive Selection Pipeline (APSP) is a tool that automates the most c
 
 # Introduction
 
-ASPS is a tool aimed for evolutionary geneticists who fin
+ASPS is an open-source tool aimed for evolutionary geneticists inorder to remove the unnecessary manual steps during positive selection research. As well as, providing a one-stop-software for all necessary analysis steps that would otherwise require the researcher to open different softwares and move files manually.
 
 
 ![GitHub all releases](https://img.shields.io/github/downloads/APS-P/APSP/total?color=%2300ff00&label=Downloads&logo=GitHub&logoColor=white&style=plastic) / ![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/APS-P/APSP?label=Python&logo=github&style=plastic)
