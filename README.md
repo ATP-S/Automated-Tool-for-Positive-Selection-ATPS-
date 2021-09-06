@@ -2,10 +2,11 @@
 
 # Summary
 
-Automated Positive Selection Pipeline (APSP) is a tool that automates the most cited softwares packages in positive selection research combined with useful python packages. It only requires basic input of the protein name and other optional categories, e.g. species Its **key points are**:
+Automated Positive Selection Pipeline (APSP) is a tool that automates the most cited, yet independent software packages in positive selection research, combined with useful python packages. It only requires basic input of the protein name or gene and other optional categories, e.g. species Its **key points are**:
 - Automated data and metadata acquistion of proteins.
-- Aligment 
-- Evolutionary tree building, and Positive score calculation all with just basic entry information from the researcher side. 
+- Auto-Aligment with three different options to choose from (X,X,X)
+- Evolutionary tree building.
+- Positive score calculation.
 
 # Introduction
 
