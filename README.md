@@ -17,7 +17,7 @@ ASPS is an open-source tool aimed for evolutionary geneticists inorder to remove
 
 # Wiki
 
-A detailed documentation can be found at the [GitHub Wiki](https://github.com/APS-P/APSP/wiki).
+A detailed documentation can be found at the [GitHub Wiki](https://github.com/APS-P/APSP/wiki). It contains a detailed guide on how to use APSP and understand its output.
 
 # Technical support
 
