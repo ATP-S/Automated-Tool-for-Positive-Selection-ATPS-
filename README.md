@@ -7,6 +7,7 @@ ASPS is an automated positive selection tool aimed at evolutionary geneticist to
 - Multiple sequence aligment optimized for high data count.
 - Filteration and tree building.
 - Positive score calculation.
+- Optimized to work with the lowest hardware requirments, like office Desktops and laptops.
 
 ![GitHub all releases](https://img.shields.io/github/downloads/APS-P/APSP/total?color=%2300ff00&label=Downloads&logo=GitHub&logoColor=white&style=plastic) / ![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/APS-P/APSP?label=Python&logo=github&style=plastic)
 
@@ -16,7 +17,7 @@ A detailed documentation including (How to use the tool, arguments, detail descr
 
 # Technical support
 
-APSP is actively supported by our team. Please use the [Issues section](https://github.com/APS-P/APSP/issues) to share any errors you get.
+APSP is actively supported by our team. Please use the [Issues section](https://github.com/APS-P/APSP/issues) if you happen to find any errors.
 
 ## Citation
 Will be added after publication and official release.
