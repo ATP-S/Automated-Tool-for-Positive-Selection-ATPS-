@@ -271,7 +271,7 @@ def reversedd(interest):
     return
 
 def Gblocks():
-    os.system('Gblocks_0.91b/Gblocks Reverse_Translation_Seq.txt -t=c -e=-gb1 -b5=h -d=y -b2=0')
+    os.system('Gblocks_Linux64_0.91b/Gblocks_0.91b/Gblocks Reverse_Translation_Seq.txt -t=c -e=-gb1 -b5=h -d=y -b2=0')
 
 def convert_fst_phy():
     os.system("java -jar jmodeltest-2.1.7/jModelTest.jar -d Reverse_Translation_Seq.txt-gb1 -getPhylip")
