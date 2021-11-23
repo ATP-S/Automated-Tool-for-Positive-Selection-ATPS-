@@ -7,11 +7,11 @@
 
 # Wiki (How to use the program)
 
-A detailed documentation including: How to use the tool, its arguments, and a detailed description of what's included can be found at the [GitHub Wiki](https://github.com/APS-P/APSP/wiki). In short, it contains a detailed guide on how to use APSP
+A detailed documentation including: How to use the tool, its arguments, and a detailed description of what's included can be found at the [GitHub Wiki](https://github.com/APS-P/APSP/wiki). In short, it contains a detailed guide on how to use ATPS
 
 # Technical support
 
-APSP is actively supported by our team. Please use the [Issues section](https://github.com/APS-P/APSP/issues) if you happen to find any errors.
+ATPS is actively supported by our team. Please use the [Issues section](https://github.com/APS-P/APSP/issues) if you happen to find any errors.
 
 ## Citation
 Will be added after publication and official release.
