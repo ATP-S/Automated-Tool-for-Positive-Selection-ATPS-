@@ -1,11 +1,6 @@
 # Introduction
 
-ASPS is an automated positive selection tool aimed at evolutionary geneticist to help them conduct analysis with efficiency. They main features are:
-- Automated open-ended data fetch for specific gene name in all species.
-- Multiple sequence aligment optimized for high data count.
-- Filteration and tree building.
-- Positive score calculation.
-- Optimized to work with the lowest hardware requirments, like office Desktops and laptops.
+ATPS is a computer program to automate the positive selection pipeline which fetches sequences of species to scan for positively selected genes based on sequence comparison and codon-based method. The program mainly deals with different software which operates together by python coding. It handles the input and output files in each step and saves the results in directory for each gene. 
 
 ![GitHub all releases](https://img.shields.io/github/downloads/APS-P/APSP/total?color=%2300ff00&label=Downloads&logo=GitHub&logoColor=white&style=plastic) / ![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/APS-P/APSP?label=Python&logo=github&style=plastic)
 
