@@ -222,7 +222,10 @@ for g in genes:
     print("=========================================================")
     print("phylofit running and wingscore will excecute ........ pleas wait")
     print("=========================================================")
-    phast(g)
+    try:
+        phast(g)
+    except:
+        pass
     creat_codeml_dir()
     os.system("python3 exit.py")
     print("=========================================================")
