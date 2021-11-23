@@ -1,6 +1,7 @@
 # Introduction
 
-ATPS is a computer program to automate the positive selection pipeline which fetches sequences of species to scan for positively selected genes based on sequence comparison and codon-based method. The program mainly deals with different software which operates together by python coding. It handles the input and output files in each step and saves the results in directory for each gene. 
+  ATPS is a computer program to automate the positive selection pipeline which fetches sequences of species to scan for positively selected genes based on sequence comparison and codon-based method. The program mainly deals with different software which operates together by python coding. It handles the input and output files in each step and saves the results in directory for each gene.
+  we have developed ATPS to detects positively selected genes (PSGs), allows analysis of specific evolutionary branches and also it print out the Bayes Empirical Bayes (BEB) analysis which figure out the positive amino acid sites. ATPS allow user to fetch data from NCBI or input your data using arguments.  
 
 ![GitHub all releases](https://img.shields.io/github/downloads/APS-P/APSP/total?color=%2300ff00&label=Downloads&logo=GitHub&logoColor=white&style=plastic) / ![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/APS-P/APSP?label=Python&logo=github&style=plastic)
 
