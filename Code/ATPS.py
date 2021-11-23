@@ -348,3 +348,5 @@ df['adj88a'] = y
 df['adj22a'] = z
 #print(df)
 df.to_csv(r"Study_Output_adjPvlaue.csv")
+
+deletion_files()
