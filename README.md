@@ -13,7 +13,7 @@ A detailed documentation including: How to use the tool, its arguments, and a de
 
    # softwares 
    
-1- MUSCLE
+1- MUSCLE /n
 2- MAFFT
 3- clustalo
 4- Gblocks
