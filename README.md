@@ -14,8 +14,8 @@ A detailed documentation including: How to use the tool, its arguments, and a de
    # softwares 
    
 1- MUSCLE
-2- MUFFT
-3- CLSTALO
+2- MAFFT
+3- clustalo
 4- Gblocks
 8- jmodeltest
 9- phyml
