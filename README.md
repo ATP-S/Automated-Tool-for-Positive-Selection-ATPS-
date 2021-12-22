@@ -20,30 +20,35 @@ A detailed documentation including: How to use the tool, its arguments, and a de
 3- clustalo
 
 4- Gblocks
+
 8- jmodeltest
+
 9- phyml
+
 8- phylofit
+
 9- codeml
 
    # python packages 
    
 1- biopython
+
 2- pandas
+
 3- glob
+
 4- matplotlib 
+
 5- os 
-6- bokeh# Dependencies
-13
-​
-14
-   # softwares 
-15
-   
-16
-1- MUSCLE /n
+
+6- bokeh
+
 7- mne
+
 8- numpy
+
 9- gc 
+
 10- tkinter 
 
 
