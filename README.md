@@ -9,6 +9,33 @@
 
 A detailed documentation including: How to use the tool, its arguments, and a detailed description of what's included can be found at the [GitHub Wiki](https://github.com/APS-P/APSP/wiki). In short, it contains a detailed guide on how to use ATPS
 
+# Dependencies
+
+   # softwares 
+   
+1- MUSCLE
+2- MUFFT
+3- CLSTALO
+4- Gblocks
+8- jmodeltest
+9- phyml
+8- phylofit
+9- codeml
+
+   # python packages 
+   
+1- biopython
+2- pandas
+3- glob
+4- matplotlib 
+5- os 
+6- bokeh
+7- mne
+8- numpy
+9- gc 
+10- tkinter 
+
+
 # Technical support
 
 ATPS is actively supported by our team. Please use the [Issues section](https://github.com/APS-P/APSP/issues) if you happen to find any errors.
