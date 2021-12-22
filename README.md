@@ -13,9 +13,12 @@ A detailed documentation including: How to use the tool, its arguments, and a de
 
    # softwares 
    
-1- MUSCLE /n
+1- MUSCLE
+
 2- MAFFT
+
 3- clustalo
+
 4- Gblocks
 8- jmodeltest
 9- phyml
@@ -29,7 +32,15 @@ A detailed documentation including: How to use the tool, its arguments, and a de
 3- glob
 4- matplotlib 
 5- os 
-6- bokeh
+6- bokeh# Dependencies
+13
+​
+14
+   # softwares 
+15
+   
+16
+1- MUSCLE /n
 7- mne
 8- numpy
 9- gc 
