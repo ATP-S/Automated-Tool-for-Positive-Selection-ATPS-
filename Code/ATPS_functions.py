@@ -1111,6 +1111,20 @@ def codeml_creating_file():
     codeml2a.write(c2a)
     codeml2 = open("codeml2.ctl", "w")
     codeml2.write(c2)
+    
+    
+def number_of_fetched_species()
+    path = os.getcwd()
+    list_files = glob.glob("*.gene")
+
+    counter = [["Name", "Number of Species"]]
+    x = open("output.txt",'w')
+    for i in list_files:
+        reading = open(path + '/' + i + '/' + 'CodingSequences.fasta', 'r')
+        reading2 = reading.read()
+        counter.append([i, reading2.count('>')])
+    df = pd.DataFrame(counter)
+    df.to_csv("fetched_species.csv")
 
 codeml_creating_file()
 
