@@ -159,6 +159,7 @@ if "Study_Output.csv" not in LF:
 codeml_creating_file()
 
 for g in genes:
+    path = os.getcwd()
     #fetchingbyspecies("TP53",["Mus musculus","Homo sapiens","Rattus norvegicus"])
     deletion_files()
     print("=========================================================")
@@ -249,12 +250,14 @@ for g in genes:
     shutil.move("2NG.dN", 'codeml078')
     shutil.move("4fold.nuc", 'codeml078')
     os.system("python3 exit.py")
+    o = open("genes_without_BEB.txt", "w")
     try:
-        BEB_list = BEB()
+        BEB_list = BEB(path)
     except:
-        pass
+        o.writelines(g)
+        o.writelines("/n")
     try:
-        Positive_selection_sites(BEB_list ,interest)
+        Positive_selection_sites(BEB_list ,interest,path)
     except:
         pass
     print("=========================================================")
@@ -329,7 +332,6 @@ for g in genes:
         os.remove("Gene_Output.csv")
     except:
         print("")
-    path = os.getcwd()
     try:
         del_paths = glob.glob(os.path.join(path + '/' +  g + '.gene','*.gene'))
         for del_path in del_paths:
