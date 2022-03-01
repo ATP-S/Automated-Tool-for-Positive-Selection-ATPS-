@@ -394,43 +394,48 @@ def model078():
     f.close()
     os.system("codeml")
 
-def BEB():
-    BEB_csv = open("BEB.csv", "w")
-    codeml078 = open("codeml078/codeml078_mlc.txt", "r")
+def BEB(path):
+
+    codeml078 = open(path + "/" + "codeml078/codeml078_mlc.txt", "r")
     BEB_read = codeml078.read()
     start = BEB_read.find("Bayes Empirical Bayes (BEB)") ## getting 
     end = BEB_read.find("the grid") ## getting
     BEB_list = []
     BEB_list = BEB_read[start : end].split("\n\n")[2].replace("         ", ",").replace("*        ", ",").replace("      ", ",").replace("*       ", "**,")
+
     BEB_list = '\n'.join([','.join([line.strip().replace(" ", ",").split(",", 3)[n] for n in range(3)]) for line in BEB_list.split('\n')])
-    BEB_csv.write(BEB_list)
+
     return BEB_list
 
-###
-def Positive_selection_sites(BEB_list, interest):
-    original = r"Reverse_Translation_Seq.txt-gb1.htm"
-    target = r"Reverse_Translation_Seq.txt-gb1.txt"
+
+def Positive_selection_sites(BEB_list, interest, path):
+    original = path + "/" +"Reverse_Translation_Seq.txt-gb1.htm"
+    target = path + "/" +"Reverse_Translation_Seq.txt-gb1.txt"
     shutil.copyfile(original , target)
-    gblocks_file = open("Reverse_Translation_Seq.txt-gb1.txt" , "r")
-    input_ = open("Sequences_Alignment.ali" , "r")
-    #output_ = open("positive_selection_sites.txt" , "w")
+    gblocks_file = open(path + "/" + "Reverse_Translation_Seq.txt-gb1.txt" , "r")
+
     Positive_selection_sites = []
-    amino_acid_positions = []
     BEB = ''
     counter = 0
     for b in BEB_list:
         BEB += b
     BEB_position = BEB.replace("\n" , ",").split(",")[::3]
+
     BEB_positions = [int(BEB_position[i+1]) - int(BEB_position[i]) for i in range(len(BEB_position)-1)]
+
     BEB_positions.insert(0,int(BEB_position[0]))
+
     g_postiotns = [i.replace("Flanks: " , "").replace("\n","").replace("[" , "").replace("]" , "").replace("  ", " ").strip().split(" ") for i in gblocks_file.readlines() if "Flanks: " in i]
+
     posi_listt = g_postiotns[0]
     posi_listt = [int(i)//3 for i in posi_listt]
+
     posi_list = [[posi_listt[i],posi_listt[i+1]] for i in range(0,len(posi_listt)-1,2)]
-    
+
     carrier = [i[1] - i[0] for i in posi_list]
+
     for i in BEB_positions:
-        while carrier != 0:
+        while carrier[0] != 0:
             if i < carrier[0]:
                 posi_list[0][0] += i
                 Positive_selection_sites.append(posi_list[0][0])
@@ -439,30 +444,23 @@ def Positive_selection_sites(BEB_list, interest):
             elif i == carrier[0]:
                 Positive_selection_sites.append(posi_list[0][1])
                 posi_list.pop(0)
+                carrier.pop(0)
                 break
             else:
                 i -= carrier[0]
                 carrier.pop(0)
                 posi_list.pop(0)
-    print(BEB_positions , posi_list , Positive_selection_sites)
-    read = input_.read().replace("\n" , ",").split(",,")
-    input_read =[i.replace(",","") for i in read]
-    for i in range(len(input_read)):
-        if  ">" + interest in input_read[i]:
-            output_.writelines(input_read[i])
-            output_.writelines("\n")
-            seq = input_read[i+1]
-            for j in Positive_selection_sites:
-                x = j+counter
-                seq = seq[:x-1] + "@" + seq[x-1:]
-                counter +=1
-            seq = seq.replace("-" , "")
-            for i in range(len(Positive_selection_sites)):
-                amino_acid_positions.append(seq.find("@"))
-                seq = seq.replace("@" , "" ,1)
-                
-    return Positive_selection_sites ,amino_acid_positions
-#sys.exit(0)
+
+    ps_list = []
+    j = 0
+    for i in BEB_list.split("\n"):
+        ps_list.append(str(i) + ',' + str(Positive_selection_sites[j]))
+
+        j += 1
+    ps_list = '\n'.join(ps_list)
+    BEB_csv = open(path + "/" + "BEB.csv", "w")
+    BEB_csv.write(ps_list)
+    return Positive_selection_sites
 
 
 def model8a():
