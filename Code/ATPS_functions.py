@@ -401,7 +401,7 @@ def BEB(path):
     start = BEB_read.find("Bayes Empirical Bayes (BEB)") ## getting 
     end = BEB_read.find("the grid") ## getting
     BEB_list = []
-    BEB_list = BEB_read[start : end].split("\n\n")[2].replace("         ", ",").replace("*        ", ",").replace("      ", ",").replace("*       ", "**,")
+    BEB_list = BEB_read[start : end].split("\n\n")[2].replace("         ", ",").replace("*        ", "*,").replace("      ", ",").replace("**       ", "**,")
 
     BEB_list = '\n'.join([','.join([line.strip().replace(" ", ",").split(",", 3)[n] for n in range(3)]) for line in BEB_list.split('\n')])
 
