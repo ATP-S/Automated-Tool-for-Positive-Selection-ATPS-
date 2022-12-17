@@ -7,80 +7,82 @@ Original file is located at
     https://colab.research.google.com/drive/1hg1E21ppVMNk6FJFcasdGxOpo9_C-LOj
 """
 
-import sys
-import time
-import Bio
+
 from Bio import Entrez
 from Bio.Seq import Seq
-from subprocess import Popen, PIPE
-import subprocess
-import threading
-import pexpect
-import os
-from Bio.Phylo.PAML import codeml
 from Bio import AlignIO
 from Bio import Phylo
-from Bio.Phylo.Applications import PhymlCommandline
-from Bio.Phylo.TreeConstruction import DistanceCalculator
-from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstructor
+from Bio import SeqIO
+from Bio.SeqRecord import SeqRecord
 import subprocess
 import os.path
-import os
 import sys
 import shutil
 import pandas as pd
 from scipy.stats import chi2
-import urllib.request
 import glob
-import openpyxl
 import matplotlib.pyplot as plt
-import os, io, random
-import string
-import numpy as np
-from bokeh.plotting import figure, output_file, show
-from Bio.Seq import Seq
-from Bio.Align import MultipleSeqAlignment
-from Bio import AlignIO, SeqIO
-import mne
+import os
 import numpy as np
 import panel as pn
-import panel.widgets as pnw
 pn.extension()
-
-from bokeh.plotting import figure
-from bokeh.models import ColumnDataSource, Plot, Grid, Range1d
+from bokeh.plotting import figure, show
+from bokeh.models import ColumnDataSource, Range1d
 from bokeh.models.glyphs import Text, Rect
 from bokeh.layouts import gridplot
-##
-##
-##n = len(sys.argv)
-##taxonomy = sys.argv[1]
-##protein  = sys.argv[2]
-#print (taxonomy, protein)
+import csv
 
 
+def get_max_str_index(lst):
+    return max(enumerate(lst), key=lambda x: len(x[1]))
 
-def fetchingbyspecies(protein,List_species,interest, fetch, gene_path, inp_file):
-    protein_dict = {}
+def fetchingbyspecies(protein,List_species,interest, fetch, gene_path = None, inp_file = None):
+    """this function fetches all the required data from ncbi for a specific gene
+        or protein, applies all the required filters, and structure the data to
+        be used later in the pipeline.
+        the function writes files to a specific directory that will be used
+        later in the pipeline
+
+    Args:
+        protein (string): protein name
+        List_species (list): list of species
+        interest (string): the species of interest for further analysis
+        fetch (int): fetching method (either from existing fasta files or from NCBI nuccore database)
+        gene_path (_type_): the path to the fasta files if the fetching method is 0
+        inp_file (_type_): file name of the input fasta file that contains all the species of a gene
+        email (string): user email
+
+    Returns:
+        list_empty: a true or false value indicating if the gene was found or not
+    """
+    
     if fetch == 1:
-        Entrez.email = "mirocc3@gmail.com"
+        # input email from user
+        Entrez.email = "example@gmail.com"
+        # check if email is entered
         if not Entrez.email:
-            print ("you must add your email address")
-            sys.exit(2)
+            sys.exit ("you must add your email address")
         species_list = []
+        # dictionary that stores all sequences with names
         seq_dict = {}
-        filter_gene = "[gene=" + protein + "]"
+        protein_dict = {}
+        filter_gene = f"[gene={protein}]"
         for i in List_species:
-            Searched_Term = "{}[Organism] OR {}[All Fields] AND {}[Title] AND (biomol_mrna[PROP] AND refseq[filter])".format(i, i, protein)
+            # fetching nucleotide sequences from ncbi nuccore database using a term that includes refseq filter and mrna filter
+            Searched_Term = f"{i}[Organism] OR {i}[All Fields] AND {protein}[Title] AND (biomol_mrna[PROP] AND refseq[filter])"
             handle = Entrez.esearch(db="nuccore", term = Searched_Term, retmax = 4000, usehistory="y", idtype="acc")
             search_results = Entrez.read(handle)
+            # list of accession numbers
             acc_list = search_results["IdList"]
+            # list of gene count
             count = int(search_results["Count"])
-            #print(count)
+            # web environment
             webenv = search_results["WebEnv"]
+            # query key
             query_key = search_results["QueryKey"]
             begin = 0
             indiced_list = []
+            # fetching all the genes using accession numbers in the web environment
             fetch_handle = Entrez.efetch(db="nuccore",
                                              rettype="fasta_cds_na",
                                              retmode="text",
@@ -90,102 +92,94 @@ def fetchingbyspecies(protein,List_species,interest, fetch, gene_path, inp_file)
                                              idtype="acc")
             data = fetch_handle.read()
             fetch_handle.close()
-            for data1 in str(data).split('\n\n')[:-1]:
+            accession_list = []
+            # parsing through the genes, and removing the headers which leaves only the name of the gene as a header
+            for gene in str(data).split('\n\n')[:-1]: 
                 sequence = ''
-                accession_num = ''
-                if  filter_gene.lower() in data1.lower():
-                    for x in range(len(data1)):
-                        if data1[x] == '|':
-                            begin = 1
-                            continue
-                        elif data1[x] == '.':
-                            accession_num += data1[x] + data1[x+1]
-                            begin = 0
-                            break
-                        if begin == 1:
-                            accession_num += data1[x]
-                    sequence = data1[data1.find(']\n')+1:]
+                if filter_gene.lower() in gene.lower(): ## making sure that the fetched gene name is the same as the input gene name
+                    start = gene.find("|")
+                    end = gene.find(".")
+                    accession_num = gene[start+1:end+2]
+                    accession_list.append(accession_num)
+                    sequence = gene[gene.find(']\n')+1:].replace("\n", "").strip()
                     indiced_list.append(sequence)
-            if indiced_list:
-                seq_npartial = Seq(max(indiced_list, key = len).replace("\n", "").strip())
-            else:
-                print("there is nos sequences for this species : " + i)
+            if not indiced_list:
+                print(f"We could not find any sequences matching our criteria for this species{i}")
                 continue
-            if (not "*" in str(seq_npartial.translate())[0:-1]) and (str(seq_npartial).startswith("ATG")) and str(seq_npartial.translate()).endswith('*'):
-                seq_dict[i] = max(indiced_list, key = len)
-            else:
-                seq_dict[i] = ''
-                for j in range(len(indiced_list)):
-                    seqs_npartial = Seq(indiced_list[j].replace("\n", '').strip())
-                    if len(indiced_list[j]) > len(seq_dict[i]) and not '*' in str(seqs_npartial.translate())[0:-1] and (str(seqs_npartial).startswith("ATG")) and str(seqs_npartial.translate()).endswith("*"):
-                        seq_dict[i] = indiced_list[j]
-                if seq_dict[i] == '':
-                    if i == interest:
-                        print(interest," not found the default is used instead")
-                        carry = list_species.copy()
-                        carry.remove(i)
-                        interest = carry[0]
-                    seq_dict.pop(i, None)
+            # making sure that the fetched genes meet the standards of coding sequences
+            ## fetching gene with maximum length
+            while indiced_list:
+                max_gene = get_max_str_index(indiced_list)
+                if "*" not in str(Seq(max_gene[1]).translate())[:-1] and (str(max_gene[1]).startswith("ATG")) and str(Seq(max_gene[1]).translate()).endswith('*'):
+                    seq_dict[i] = max_gene[1]
+                    break
+                else:
+                    indiced_list.pop(max_gene[0])
+            if seq_dict[i] == '':
+                if i == interest:
+                    print(interest," not found. another gene will be set to be the gene of interest")
+                    carry = List_species.copy()
+                    carry.remove(i)
+                    interest = carry[0]
+                seq_dict.pop(i, None)
     else:
-        gene_open = open(gene_path + "/" + inp_file, 'r')
-        gene_instance = gene_open.read()
-        ## to be changed
-        if not "\n\nA" in gene_instance or not "\n\n>" in gene_instance:
-             addlines(str(gene_path) + "/" + inp_file, "CodingSequences.fasta")
-        coding_seqopen = open("CodingSequences.fasta")
-        seq_instances = coding_seqopen.read()
-        seq_lisinst = seq_instances.split("\n\n")
-        seq_lisinst = list(filter(('').__ne__, seq_lisinst))
-        seq_dict = zip((seq_lisinst[r].replace('\n', '').replace('>', '') for r in range(0,len(seq_lisinst),2)),( seq_lisinst[r] for r in range(1,len(seq_lisinst),2)))
-        seq_dict = dict(seq_dict)
-    out_handle = open("CodingSequences.fasta", "w")
-    out_handle_prot = open("ProteinSequences.fasta", "w")
-    for specie in seq_dict.keys():
-        to_trans = Seq(seq_dict[specie].replace("\n", "").strip())
-        protein_dict[specie] = str(to_trans.translate())
-    keysList = list(seq_dict.keys())
-    print(keysList)
-    valueList = list(seq_dict.values())
-    redacted = ''
-    for i, j in zip(keysList, valueList):
-        if ' ' in i:
-            i = i.replace(' ','_')
-        if fetch == 0:
-            redacted += '>' + i + '\n\n'
-        else:
-            redacted += '>' + i + '\n\n'
-        redacted += j + '\n\n'
-    out_handle.write(redacted)
-    out_handle.close()
-    keysList = list(protein_dict.keys())
-    valueList = list(protein_dict.values())
-    redacted = ''
-    n = 60
+        seq_dict = _extracted_from_fetchingbyspecies_95(gene_path, inp_file)
+        for specie in seq_dict.keys():
+            to_trans = Seq(seq_dict[specie])
+            protein_dict[specie] = str(to_trans.translate())
+            
+    with open("CodingSequences.fasta", "w") as out_handle:
+        
+        sequences = ''
+        for species, sequence in seq_dict.items():
+            seq = SeqRecord(Seq(sequence), id=species.replace(' ','_').lower(), description= "").format("fasta")
+            sequences += seq
+        print(sequences)
+        out_handle.write(sequences)
+        
+    with open("ProteinSequences.fasta", "w") as out_handle:
+        
+        sequences = ''
+        for species, sequence in protein_dict.items():
+            seq = SeqRecord(Seq(sequence), id=species.replace(' ','_').lower(), description= "").format("fasta")
+            sequences += seq
+        print(sequences)
+        out_handle.write(sequences)
 
-    for i, j in zip(keysList, valueList):
-        if ' ' in i:
-            i = i.replace(' ','_')
-        redacted += '>' + i + '\n'
-        lst = [j[i:i+n] for i in range(0, len(j), n)]
-        redacted += '\n'.join(lst) + '\n'
-    out_handle_prot.write(redacted)
-    out_handle_prot.close()
-    if valueList:
-        list_empty = True
-    else:
-        list_empty = False
-    return list_empty, interest
+
+
+# TODO Rename this here and in `fetchingbyspecies`
+def _extracted_from_fetchingbyspecies_95(gene_path, inp_file):
+    # fetching genes from files
+    gene_open = open(gene_path + "/" + inp_file, 'r')
+    gene_instance = gene_open.read()
+        ## to be changed
+    # if "\n\nA" not in gene_instance or "\n\n>" not in gene_instance:
+    #     addlines(f"{str(gene_path)}/" + inp_file, "CodingSequences.fasta")
+    coding_seqopen = open("CodingSequences.fasta")
+    seq_instances = coding_seqopen.read()
+    seq_lisinst = seq_instances.split("\n\n")
+    seq_lisinst = list(filter(('').__ne__, seq_lisinst))
+    result = zip((seq_lisinst[r].replace('\n', '').replace('>', '') for r in range(0, len(seq_lisinst), 2)), (seq_lisinst[r] for r in range(1, len(seq_lisinst), 2)))
+    result = dict(result)
+    return result
 
 
 # imported libraries below
 # This is incomplete, we need to add f'' string
 file_path = "ProteinSequences.fasta"
 def diff_aligners(file_path , align_type):
+    """the diff_aligners function carry out the alignment process with various alignment method (muscle, clustalo and mafft)
+
+    Args:
+        file_path (_type_): path to sequences file
+        align_type (_type_): method of alignment "mu" for muscle, "cl" for clustalo and "mf" for mafft
+    """
     
     if align_type == "mu":
         try:
             subprocess.run('(muscle -in ' + file_path + ' -out Alignment.ali)', shell=True, check=True)
-        except:
+        except Exception:
             os.system("sudo apt install muscle")
             subprocess.run('(muscle -in ' + file_path + ' -out Alignment.ali)', shell=True, check=True)
 
@@ -198,85 +192,53 @@ def diff_aligners(file_path , align_type):
     else:
         print('The program will now exit.')
 
-
-def addlines(target_file, out_file):
-    redact_protein = open(out_file , "w")
-    protein_file = open(target_file, "r")
-    m = protein_file.readlines()
-    for i in m:
-        if ">" in i:
-            redact_protein.write("\n")
-            redact_protein.writelines(i)
-            redact_protein.write("\n")
-            continue
-        redact_protein.writelines(i)
-
-
-
-"""
-    code for reverse translation
-"""
 def reversedd(interest):
-    org_listseqsplt = []
-    species_sorted = []
-    transeq = []
-    org_seq = open("CodingSequences.fasta", "r") ##open original sequences file
-    ali_prot = open("Sequences_Alignment.ali","r") ## open protein alignment file
-    fasta = open("Reverse_Translation_Seq.txt" , "w") ## open file to write the coding sequences with gaps
-    org_sequences = org_seq.read() ## reading original sequences file
-    ali_protein = ali_prot.read() ## reading protein alignment file
-    org_listseq = org_sequences.split("\n\n") ## splitting the sequences at each \n\n
-    ali_listprot = ali_protein.split("\n\n") ## splitting the protein file at eacg \n\n
-    org_listseqnt = [org_listseq[i].replace("\n", '') for i in range(1,len(org_listseq),2)] ## sequences without titles
-    species_seq = [org_listseq[i].replace("\n", '') for i in range(0,len(org_listseq),2)]
-    species_prot = [ali_listprot[i].replace("\n", '') for i in range(0,len(ali_listprot),2)]
-    ali_listprotnt = [ali_listprot[i].replace("\n", '') for i in range(1,len(ali_listprot),2)] ## sequences without titles
-    #print(species_prot , species_seq)
-    for j in org_listseqnt:
-        org_listseqsplt.append([j[i:i+3] for i in range(0, len(j), 3)])
-    gapped_seq = []
-    prot_dict = dict(zip(species_prot,ali_listprotnt))
-    seq_dict = dict(zip(species_seq,org_listseqsplt))
-    print(prot_dict)
-    print(seq_dict)
-    full_dict = {}
-    for i in prot_dict.keys():
-        #print(full_dict)
-        full_dict[i] = (prot_dict[i], seq_dict[i])
-        species_sorted.append(i)
-    seq_sort = [full_dict[i][1] for i in full_dict.keys()]
-    prot_sort = [full_dict[i][0] for i in full_dict.keys()]
-    count = 0
-    for i in range(len(prot_sort)):
-        codon = 0
-        count += 1
-        if species_sorted[i] == ('>' + interest):
-            transeq.insert(0, species_sorted[i])
-        else:
-            transeq.append(species_sorted[i])
-        for j in prot_sort[i]:
-            if j == '-':
-                gapped_seq.append("---")
-            else:
-                gapped_seq.append(seq_sort[i][codon])
-                codon += 1
-        if species_sorted[i] == ('>' + interest):
-            transeq.insert(1, ''.join(gapped_seq))
-        else:
-            transeq.append(''.join(gapped_seq))
-        gapped_seq = []
-    #print(transeq)
-    fasta.write('\n\n'.join(transeq))
-    fasta.close()
-    return
+    """this function returns the aligned protein sequence to gene sequence
+
+    Args:
+        interest (type:string): the gene of interest
+    """
+    with open("Reverse_Translation_Seq.txt" , "w") as fasta:
+        sequence_dict = SeqIO.to_dict(SeqIO.parse("CodingSequences.fasta", "fasta"))
+        protein_dict = SeqIO.to_dict(SeqIO.parse("Alignment.ali", "fasta"))
+        species = list(sequence_dict.keys())
+        species.remove(interest.lower())  
+        species.insert(0, interest.lower()) 
+        print(species)
+        for key in species:
+            sequence_dict[key] = [str(sequence_dict[key].seq[i : i + 3]) for i in range(0, len(sequence_dict[key]), 3)]
+            protein_dict[key] = str(protein_dict[key].seq)
+
+        for key in sequence_dict.keys():
+            output = ""
+            counter = 0
+            for i in range(len(protein_dict[key])):
+                if protein_dict[key][i] == "-":
+                    output += "---"
+                else:
+                    output += sequence_dict[key][counter]
+                    counter += 1
+            seq = SeqRecord(Seq("".join(output)), id=key, description= "").format("fasta")
+            fasta.write(seq)
+            
+
 
 def Gblocks():
+    """
+        this function applies the Gblocks tool to eliminate the poorly aligned positions and divergent regions of an alignment
+    """
     os.system('Gblocks_0.91b/Gblocks Reverse_Translation_Seq.txt -t=c -e=-gb1 -b5=h -d=y -b2=0')
 
 def convert_fst_phy():
+    """
+        function that converts specific fasta file to phylip file 
+    """
     os.system("java -jar jmodeltest-2.1.7/jModelTest.jar -d Reverse_Translation_Seq.txt-gb1 -getPhylip")
 
 def rem_spaces():
+    """
+        f
+    """
     f = open("Reverse_Translation_Seq.txt-gb1" , "r")
     m = open("Reverse_Translation_Seq.txt-gb1.fst" , "a") #this file include the data in  Reverse_Translation_Seq.txt-gb1 without internal gaps.
     for  i in f.read():
@@ -284,6 +246,7 @@ def rem_spaces():
             m.writelines(i)
         if i == " ":
             continue
+        
 def jmodel():
     os.system("java -jar jmodeltest-2.1.7/jModelTest.jar -d Reverse_Translation_Seq.txt-gb1.phy -s 11 -g 4 -t BIONJ -f -i -AICc -o Jmodeltest_output")
 
@@ -338,24 +301,23 @@ def spare_parse():
         model_list = read_[start_model:start_model + stop_model]
         if "freqA = " not in model_list:
             continue
-        else:
-            for i in model_list.split("\n"):
-                if "partition =" in i:
-                    partition = str(i).replace("   partition = ", '').strip('\n').replace("'",'')[:6]
-                if 'p-inv = ' in str(i):
-                    pinvar = str(i).replace("   p-inv = ", '').strip('\n').replace("'",'')[:6]
-                if 'freqA' in str(i):
-                    freq += str(i).replace("   freqA = ", '').strip('\n').replace("'",'')[:6]
-                    freq += ','
-                if 'freqC' in str(i):
-                    freq += str(i).replace("   freqC = ", '').strip('\n').replace("'",'')[:6]
-                    freq += ','
-                if 'freqG' in str(i):
-                    freq += str(i).replace("   freqG = ", '').strip('\n').replace("'",'')[:6]
-                    freq += ','
-                if 'freqT' in str(i):
-                    freq += str(i).replace("   freqT = ", '').strip('\n').replace("'",'')[:6]
-            break
+        for i in model_list.split("\n"):
+            if "partition =" in i:
+                partition = str(i).replace("   partition = ", '').strip('\n').replace("'",'')[:6]
+            if 'p-inv = ' in str(i):
+                pinvar = str(i).replace("   p-inv = ", '').strip('\n').replace("'",'')[:6]
+            if 'freqA' in str(i):
+                freq += str(i).replace("   freqA = ", '').strip('\n').replace("'",'')[:6]
+                freq += ','
+            if 'freqC' in str(i):
+                freq += str(i).replace("   freqC = ", '').strip('\n').replace("'",'')[:6]
+                freq += ','
+            if 'freqG' in str(i):
+                freq += str(i).replace("   freqG = ", '').strip('\n').replace("'",'')[:6]
+                freq += ','
+            if 'freqT' in str(i):
+                freq += str(i).replace("   freqT = ", '').strip('\n').replace("'",'')[:6]
+        break
     return partition, freq, pinvar
 
 def phyml(partition, freq, pinvar):
@@ -365,7 +327,6 @@ def phyml(partition, freq, pinvar):
     os.rename("Reverse_Translation_Seq.txt-gb1.phy_phyml_stats.txt", "Species_Phylogenetic_stats.txt")
     os.rename("Reverse_Translation_Seq.txt-gb1.phy_phyml_boot_stats.txt", "Species_Phylogenetic_boot_stats.txt")
     #os.rename("Reverse_Translation_Seq.txt-gb1.phy", "")    
-    
     
 def convert_to_newickTree():
     aln = AlignIO.read('Reverse_Translation_Seq.txt-gb1.phy', 'phylip-relaxed')
@@ -387,14 +348,9 @@ def parsing_treefile():
 
 #sys.exit(0)
 
-def model078():
-    f = open("codeml.ctl", "w")
-    m = open("codeml078.ctl" , "r")
-    f.writelines(m)
-    f.close()
-    os.system("codeml")
 
-def BEB(path):
+
+def BEB(path):# try and except
 
     codeml078 = open(path + "/" + "codeml078/codeml078_mlc.txt", "r")
     BEB_read = codeml078.read()
@@ -409,31 +365,34 @@ def BEB(path):
 
 
 def Positive_selection_sites(BEB_list, interest, path):
-    original = path + "/" +"Reverse_Translation_Seq.txt-gb1.htm"
-    target = path + "/" +"Reverse_Translation_Seq.txt-gb1.txt"
-    shutil.copyfile(original , target)
-    gblocks_file = open(path + "/" + "Reverse_Translation_Seq.txt-gb1.txt" , "r")
+    """this function return the sequence with the original positions before the sequence trimming by gblocks 
 
-    Positive_selection_sites = []
-    BEB = ''
+    Args:
+        BEB_list (sequence): the BEB positions resulted from codeml
+        interest (string): the interst species 
+        path (string): file path in the directory 
+
+    Returns:
+        list(sequence): the original position before the sequence trimming which occuring by gblocks 
+    """
+    original = path + "/" + "Reverse_Translation_Seq.txt-gb1.htm" #changing the gbocks file out put from HTML to txt
+    target = path + "/" + "Reverse_Translation_Seq.txt-gb1.txt"
+    shutil.copyfile(original, target)
+    gblocks_file = open(path + "/" + "Reverse_Translation_Seq.txt-gb1.txt", "r") # open gblocks file 
+    Positive_selection_sites = [] 
     counter = 0
-    for b in BEB_list:
-        BEB += b
-    BEB_position = BEB.replace("\n" , ",").split(",")[::3]
+    BEB = ''.join(BEB_list)
+    BEB_position = BEB.replace("\n", ",").split(",")[::3]
+    BEB_positions = [int(BEB_position[i + 1]) - int(BEB_position[i]) for i in range(len(BEB_position) - 1)]
 
-    BEB_positions = [int(BEB_position[i+1]) - int(BEB_position[i]) for i in range(len(BEB_position)-1)]
-
-    BEB_positions.insert(0,int(BEB_position[0]))
-
-    g_postiotns = [i.replace("Flanks: " , "").replace("\n","").replace("[" , "").replace("]" , "").replace("  ", " ").strip().split(" ") for i in gblocks_file.readlines() if "Flanks: " in i]
+    BEB_positions.insert(0, int(BEB_position[0]))
+    g_postiotns = [i.replace("Flanks: ", "").replace("\n", "").replace("[", "").replace("]", "").replace("  ", " ").strip().split(" ") for i in gblocks_file.readlines() if "Flanks: " in i]
 
     posi_listt = g_postiotns[0]
-    posi_listt = [int(i)//3 for i in posi_listt]
-
-    posi_list = [[posi_listt[i],posi_listt[i+1]] for i in range(0,len(posi_listt)-1,2)]
+    posi_listt = [int(i) // 3 for i in posi_listt]
+    posi_list = [[posi_listt[i], posi_listt[i + 1]] for i in range(0, len(posi_listt) - 1, 2)]
 
     carrier = [i[1] - i[0] for i in posi_list]
-
     for i in BEB_positions:
         while carrier[0] != 0:
             if i < carrier[0]:
@@ -450,33 +409,27 @@ def Positive_selection_sites(BEB_list, interest, path):
                 i -= carrier[0]
                 carrier.pop(0)
                 posi_list.pop(0)
+    ps_list = [f'{str(i)},{str(Positive_selection_sites[j])}' for j, i in enumerate(BEB_list.split("\n"))]
 
-    ps_list = []
-    j = 0
-    for i in BEB_list.split("\n"):
-        ps_list.append(str(i) + ',' + str(Positive_selection_sites[j]))
-
-        j += 1
     ps_list = '\n'.join(ps_list)
     BEB_csv = open(path + "/" + "BEB.csv", "w")
     BEB_csv.write(ps_list)
     return Positive_selection_sites
 
 
-def model8a():
-    f = open("codeml.ctl", "w")
-    m = open("codeml8a.ctl" , "r")
-    f.writelines(m)
-    f.close()
-    os.system("codeml")
+
 
 #sys.exit(0)
 
 def hashing(interest):  
+    """
+        Function that sets an indicator for the gene of interest for codeml
+
+    Args:
+        interest (_type_): _description_
+    """
     newick_open = open("Species_Phylogenetic_tree_newick_nodistances.nwk")
     newick_create = open("Species_Phylogenetic_tree_newick_Interst#.nwk", 'w')
-    #interest_open = open("interest.txt")
-    #interest =r interest_open.read()
     newick_read = newick_open.read()
     newick_list = newick_read.split(',')
     result = newick_read.find(str(interest))
@@ -487,8 +440,31 @@ def hashing(interest):
     newick_open.close()
     print(newick_read)
     newick_create.write(newick_read)
+    
+def model078():
+    """
+        Function that Runs Codeml models 0,7,8
+    """
+    f = open("codeml.ctl", "w")
+    m = open("codeml078.ctl" , "r")
+    f.writelines(m)
+    f.close()
+    os.system("codeml")
+    
+def model8a():
+    """
+        Function that Runs Codeml model 8a
+    """
+    f = open("codeml.ctl", "w")
+    m = open("codeml8a.ctl" , "r")
+    f.writelines(m)
+    f.close()
+    os.system("codeml")
 
 def model2a():
+    """
+        Function that Runs Codeml model 2a
+    """
     f = open("codeml.ctl", "w")
     m = open("codeml2a.ctl" , "r")
     f.writelines(m)
@@ -497,6 +473,9 @@ def model2a():
 
 #sys.exit(0)
 def model2():
+    """
+        Function that Runs Codeml model 2
+    """
     f = open("codeml.ctl", "w")
     m = open("codeml2.ctl" , "r")
     f.writelines(m)
@@ -505,107 +484,7 @@ def model2():
 
 #sys.exit(0)
 
-def codeml_output(inp, protein):
-    modelsnum1 = []
-    modelsnum2 = ''
-    num2 = ''
-    codeml_lines = []
-    #protein = "TP53"
-    reader1 = open("codeml078/codeml078_mlc.txt","r")
-    strcml1 = str(reader1.read())
-    #needs refactoring (optimization)
-    def parse(model):
-        num1 = ''
-        flag = 0
-        flag2 = 0
-        for i in range(len(model)):
-            if model[i] == 'l' and model[i+1] == 'n' and model[i+2] == 'L':
-                flag = 1
-            if flag == 1:
-                if model[i] == '-':
-                    flag2 = 1
-                elif model[i] == ' ' and flag2 == 1:
-                    num1 += ' '
-                    flag2 = 0
-                    flag = 0
-            if flag2 == 1:
-                num1 += model[i]
-        return num1
-    modelsnum1 = parse(strcml1).split(' ')[:-1]
-    print(modelsnum1)
-    for i in range(len(modelsnum1)):
-        x = modelsnum1[i]
-        modelsnum1[i] = [float(x)]
-        modelsnum2 += str(float(x))
-        modelsnum2 += ','
-    print(modelsnum1)
-    reader2 = open("codeml8a/codeml8a_mlc.txt","r")
-    strcml2 = str(reader2.read())
-    print(parse(strcml2))
-    modelsnum1.append([float(parse(strcml2))])
-    print(modelsnum1)
-    modelsnum2 += str(float(parse(strcml2)))
-    modelsnum2 += ','
-    if inp == 1:
-        reader3 = open("codeml2a/codeml2a_mlc.txt","r")
-        strcml3 = str(reader3.read())
-        print(parse(strcml3))
-        modelsnum1.append([float(parse(strcml3))])
-        modelsnum2 += str(float(parse(strcml3)))
-        modelsnum2 += ','
-        print(modelsnum1)
-        reader4 = open("codeml2/codeml2_mlc.txt","r")
-        strcml4 = str(reader4.read())
-        print(parse(strcml3))
-        modelsnum1.append([float(parse(strcml4))])
-        modelsnum2 += str(float(parse(strcml4)))
-        modelsnum2 += ','
-        print(modelsnum1)
-        lrt22a = 2*(modelsnum1[4][0] - modelsnum1[5][0])
-    else:
-        modelsnum1.append([''])
-        modelsnum2 += ','
-        modelsnum1.append([''])
-        modelsnum2 += ','
-        lrt22a = ''
-
-    lrt78 = 2*(modelsnum1[2][0] - modelsnum1[1][0])
-    lrt88a = 2*(modelsnum1[2][0] - modelsnum1[3][0])
-
-    modelsnum1.append([lrt78])
-    modelsnum2 += str(lrt78)
-    modelsnum2 += ','
-    modelsnum1.append([lrt88a])
-    modelsnum2 += str(lrt88a)
-    modelsnum2 += ','
-    modelsnum1.append([lrt22a]) 
-    modelsnum2 += str(lrt22a)
-    modelsnum2 += ','
-
-    chi1 =  1 - chi2.cdf(lrt78, 2)
-    chi22 =  1 - chi2.cdf(lrt88a, 1)
-    if inp == 1:
-        chi3 =  1 - chi2.cdf(lrt22a, 1)
-    else: chi3 = ''
-    modelsnum1.append([chi1])
-    modelsnum2 += str(chi1)
-    modelsnum2 += ','
-    modelsnum1.append([chi22])
-    modelsnum2 += str(chi22)
-    modelsnum2 += ','
-    modelsnum1.append([chi3])
-    modelsnum2 += str(chi3)
-    modelsnum2 += ','
-    
-    model = ["Name","Model0", "Model7", "Model8","Model8a", "Model2a", "Model2", "LRT(M7_vs_M8)", "LRT(M8a_vs_M8)", "LRT(M2a_vs_M2)", "p-v7vs8", "p-v8avs8", "p-v2avs2"]
-
-    modelsnum1.insert(0,[protein])
-    modelsnum2 = protein + ',' + modelsnum2
-    dictt = dict(zip(model, modelsnum1))
-    df = pd.DataFrame(dictt)
-    df.to_csv('Gene_Output.csv')
-    return modelsnum1, modelsnum2
-
+ 
 def download():
     path = os.getcwd()
     list_files = glob.glob(path + "/*")
@@ -630,10 +509,10 @@ def saving_(gene_name):
     try:
         os.system("mkdir " + new_dir)
     except OSError:
-        print ("Creation of the directory %s failed" % path)
+        print(f"Creation of the directory {path} failed")
     else:
-        print ("Successfully created the directory %s " % path)
-    
+        print(f"Successfully created the directory {path} ")
+
     for i in file_list:
         print(i)
         try:
@@ -642,6 +521,9 @@ def saving_(gene_name):
             os.system("cp -R " + i + " " + new_dir)
         
 def deletion_files():
+    """
+        a function that deletes the unwanted files
+    """
     try:
         os.remove("Alignment.ali")
     except:
@@ -791,10 +673,14 @@ def creat_codeml_dir():
     except:
         pass
 def path_dir():
-    path = os.getcwd()
-    return path
+    return os.getcwd()
 
 def phast(gene):
+    """carry out phast operation to get the wigscores
+
+    Args:
+        gene (_type_): _description_
+    """
     original = r"Species_Phylogenetic_tree.txt"
     target = r"Species_Phylogenetic_tree.nwk"
     shutil.copyfile(original , target)
@@ -836,6 +722,11 @@ def phast(gene):
         
         
 def visualization_tree(interest):
+    """a function that visualize trees
+
+    Args:
+        interest (string): species of interest 
+    """
     #%matplotlib inline
 
     tree = Phylo.read("Species_Phylogenetic_tree.txt", "newick")
@@ -878,6 +769,7 @@ def get_colors(seqs):
     "Y" : "#fed700", "-" : "black"}
     colors = [clrs[i] for i in text]
     return colors
+
 def view_alignment(aln, fontsize="9pt", plot_width=800):
     """Bokeh sequence alignment view"""
 
@@ -943,7 +835,11 @@ def view_alignment(aln, fontsize="9pt", plot_width=800):
     return p
 
 def codeml_creating_file():
-        
+    """
+        function that creates configuration files for codeml
+    """
+    
+    
     c078 = """          seqfile = Reverse_Translation_Seq.txt-gb1.fst * fasta file
          treefile = Species_Phylogenetic_tree_newick_nodistances.nwk * 
           outfile = codeml078_mlc.txt
@@ -1113,7 +1009,7 @@ def codeml_creating_file():
     codeml2.write(c2)
     
     
-def number_of_fetched_species()
+def number_of_fetched_species():
     path = os.getcwd()
     list_files = glob.glob("*.gene")
 
@@ -1126,6 +1022,56 @@ def number_of_fetched_species()
     df = pd.DataFrame(counter)
     df.to_csv("fetched_species.csv")
 
+
+
+
+def codeml_output(state, protein):
+    """
+        Function creates a spreadsheet for the p-values
+
+    Args:
+        state (int 0 or 1): state shows whether model2 and model 2a is required
+        protein (string):  the name of the protein
+    """
+    def parser(file):
+        lis = []
+        lines = file.readlines()
+        for i in lines:
+            if "lnL" in i:
+                start = i.find("):")
+                end = i.find("      ")
+                lis.append(float(i[start+3:end].strip()))
+        return lis
+
+    reader078 = open("codeml078/codeml078_mlc.txt","r")
+    models078 = parser(reader078)
+
+    reader8a = open("codeml8a/codeml8a_mlc.txt","r")
+    model8a = parser(reader8a)
+
+    model2a = [""]
+    model2 = [""]
+    lrt22a = ''
+    
+    if state == 1:
+        reader2a = open("codeml2a/codeml2a_mlc.txt","r")
+        model2a = parser(reader2a)
+        
+        reader2 = open("codeml2/codeml2_mlc.txt","r")
+        model2 = parser(reader2)
+        
+        lrt22a = 2*(model2a[0] - model2[0])
+
+    lrt78 = 2*(models078[2] - models078[1])
+    lrt88a = 2*(models078[2] - model8a[0])
+
+    chi78 =  1 - chi2.cdf(lrt78, 2)
+    chi88a =  1 - chi2.cdf(lrt88a, 1)
+    chi22a = 1 - chi2.cdf(lrt22a, 1) if state == 1 else ''
+
+    with open("Gene_Output.csv", "w") as newfile:
+        wr = csv.writer(newfile)
+        wr.writerow(["Name","Model0", "Model7", "Model8","Model8a", "Model2a", "Model2", "LRT(M7_vs_M8)", "LRT(M8a_vs_M8)", "LRT(M2a_vs_M2)", "p-v7vs8", "p-v8avs8", "p-v2avs2"])
+        wr.writerow([protein, models078[0], models078[1], models078[2], model8a[0], model2a[0], model2[0],lrt78, lrt88a, lrt22a, chi78, chi88a, chi22a])
+        
 codeml_creating_file()
-
-
