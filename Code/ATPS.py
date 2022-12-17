@@ -1,51 +1,15 @@
 import importt
 from ATPS_functions import *
 import os
-import time
-import Bio
-import subprocess
-import threading
-import pexpect
 import os.path
 import shutil
-import scipy.stats
-from Bio import Entrez
-from Bio.Seq import Seq
-from subprocess import Popen, PIPE
-from Bio.Phylo.PAML import codeml
-from Bio import AlignIO
 import pandas as pd
-from scipy.stats import chi2
-from Bio import Phylo
-from Bio.Phylo.Applications import PhymlCommandline
-from Bio.Phylo.TreeConstruction import DistanceCalculator
-from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstructor
-#import pandas as pd
-from scipy.stats import chi2
 import glob
-import matplotlib.pyplot as plt
-import os, io, random
-import string
-import numpy as np
-from Bio.Seq import Seq
-from Bio.Align import MultipleSeqAlignment
-from Bio import AlignIO, SeqIO
-#import panel as pn
-#import panel.widgets as pnw
-#pn.extension()
-from bokeh.plotting import figure
-from bokeh.models import ColumnDataSource, Plot, Grid, Range1d
-from bokeh.models.glyphs import Text, Rect
-from bokeh.layouts import gridplot
-from bokeh.plotting import figure, output_file, show
 import gc
 import mne
 import numpy as np
-import mne
-import numpy as np
-import pandas as pd
 #python3 runn.py -G TP53,RB1,BRCA1 -S Mus_musculus,Homo_sapiens,Rattus_norvegicus,canis_lupus,panthera_tigris,ovis_aries,orycteropus_afer,cervus_canadensis,prionailurus_bengalensis -I Rattus_norvegicus
-
+############# handle interest error
 
 n = len(sys.argv)
 genes = ''
@@ -89,6 +53,7 @@ print("downloading and setup Gblocks and Jmodeltest ........ pleas wait")
 print("=========================================================")
 
 download()
+
 try:
     os.system("codeml")
 except ImportError:
@@ -101,7 +66,7 @@ except ImportError:
 #    q = input("to quit press 1 :")
 #    if q == "1" :
 #         sys.exit(0)
-         
+
 try:
     os.remove("codeml.ctl")
 except:
@@ -167,7 +132,7 @@ for g in genes:
     print("=========================================================")
     if fetch == 0:
         inp_file = inp_files[counts]
-    
+
     list_empty, interestt = fetchingbyspecies(g,Species, interest, fetch, inp_path, inp_file)
     if list_empty == False:
         continue
@@ -179,7 +144,6 @@ for g in genes:
     file_path = "ProteinSequences.fasta"
     diff_aligners(file_path , align_type)
     os.system("python3 exit.py")
-    addlines("Alignment.ali", "Sequences_Alignment.ali")
     if interest != '':
         reversedd(interest)
     else: reversedd(interest)
@@ -187,7 +151,7 @@ for g in genes:
     print("sequence filtration........ pleas wait")
     print("=========================================================")
     Gblocks()
-    convert_fst_phy()    
+    convert_fst_phy()
     rem_spaces()
     jmodel()
     try:
@@ -201,15 +165,13 @@ for g in genes:
         print("=========================================================")
         jmodel()
         partition, freq, pinvar = parsing_jmodeltest()
-    if partition == '':
-        partition, freq, pinvar = spare_parse()
-    elif freq == '':
+    if partition == '' or freq == '':
         partition, freq, pinvar = spare_parse()
     if pinvar == '':
         pinvar = 'e'
     print("=========================================================")
     print("bulding tree ........ pleas wait")
-    print("=========================================================")           
+    print("=========================================================")
     phyml(partition, freq, pinvar)
     try:
         convert_to_newickTree()
@@ -312,7 +274,6 @@ for g in genes:
     if interest != '':
         if counts > 0:
             model_instance, model_csv = codeml_output(1, g)
-            #print(len(model_instance),len(models))
             for m in range(len(model_instance)):
                 models[m].extend(model_instance[m])
         else:
@@ -321,7 +282,6 @@ for g in genes:
     else:
         codeml_output(0,g)
     print(models)
-    #phast(g)
     print("=========================================================")
     print("file saving ........")
     print("=========================================================")
@@ -331,13 +291,13 @@ for g in genes:
     try:
         os.remove("Gene_Output.csv")
     except:
-        print("")
+        pass
     try:
         del_paths = glob.glob(os.path.join(path + '/' +  g + '.gene','*.gene'))
         for del_path in del_paths:
             shutil.rmtree(del_path)
     except:
-        print('')
+        pass
 ##
 ##
 df = pd.read_csv(r'Study_Output.csv')
@@ -350,6 +310,6 @@ c, z = mne.stats.bonferroni_correction(p22a, alpha=0.05)
 df['adj78'] = x
 df['adj88a'] = y
 df['adj22a'] = z
-#print(df)
 df.to_csv(r"Study_Output_adjPvlaue.csv")
 number_of_fetched_species()
+
