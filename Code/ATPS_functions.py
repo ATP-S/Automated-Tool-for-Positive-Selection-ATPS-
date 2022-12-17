@@ -248,10 +248,21 @@ def rem_spaces():
             continue
         
 def jmodel():
+    """
+       this function execute the jmodel test command
+    """
     os.system("java -jar jmodeltest-2.1.7/jModelTest.jar -d Reverse_Translation_Seq.txt-gb1.phy -s 11 -g 4 -t BIONJ -f -i -AICc -o Jmodeltest_output")
 
 
 def parsing_jmodeltest():
+    """
+    parsing jmodeltest to find the best substitution model
+
+    Returns:
+        partition: 
+        freq: frequencies of A, T, G, C
+        pinvar: 
+    """
     lis = []
     filt = []
     flag = 0
@@ -285,6 +296,14 @@ def parsing_jmodeltest():
     return partition, freq, pinvar
 
 def spare_parse():
+    """
+    parsing jmodeltest to find the second best substitution model if there is insufficient data(pinvar, frequencies, partition) for the best model
+
+    Returns:
+        partition: 
+        freq: frequencies of A, T, G, C
+        pinvar: 
+    """
     open_ = open("Jmodeltest_output" , "r")
     read_ = open_.read()
     names = []
@@ -321,6 +340,14 @@ def spare_parse():
     return partition, freq, pinvar
 
 def phyml(partition, freq, pinvar):
+    """
+    running the phylogenetic tree
+
+    Args:
+        partition (string): _description_
+        freq (string): _description_
+        pinvar (string): _description_
+    """
     os.system("phyml -i Reverse_Translation_Seq.txt-gb1.phy -d nt -b 100 -f e -m " + partition + ' -f ' + freq + " -v " + pinvar )
     os.rename("Reverse_Translation_Seq.txt-gb1.phy_phyml_boot_trees.txt", "Species_Phylogenetic_boot_trees.txt")
     os.rename("Reverse_Translation_Seq.txt-gb1.phy_phyml_tree.txt", "Species_Phylogenetic_tree.txt")
@@ -329,6 +356,8 @@ def phyml(partition, freq, pinvar):
     #os.rename("Reverse_Translation_Seq.txt-gb1.phy", "")    
     
 def convert_to_newickTree():
+    """convert phylogenetic tree file into newick format and rooted tree
+    """
     aln = AlignIO.read('Reverse_Translation_Seq.txt-gb1.phy', 'phylip-relaxed')
     t = Phylo.read("Species_Phylogenetic_tree.txt", "newick")
     scorer = Phylo.TreeConstruction.ParsimonyScorer()
@@ -339,6 +368,9 @@ def convert_to_newickTree():
     Phylo.convert("Species_Phylogenetic_tree_phyloxl.xml", "phyloxml", "Species_Phylogenetic_tree_newick.nwk", "newick")
 
 def parsing_treefile():
+    """
+    removing distances from the phylogenetic tree file because codeml requires the tree without distances
+    """
     liss = []
     with open("Species_Phylogenetic_tree_newick.nwk","rb") as m: liss.extend(str(m.readlines()))
     trim = ''.join(liss)
@@ -351,7 +383,14 @@ def parsing_treefile():
 
 
 def BEB(path):# try and except
+    """getting the BEB output from codeml for the sites under positive selection
 
+    Args:
+        path (string): path to current directory
+
+    Returns:
+        BEB_list: list of sites under positive selection
+    """
     codeml078 = open(path + "/" + "codeml078/codeml078_mlc.txt", "r")
     BEB_read = codeml078.read()
     start = BEB_read.find("Bayes Empirical Bayes (BEB)") ## getting 
@@ -650,12 +689,16 @@ def deletion_files():
 
 
 def del_codeml_dir():
+    """removing unwanted files
+    """
     shutil.rmtree("codeml2")
     shutil.rmtree("codeml2a")
     shutil.rmtree("codeml8a")
     shutil.rmtree("codeml078")
     
 def creat_codeml_dir():
+    """creating codeml directories
+    """
     try:
         os.mkdir("codeml2")
     except:
@@ -745,7 +788,7 @@ def visualization_tree(interest):
     #Phylo.draw(tree) #draw tree after colors   
     
 def get_colors(seqs):
-    """make colors for bases in sequence"""
+    """make colors for bases in sequence to build the phylogenetic tree"""
     text = [i for s in list(seqs) for i in s]
     clrs =  { "A" : "#1e67b6",
     "C" : "#00a391",
