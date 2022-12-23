@@ -14,6 +14,8 @@ from Bio import AlignIO
 from Bio import Phylo
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
+from Bio.Phylo import TreeConstruction
+from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstructor
 import subprocess
 import os.path
 import sys
