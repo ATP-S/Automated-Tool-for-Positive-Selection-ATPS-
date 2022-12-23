@@ -14,19 +14,11 @@ try:
 except ImportError:
     os.system("pip install mne")
     import mne
-
-
-
-os.system("pip3 install pandas")
 try:
     import panel as pn
 except:
     os.system("pip install panel")
     import panel as pn
-try:
-    import openpyxl
-except ImportError:
-    os.system("pip3 install openpyxl")
 
 
 try:
@@ -51,10 +43,6 @@ except:
     os.system("pip3 install glob")
     import glob
 try:
-    import urllib.request
-except:
-    os.system("pip3 install urllib.request")
-try:
     import sys
 except ImportError:
     os.system("pip3 install sys")
@@ -74,24 +62,10 @@ except ImportError:
     os.system("pip3 install subprocess")
 
 try:
-    import threading
-except ImportError:
-    os.system("pip3 install threading")
-
-try:
-    import pexpect
-except ImportError:
-    os.system("pip3 install pexpect")
-
-try:
     import os.path
 except ImportError:
     os.system("pip3 install os.path")
 
-try:
-    import shutil
-except ImportError:
-    os.system("pip3 install shutil")
 try:
     import scipy.stats
 except ImportError:
@@ -106,37 +80,4 @@ try:
 except ImportError:
     os.system('pip install matplotlib')
     import matplotlib.pyplot as plt
-import os
-import time
-
-import subprocess
-import threading
-import pexpect
-import os.path
-import shutil
-import scipy.stats
-from Bio import Entrez
-from Bio.Seq import Seq
-from subprocess import Popen, PIPE
-from Bio.Phylo.PAML import codeml
-from Bio import AlignIO
-import pandas as pd
-from scipy.stats import chi2
-from Bio import Phylo
-from Bio.Phylo.Applications import PhymlCommandline
-from Bio.Phylo.TreeConstruction import DistanceCalculator
-from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstructor
-import os, io, random
-import string
-import numpy as np
-
-from Bio.Seq import Seq
-from Bio.Align import MultipleSeqAlignment
-from Bio import AlignIO, SeqIO
-   
-import panel.widgets as pnw
-from bokeh.plotting import figure
-from bokeh.models import ColumnDataSource, Plot, Grid, Range1d
-from bokeh.models.glyphs import Text, Rect
-from bokeh.layouts import gridplot
 
