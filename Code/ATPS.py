@@ -312,4 +312,3 @@ df['adj88a'] = y
 df['adj22a'] = z
 df.to_csv(r"Study_Output_adjPvlaue.csv")
 number_of_fetched_species()
-
