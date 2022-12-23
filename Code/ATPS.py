@@ -136,7 +136,7 @@ for g in genes:
     list_empty, interestt = fetchingbyspecies(g,Species, interest, fetch, inp_path, inp_file)
     if list_empty == False:
         continue
-    interest = interestt
+    interest = interestt.lower()
     #key_list = fetching(tax, g)
     print("=========================================================")
     print("sequence MSA has been started ........ pleas wait")
