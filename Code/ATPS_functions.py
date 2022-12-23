@@ -124,27 +124,30 @@ def fetchingbyspecies(protein,List_species,interest, fetch, gene_path = None, in
                 seq_dict.pop(i, None)
     else:
         seq_dict = _extracted_from_fetchingbyspecies_95(gene_path, inp_file)
-        for specie in seq_dict.keys():
-            to_trans = Seq(seq_dict[specie])
-            protein_dict[specie] = str(to_trans.translate())
-            
+    for specie in seq_dict.keys():
+        to_trans = Seq(seq_dict[specie])
+        protein_dict[specie] = str(to_trans.translate())
+    
+
     with open("CodingSequences.fasta", "w") as out_handle:
-        
+
         sequences = ''
         for species, sequence in seq_dict.items():
             seq = SeqRecord(Seq(sequence), id=species.replace(' ','_').lower(), description= "").format("fasta")
             sequences += seq
-        print(sequences)
         out_handle.write(sequences)
-        
+
     with open("ProteinSequences.fasta", "w") as out_handle:
-        
+
         sequences = ''
         for species, sequence in protein_dict.items():
             seq = SeqRecord(Seq(sequence), id=species.replace(' ','_').lower(), description= "").format("fasta")
             sequences += seq
-        print(sequences)
         out_handle.write(sequences)
+    
+    valueList = list(protein_dict.values())
+    list_empty = bool(valueList)
+    return list_empty, interest 
 
 
 
@@ -527,12 +530,13 @@ def model2():
 def download():
     path = os.getcwd()
     list_files = glob.glob(path + "/*")
-    if path + "/jmodeltest-2.1.7.tar.gz" not in list_files:
-        os.system('wget "https://drive.google.com/uc?export=download&id=13cViInzCoaxrgHwmiWq3fXmStt4wwydJ" -O jmodeltest-2.1.7.tar.gz')
-        os.system("tar -xf jmodeltest-2.1.7.tar.gz -C " + path)
+    print(path)
+    if path + "/jmodeltest-2.1.7.zip" not in list_files:
+        os.system('wget "https://github.com/ddarriba/jmodeltest2/releases/download/v2.1.9r20160115/jmodeltest-2.1.7-win32.zip" -O jmodeltest-2.1.7.zip')
+        os.system("jar xvf jmodeltest-2.1.7.zip")
     if path + "/Gblocks_Linux64_0.91b.tar.Z" not in list_files:
         os.system('wget "https://drive.google.com/uc?export=download&id=1syZCAT748J8_1BOyLOtuRgHXdRK54J2k" -O Gblocks_Linux64_0.91b.tar.Z')
-        os.system("tar -xf Gblocks_Linux64_0.91b.tar.Z -C " + path)
+        os.system("tar -xf Gblocks_Linux64_0.91b.tar.Z")
 
  
      
