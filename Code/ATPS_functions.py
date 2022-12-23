@@ -344,7 +344,7 @@ def spare_parse():
         break
     return partition, freq, pinvar
 
-def phyml(partition, freq, pinvar):
+def phyml(partition, freq, pinvar, replica):
     """
     running the phylogenetic tree
 
@@ -353,7 +353,14 @@ def phyml(partition, freq, pinvar):
         freq (string): _description_
         pinvar (string): _description_
     """
-    os.system("phyml -i Reverse_Translation_Seq.txt-gb1.phy -d nt -b 100 -f e -m " + partition + ' -f ' + freq + " -v " + pinvar )
+    os.system(
+        f"phyml -i Reverse_Translation_Seq.txt-gb1.phy -d nt -b {str(replica)} -f e -m "
+        + partition
+        + ' -f '
+        + freq
+        + " -v "
+        + pinvar
+    )
     os.rename("Reverse_Translation_Seq.txt-gb1.phy_phyml_boot_trees.txt", "Species_Phylogenetic_boot_trees.txt")
     os.rename("Reverse_Translation_Seq.txt-gb1.phy_phyml_tree.txt", "Species_Phylogenetic_tree.txt")
     os.rename("Reverse_Translation_Seq.txt-gb1.phy_phyml_stats.txt", "Species_Phylogenetic_stats.txt")
