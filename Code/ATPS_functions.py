@@ -12,10 +12,10 @@ from Bio import Entrez
 from Bio.Seq import Seq
 from Bio import AlignIO
 from Bio import Phylo
-from Bio import SeqIO
-from Bio.SeqRecord import SeqRecord
 from Bio.Phylo import TreeConstruction
 from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstructor
+from Bio import SeqIO
+from Bio.SeqRecord import SeqRecord
 import subprocess
 import os.path
 import sys
@@ -476,7 +476,7 @@ def hashing(interest):
     newick_create = open("Species_Phylogenetic_tree_newick_Interst#.nwk", 'w')
     newick_read = newick_open.read()
     newick_list = newick_read.split(',')
-    result = newick_read.find(str(interest))
+    result = newick_read.find(str(interest.lower()))
     print(result)
     result += len(interest)
     print(result)
