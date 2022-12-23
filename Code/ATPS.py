@@ -8,7 +8,7 @@ import glob
 import gc
 import mne
 import numpy as np
-#python3 runn.py -G TP53,RB1,BRCA1 -S Mus_musculus,Homo_sapiens,Rattus_norvegicus,canis_lupus,panthera_tigris,ovis_aries,orycteropus_afer,cervus_canadensis,prionailurus_bengalensis -I Rattus_norvegicus
+#python3 runn.py -G TP53,RB1,BRCA1 -S Mus_musculus,Homo_sapiens,Rattus_norvegicus,canis_lupus,panthera_tigris,ovis_aries,orycteropus_afer,cervus_canadensis,prionailurus_bengalensis -I Rattus_norvegicus -R 100
 ############# handle interest error
 
 
@@ -40,6 +40,8 @@ for i in range(1,n):
         inp_path = sys.argv[i+1]
     if sys.argv[i] == "-A": ##optional
         align_type = sys.argv[i+1]
+    if sys.argv[i] == "-R": ##optional
+        replica = sys.argv[i+1]
 
 try:
     del_codeml_dir()
@@ -184,7 +186,7 @@ for g in genes:
         convert_to_newickTree()
     except:
         os.system("sudo apt-get install -y phyml")
-        phyml(partition, freq, pinvar)
+        phyml(partition, freq, pinvar, replica)
         convert_to_newickTree()
     parsing_treefile()
     try:
