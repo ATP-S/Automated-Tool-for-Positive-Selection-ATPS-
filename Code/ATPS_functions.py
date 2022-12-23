@@ -552,7 +552,7 @@ def saving_(gene_name):
     file_list.remove(path + "/ATPS_functions.py")
     file_list.remove(path + "/Study_Output.csv")
     try:
-        os.system("mkdir " + new_dir)
+        os.system("mkdir '" + new_dir+"'")
     except OSError:
         print(f"Creation of the directory {path} failed")
     else:
@@ -1117,10 +1117,9 @@ def codeml_output(state, protein):
     chi78 =  1 - chi2.cdf(lrt78, 2)
     chi88a =  1 - chi2.cdf(lrt88a, 1)
     chi22a = 1 - chi2.cdf(lrt22a, 1) if state == 1 else ''
-
     with open("Gene_Output.csv", "w") as newfile:
         wr = csv.writer(newfile)
         wr.writerow(["Name","Model0", "Model7", "Model8","Model8a", "Model2a", "Model2", "LRT(M7_vs_M8)", "LRT(M8a_vs_M8)", "LRT(M2a_vs_M2)", "p-v7vs8", "p-v8avs8", "p-v2avs2"])
         wr.writerow([protein, models078[0], models078[1], models078[2], model8a[0], model2a[0], model2[0],lrt78, lrt88a, lrt22a, chi78, chi88a, chi22a])
-        
+        return [protein, models078[0], models078[1], models078[2], model8a[0], model2a[0], model2[0],lrt78, lrt88a, lrt22a, chi78, chi88a, chi22a]
 codeml_creating_file()
