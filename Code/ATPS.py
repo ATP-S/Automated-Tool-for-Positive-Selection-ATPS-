@@ -11,6 +11,10 @@ import numpy as np
 #python3 runn.py -G TP53,RB1,BRCA1 -S Mus_musculus,Homo_sapiens,Rattus_norvegicus,canis_lupus,panthera_tigris,ovis_aries,orycteropus_afer,cervus_canadensis,prionailurus_bengalensis -I Rattus_norvegicus
 ############# handle interest error
 
+
+#sudo python3 ATPS.py -G TP53,ATM,CDX2 -S Homo_sapiens,Felis_catus,Pan_troglodytes,Equus_caballus,Canis_lupus -I Homo_sapiens -A mu
+
+
 n = len(sys.argv)
 genes = ''
 Species = ''
@@ -20,7 +24,6 @@ tax = ''
 save = ''
 model_csv = ''
 csv_instance = ''
-models = []
 for i in range(1,n):
     if sys.argv[i] == "-G": ## required
         print(sys.argv[i])
@@ -118,11 +121,15 @@ if inp_path:
     genes = [gene.split('.')[0] for gene in inp_files]
 #model = "Name,Model0, Model7,Model8,Model8a,Model2a,Model2,LRT(M7_vs_M8),LRT(M8a_vs_M8),LRT(M2a_vs_M2),p-v7vs8,p-v8avs8,p-v2avs2"
 LF = glob.glob("*")
-if "Study_Output.csv" not in LF:
-    os.system("echo 'Name,Model0, Model7,Model8,Model8a,Model2a,Model2,LRT(M7_vs_M8),LRT(M8a_vs_M8),LRT(M2a_vs_M2),p-v7vs8,p-v8avs8,p-v2avs2' >> Study_Output.csv")
+# if "Study_Output.csv" not in LF:
+#     os.system("echo 'Name,Model0, Model7,Model8,Model8a,Model2a,Model2,LRT(M7_vs_M8),LRT(M8a_vs_M8),LRT(M2a_vs_M2),p-v7vs8,p-v8avs8,p-v2avs2' >> Study_Output.csv")
 
 codeml_creating_file()
 
+with open("Study_Output.csv", "w") as newfile:
+    wr = csv.writer(newfile)
+    wr.writerow(["Name","Model0", "Model7", "Model8","Model8a", "Model2a", "Model2", "LRT(M7_vs_M8)", "LRT(M8a_vs_M8)", "LRT(M2a_vs_M2)", "p-v7vs8", "p-v8avs8", "p-v2avs2"])
+    
 for g in genes:
     path = os.getcwd()
     #fetchingbyspecies("TP53",["Mus musculus","Homo sapiens","Rattus norvegicus"])
@@ -272,16 +279,15 @@ for g in genes:
     csv_instance = ''
     model_csv = ''
     if interest != '':
-        if counts > 0:
-            model_instance, model_csv = codeml_output(1, g)
-            for m in range(len(model_instance)):
-                models[m].extend(model_instance[m])
-        else:
-            models, model_csv = codeml_output(1,g)
-        os.system(f"echo {model_csv} >> Study_Output.csv")
+        models = codeml_output(1,g)
+        with open("Study_Output.csv", "a") as newfile:
+            wr = csv.writer(newfile)
+            wr.writerow(models)
     else:
-        codeml_output(0,g)
-    print(models)
+        model = codeml_output(0,g)
+        with open("Study_Output.csv", "a") as newfile:
+            wr = csv.writer(newfile)
+            wr.writerow(models)
     print("=========================================================")
     print("file saving ........")
     print("=========================================================")
