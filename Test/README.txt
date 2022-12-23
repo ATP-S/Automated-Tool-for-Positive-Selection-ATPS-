@@ -9,33 +9,37 @@ Test N_1
 we have tested ATPS on nine genes in 19 species using this command line 
 python3 ATPS.py -G TP53,ATM,CDX2,FOXA2,NF1,NKX2–1,RB1,STK11,APC -S Homo_sapiens,Felis_catus,Pan_troglodytes,Equus_caballus,Canis_lupus,Mesocricetus_auratus,Rattus_norvegicus,Gorilla_gorilla,Sus_scrofa,Tupaia_chinensis,Cavia_porcellus,Heterocephalus_glaber,Bubalus_bubalis,Ovis_aries,Macaca_mulatta,Oryctolagus_cuniculus,Bos_taurus,Cricetulus_griseus,Macaca_fascicularis,Loxodonta_africana -I Homo_sapiens -A mu
 
+# qiime2 (the QIIME 2 framework)
 
-# Summary
+![](https://github.com/qiime2/qiime2/workflows/ci/badge.svg)
 
-PosiGene is a tool that (i) detects positively selected genes on genome-scale, 
-(ii) allows analysis of specific evolutionary branches, (iii) can be used in 
-arbitrary species contexts and (iv) offers visualization of the candidates. As 
-data input the program requires only the coding sequences of your chosen species
-set in fasta or genbank format. From them, orthologs, alignments and a 
-phylogenetic tree are reconstructed to finally apply the branch-site test of 
-positive selection. Filtering mechanisms are implemented to minimize the 
-occurrence of false positives. PosiGene was tested on simulated as well as real
-data to ensure the reliability of the predicted positively selected genes.
+Source code repository for the QIIME 2 framework.
 
-# Installation
+QIIME 2™ is a powerful, extensible, and decentralized microbiome bioinformatics
+platform that is free, open source, and community developed. With a focus on
+data and analysis transparency, QIIME 2 enables researchers to start an
+analysis with raw DNA sequence data and finish with publication-quality figures
+and statistical results.
 
-After unpacking, no further installation steps are needed.
+Visit [https://qiime2.org](https://qiime2.org) to learn more about the QIIME 2
+project.
 
-# Documentation
+## Installation
 
-To learn how to use PosiGene please read the user guide that can be found under 
-doc/user_guide.pdf.
+Detailed instructions are available in the
+[documentation](https://docs.qiime2.org/).
 
-# Test run
+## Users
 
-To test whether the package works please execute:
-perl PosiGene.pl -o=test  -as=Harpegnathos_saltator  -tn=10  -rs=Acromyrmex_echinatior:test_data/Acromyrmex_echinatior_sample.fasta  -nhsbr=Acromyrmex_echinatior:test_data/Acromyrmex_echinatior_sample.fasta,Atta_cephalotes:test_data/Atta_cephalotes_sample.fasta,Camponotus_floridanus:test_data/Camponotus_floridanus_sample.fasta,Harpegnathos_saltator:test_data/Harpegnathos_saltator_sample.fasta,Linepithema_humile:test_data/Linepithema_humile_sample.fasta,Pogonomyrmex_barbatus:test_data/Pogonomyrmex_barbatus_sample.fasta,Solenopsis_invicta:test_data/Solenopsis_invicta_sample.fasta
+Head to the [user docs](https://docs.qiime2.org/) for help getting started,
+core concepts, tutorials, and other resources.
 
-It should be finished after some minutes, telling you where you can find a 
-result table. If the program runs through and the produced result table equals 
-that at test_data/Harpegnathos_saltator_results_short.tsv everything is fine.
+Just have a question? Please ask it in our
+[forum](https://forum.qiime2.org/c/user-support).
+
+## Developers
+
+Please visit the [contributing page](https://dev.qiime2.org) for more
+information on contributions, documentation links, and more.
+
+## Citing QIIME 2
