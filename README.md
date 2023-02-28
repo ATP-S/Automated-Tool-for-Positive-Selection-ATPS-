@@ -8,6 +8,14 @@ We were able to use our python-based automation tool for positive selection pipe
 
 A detailed documentation including: How to use the tool, its arguments, and a detailed description of what's included can be found at the [GitHub Wiki](https://github.com/APS-P/APSP/wiki). In short, it contains a detailed guide on how to use ATPS
 
+   # Who is it for?
+
+The package was designed with the sole aim of facilitating positive selection analysis on geneticists, whether the user has specific genes in mind that they would like to see if it's under positive selection, or they have a generated file that they want to use.
+
+Another goal that came along the way, was to combine all popular tools in a positive selection pipeline, efficiently under one functional code, saving time for users and organizing all the expected outputs in the evolutionary analysis pipeline under one folder. Users no longer need to manually insert output files from each independent tool, now they either let it automatically fetch and work, or give it the generated file of their choice and let the automation do the job.
+
+
+
 # Dependencies
 
    # softwares 
