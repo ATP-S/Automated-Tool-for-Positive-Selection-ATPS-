@@ -14,6 +14,50 @@ The package was designed with the sole aim of facilitating positive selection an
 
 Another goal that came along the way, was to combine all popular tools in a positive selection pipeline, efficiently under one functional code, saving time for users and organizing all the expected outputs in the evolutionary analysis pipeline under one folder. Users no longer need to manually insert output files from each independent tool, now they either let it automatically fetch and work, or give it the generated file of their choice and let the automation do the job.
 
+   # How it works?
+
+The flowchart below explains briefly how the program works:
+![Image for flowchart](https://github.com/APS-P/APSP/blob/main/images/work_flow.jpeg)
+
+- In the figure, we start with filling arguments from the table below depending on the preferred pipeline, the user chooses specie/s, gene/s, target specie/s, and the preferred MSA tool. The user could also state that they have a ready input file, in such case the fetch step will be skipped and it will start directly at the MSA step. 
+
+- In the figure, you will also notice the word "Parallel" these are two Bio-python packages responsible for the calculation of MLD file and calculation of PhloP score consecutively and in parallel with the other steps in the diagram.
+
+- The program does all of this on every single gene.
+
+- Note: Multiple sequence alignment (MSA) uses one of three most used software aligners (MAFFT, MUSCLE, ClustalO)
+
+   # Input
+
+* To input your own **.FASTA** file manually, you need it in a specific format to work, we will provide you with it in this >link<.
+* If you prefer to conduct your research using a fetched input, then the program will fetch the most accurate, highest-scoring, and longest(Not spliced) isoform of your gene.
+
+   # Output (Per gene)
+
+- Each package and tool within our program results in its own output.
+- CodeML spreadsheet output for each model.
+- wigscore spreadsheet, and a picture (.png) of it.
+- BEB spreadsheet
+
+   # Arguments
+
+Check the table below:
+- Note: Arguments are case sensitive, only write in CAPSLOCK mode.
+
+| Argument  |  Function |
+|---|---|
+| -G | Enter Gene or list of genes separated by a comma (,) |
+|  -S |  Pass specie name or a list of species |
+| -I  |  Target species for selection |
+| -T  |  Thread count (Default is full utilization)|
+|  -A |  Type of alignment tool (MAFFT = mf, MUSCLE = mu, ClustalO = cl)  |
+|  -IF |  The manual input if the user chooses to, must be in the format we provided above |
+
+   # Example for a test run
+
+python3 ATPS.py -G TP53,ATM,CDX2,FOXA2,NF1,NKX2–1,RB1,STK11,APC -S Homo_sapiens,Felis_catus,Pan_troglodytes,Equus_caballus,Canis_lupus,Mesocricetus_auratus,Rattus_norvegicus,Gorilla_gorilla,Sus_scrofa,Tupaia_chinensis,Cavia_porcellus,Heterocephalus_glaber,Bubalus_bubalis,Ovis_aries,Macaca_mulatta,Oryctolagus_cuniculus,Bos_taurus,Cricetulus_griseus,Macaca_fascicularis,Loxodonta_africana -I Homo_sapiens -A mu
+
+
 
 
 # Dependencies
