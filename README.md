@@ -67,26 +67,20 @@ Before you begin, you will need to have [Docker](https://www.docker.com/get-star
 1. Open a terminal window.
 2. Run the following command to pull the Docker image from Docker Hub:
 
-   ```console
-$ docker run --memory=4g --cpus=8 -it -v $HOME:$HOME c4dae898af64
-```
-
-   ```console
+```console
 $ docker pull marwanjs/atps:latest
 ```
 
 3. Once the image has been downloaded, run the following command to start the container:
 
 
-   ```console
+```console
 $ docker run -it -v $HOME:$HOME c4dae898af64
 ```
 
-
 Optional- for ubuntu users. to custumize the CPUs and RAM inside the docker image, run the following command:
 
-
-   ```console
+```console
 $ docker run --memory=4g --cpus=8 -it -v $HOME:$HOME c4dae898af64
 ```
 
