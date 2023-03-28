@@ -53,10 +53,37 @@ Check the table below:
 |  -A |  Type of alignment tool (MAFFT = mf, MUSCLE = mu, ClustalO = cl)  |
 |  -IF |  The manual input if the user chooses to, must be in the format we provided above |
 
+
+# Installation instructions
+
+These instructions will guide you through the process of installing and running the [marwanjs/atps].
+
+   #Prerequisites
+
+Before you begin, you will need to have [Docker](https://www.docker.com/get-started/) installed on your system.
+
+   #Installation
+
+1. Open a terminal window.
+2. Run the following command to pull the Docker image from Docker Hub:
+
+   ```console
+$ docker pull marwanjs/atps:latest
+```
+3. Once the image has been downloaded, run the following command to start the container:
+
+   ```console
+$ docker run -it -v $HOME:$HOME c4dae898af64
+```
+Optional- for ubuntu users. to custumize the CPUs and RAM inside the docker image, run the following command:
+
+   ```console
+$ docker run --memory=4g --cpus=8 -it -v $HOME:$HOME c4dae898af64
+```
+
    # Example for a test run
 
 python3 ATPS.py -G TP53,ATM,CDX2,FOXA2,NF1,NKX2–1,RB1,STK11,APC -S Homo_sapiens,Felis_catus,Pan_troglodytes,Equus_caballus,Canis_lupus,Mesocricetus_auratus,Rattus_norvegicus,Gorilla_gorilla,Sus_scrofa,Tupaia_chinensis,Cavia_porcellus,Heterocephalus_glaber,Bubalus_bubalis,Ovis_aries,Macaca_mulatta,Oryctolagus_cuniculus,Bos_taurus,Cricetulus_griseus,Macaca_fascicularis,Loxodonta_africana -I Homo_sapiens -A mu
-
 
 
 
