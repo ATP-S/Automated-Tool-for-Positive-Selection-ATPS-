@@ -58,17 +58,18 @@ Check the table below:
 
 These instructions will guide you through the process of installing and running the [marwanjs/atps].
 
-   #Prerequisites
+   # Prerequisites
 
 Before you begin, you will need to have [Docker](https://www.docker.com/get-started/) installed on your system.
-
-   #Installation
+   
+   # Installation
 
 1. Open a terminal window.
 2. Run the following command to pull the Docker image from Docker Hub:
 
 
-   ```console
+   ``` 
+   console
 $ docker pull marwanjs/atps:latest
 ```
 
