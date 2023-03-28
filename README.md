@@ -68,10 +68,9 @@ Before you begin, you will need to have [Docker](https://www.docker.com/get-star
 2. Run the following command to pull the Docker image from Docker Hub:
 
 
-   ``` 
-   console
+   ''' 
 $ docker pull marwanjs/atps:latest
-```
+'''
 
 3. Once the image has been downloaded, run the following command to start the container:
 
