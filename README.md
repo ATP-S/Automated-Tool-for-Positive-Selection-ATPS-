@@ -52,6 +52,7 @@ Check the table below:
 | -T  |  Thread count (Default is full utilization)|
 |  -A |  Type of alignment tool (MAFFT = mf, MUSCLE = mu, ClustalO = cl)  |
 |  -IF |  The manual input if the user chooses to, must be in the format we provided above |
+| - O | output directory 
 
 
 # Installation instructions
@@ -87,7 +88,7 @@ $ docker run --memory=4g --cpus=8 -it -v $HOME:$HOME c4dae898af64
    # Example for a test run
    
 ```console
-$ python3 ATPS.py -G TP53,ATM,CDX2,FOXA2,NF1,NKX2–1,RB1,STK11,APC -S Homo_sapiens,Felis_catus,Pan_troglodytes,Equus_caballus,Canis_lupus,Mesocricetus_auratus,Rattus_norvegicus,Gorilla_gorilla,Sus_scrofa,Tupaia_chinensis,Cavia_porcellus,Heterocephalus_glaber,Bubalus_bubalis,Ovis_aries,Macaca_mulatta,Oryctolagus_cuniculus,Bos_taurus,Cricetulus_griseus,Macaca_fascicularis,Loxodonta_africana -I Homo_sapiens -A mu
+$ python3 ATPS.py -G TP53,ATM,CDX2,FOXA2,NF1 -S Homo_sapiens,Felis_catus,Rattus_norvegicus -I Homo_sapiens -A mu -R 100 -O home/Users/Desktop
 ```
 
 # Dependencies
