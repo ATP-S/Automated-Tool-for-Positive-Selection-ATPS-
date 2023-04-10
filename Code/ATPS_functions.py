@@ -21,6 +21,7 @@ import os.path
 import sys
 import shutil
 import pandas as pd
+import re
 from scipy.stats import chi2
 import glob
 import matplotlib.pyplot as plt
@@ -38,7 +39,7 @@ import csv
 def get_max_str_index(lst):
     return max(enumerate(lst), key=lambda x: len(x[1]))
 
-def fetchingbyspecies(protein,List_species,interest, fetch, gene_path = None, inp_file = None):
+def fetchingbyspecies(protein,List_species = None,interest = None, fetch = None, gene_path = None, inp_path = None):
     """this function fetches all the required data from ncbi for a specific gene
         or protein, applies all the required filters, and structure the data to
         be used later in the pipeline.
@@ -57,17 +58,17 @@ def fetchingbyspecies(protein,List_species,interest, fetch, gene_path = None, in
     Returns:
         list_empty: a true or false value indicating if the gene was found or not
     """
-    
+    seq_dict = {}
+    protein_dict = {}
     if fetch == 1:
         # input email from user
         Entrez.email = "example@gmail.com"
         # check if email is entered
         if not Entrez.email:
             sys.exit ("you must add your email address")
-        species_list = []
         # dictionary that stores all sequences with names
-        seq_dict = {}
-        protein_dict = {}
+        # seq_dict = {}
+        # protein_dict = {}
         filter_gene = f"[gene={protein}]"
         for i in List_species:
             # fetching nucleotide sequences from ncbi nuccore database using a term that includes refseq filter and mrna filter
@@ -125,7 +126,8 @@ def fetchingbyspecies(protein,List_species,interest, fetch, gene_path = None, in
                     interest = carry[0]
                 seq_dict.pop(i, None)
     else:
-        seq_dict = _extracted_from_fetchingbyspecies_95(gene_path, inp_file)
+        seq_dict = _extracted_from_fetchingbyspecies_95(gene_path, protein = protein)
+        interest = list(seq_dict.keys())[0]
     for specie in seq_dict.keys():
         to_trans = Seq(seq_dict[specie])
         protein_dict[specie] = str(to_trans.translate())
@@ -154,20 +156,25 @@ def fetchingbyspecies(protein,List_species,interest, fetch, gene_path = None, in
 
 
 # TODO Rename this here and in `fetchingbyspecies`
-def _extracted_from_fetchingbyspecies_95(gene_path, inp_file):
-    # fetching genes from files
-    gene_open = open(gene_path + "/" + inp_file, 'r')
-    gene_instance = gene_open.read()
-        ## to be changed
-    # if "\n\nA" not in gene_instance or "\n\n>" not in gene_instance:
-    #     addlines(f"{str(gene_path)}/" + inp_file, "CodingSequences.fasta")
-    coding_seqopen = open("CodingSequences.fasta")
-    seq_instances = coding_seqopen.read()
-    seq_lisinst = seq_instances.split("\n\n")
-    seq_lisinst = list(filter(('').__ne__, seq_lisinst))
-    result = zip((seq_lisinst[r].replace('\n', '').replace('>', '') for r in range(0, len(seq_lisinst), 2)), (seq_lisinst[r] for r in range(1, len(seq_lisinst), 2)))
-    result = dict(result)
-    return result
+def _extracted_from_fetchingbyspecies_95(gene_path, protein):
+    dic = {}
+    for record in SeqIO.parse(f"{gene_path}/{protein}.fasta", "fasta"):
+        dic[str(record.id)] = str(record.seq)
+    return dic
+    
+    # # fetching genes from files
+    # gene_open = open(gene_path + "/" + inp_file, 'r')
+    # gene_instance = gene_open.read()
+    #     ## to be changed
+    # # if "\n\nA" not in gene_instance or "\n\n>" not in gene_instance:
+    # #     addlines(f"{str(gene_path)}/" + inp_file, "CodingSequences.fasta")
+    # coding_seqopen = open("CodingSequences.fasta")
+    # seq_instances = coding_seqopen.read()
+    # seq_lisinst = seq_instances.split("\n\n")
+    # seq_lisinst = list(filter(('').__ne__, seq_lisinst))
+    # result = zip((seq_lisinst[r].replace('\n', '').replace('>', '') for r in range(0, len(seq_lisinst), 2)), (seq_lisinst[r] for r in range(1, len(seq_lisinst), 2)))
+    # result = dict(result)
+    # return result
 
 
 # imported libraries below
@@ -185,7 +192,7 @@ def diff_aligners(file_path , align_type):
         try:
             subprocess.run('(muscle -in ' + file_path + ' -out Alignment.ali)', shell=True, check=True)
         except Exception:
-            os.system("sudo apt install muscle")
+            #os.system("sudo apt install muscle")
             subprocess.run('(muscle -in ' + file_path + ' -out Alignment.ali)', shell=True, check=True)
 
     elif align_type == "cl":
@@ -228,17 +235,27 @@ def reversedd(interest):
             
 
 
-def Gblocks():
+def Gblocks(state):
     """
         this function applies the Gblocks tool to eliminate the poorly aligned positions and divergent regions of an alignment
     """
-    os.system('Gblocks_0.91b/Gblocks Reverse_Translation_Seq.txt -t=c -e=-gb1 -b5=h -d=y -b2=0')
-
+    if state == "T" or state == "t":
+        os.system('Gblocks_0.91b/Gblocks Reverse_Translation_Seq.txt -t=c -e=-gb1 -b5=h -d=y -b2=0')
+    else:
+        with open("Reverse_Translation_Seq.txt-gb1", "w") as f:
+            x = open("Reverse_Translation_Seq.txt")
+            r = x.read()
+            f.write(r)
+  
+    #subprocess.run('(Gblocks_0.91b/Gblocks Reverse_Translation_Seq.txt -t=c -e=-gb1 -b5=h -d=y -b2=0)', shell=True, check=True)
 def convert_fst_phy():
     """
         function that converts specific fasta file to phylip file 
     """
     os.system("java -jar jmodeltest-2.1.7/jModelTest.jar -d Reverse_Translation_Seq.txt-gb1 -getPhylip")
+    
+    #subprocess.run("(java -jar jmodeltest-2.1.7/jModelTest.jar -d Reverse_Translation_Seq.txt-gb1 -getPhylip)", shell=True, check=True)
+    
 
 def rem_spaces():
     """
@@ -257,6 +274,8 @@ def jmodel():
        this function execute the jmodel test command
     """
     os.system("java -jar jmodeltest-2.1.7/jModelTest.jar -d Reverse_Translation_Seq.txt-gb1.phy -s 11 -g 4 -t BIONJ -f -i -AICc -o Jmodeltest_output")
+    
+    #subprocess.run("(java -jar jmodeltest-2.1.7/jModelTest.jar -d Reverse_Translation_Seq.txt-gb1.phy -s 11 -g 4 -t BIONJ -f -i -AICc -o Jmodeltest_output)", shell=True, check=True)
 
 
 def parsing_jmodeltest():
@@ -354,13 +373,14 @@ def phyml(partition, freq, pinvar, replica):
         pinvar (string): _description_
     """
     os.system(
-        f"phyml -i Reverse_Translation_Seq.txt-gb1.phy -d nt -b {str(replica)} -f e -m "
+        f"phyml/src/phyml -i Reverse_Translation_Seq.txt-gb1.phy -d nt -b {str(replica)} -f e -m "
         + partition
         + ' -f '
         + freq
         + " -v "
         + pinvar
     )
+    #os._exit(0)
     os.rename("Reverse_Translation_Seq.txt-gb1.phy_phyml_boot_trees.txt", "Species_Phylogenetic_boot_trees.txt")
     os.rename("Reverse_Translation_Seq.txt-gb1.phy_phyml_tree.txt", "Species_Phylogenetic_tree.txt")
     os.rename("Reverse_Translation_Seq.txt-gb1.phy_phyml_stats.txt", "Species_Phylogenetic_stats.txt")
@@ -386,7 +406,8 @@ def parsing_treefile():
     liss = []
     with open("Species_Phylogenetic_tree_newick.nwk","rb") as m: liss.extend(str(m.readlines()))
     trim = ''.join(liss)
-    results = ''.join([i for i in trim if not i.isdigit() and i != ':' and i != '.' and i != "\n"])[3:-4]
+    results = re.sub(r"(?<=:|\))\d+\.\d+", '', trim)
+    results = results.replace(":","")[3:-4]
     y = open("Species_Phylogenetic_tree_newick_nodistances.nwk","w")
     y.writelines(results)
 
@@ -549,15 +570,20 @@ def download():
 
  
      
-def saving_(gene_name):
+def saving_(gene_name, save):
     path = os.getcwd()
     new_dir = path + "/" + gene_name + ".gene"
     print(new_dir)
     file_list = glob.glob(path + "/*")
-    file_list.remove(path + "/ATPS.py")
-    file_list.remove(path + "/importt.py")
-    file_list.remove(path + "/ATPS_functions.py")
-    file_list.remove(path + "/Study_Output.csv")
+    try:
+        file_list.remove(path + "/ATPS.py")
+        file_list.remove(path + "/ATPS_functions.py")
+        file_list.remove(path + "/Study_Output.csv")
+        file_list.remove(path + "/Gblocks_0.91b")
+        file_list.remove(path + "/phyml")
+        file_list.remove(path + "/jmodeltest-2.1.7")
+    except:
+        print("make sure that the input command is valid")
     try:
         os.system("mkdir '" + new_dir+"'")
     except OSError:
@@ -571,6 +597,8 @@ def saving_(gene_name):
             shutil.copy(i , new_dir, follow_symlinks=True)
         except:
             os.system("cp -R " + i + " " + new_dir)
+    shutil.move(new_dir, save)
+
         
 def deletion_files():
     """
@@ -743,13 +771,13 @@ def phast(gene):
     try:
         os.system("phyloFit --tree Species_Phylogenetic_tree.nwk Alignment.ali > "+gene+".mod")
     except:
-        os.system("sudo apt-get install -y phast")
+        #os.system("sudo apt-get install -y phast")
         os.system("phyloFit --tree Species_Phylogenetic_tree.nwk Alignment.ali > " + gene + ".mod")
     try:
        
         shutil.move('phyloFit.mod', 'phyloFit.txt')
     except:
-        os.system("sudo apt-get install -y phast")
+        #os.system("sudo apt-get install -y phast")
         os.system("phyloFit --tree Species_Phylogenetic_tree.nwk Alignment.ali > " + gene + ".mod")
         shutil.move('phyloFit.mod', 'phyloFit.txt')
         
@@ -786,7 +814,7 @@ def visualization_tree(interest):
     #%matplotlib inline
 
     tree = Phylo.read("Species_Phylogenetic_tree.txt", "newick")
-    #print(tree)
+
     Phylo.draw_ascii(tree)
     tree.rooted = True
 
