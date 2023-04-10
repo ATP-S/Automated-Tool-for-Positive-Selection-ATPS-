@@ -334,6 +334,7 @@ def spare_parse():
     freq = ""
     jmodel_out = []
     list_name = []
+    pinvar = "e"
     start_name = read_.find("cumWeight\n-")
     stop_name = read_.find("-\n-lnL")
     list_name = read_[start_name + 85 :stop_name - 84]
