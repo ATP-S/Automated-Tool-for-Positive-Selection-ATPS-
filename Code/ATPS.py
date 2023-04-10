@@ -1,4 +1,4 @@
-import importt
+
 from ATPS_functions import *
 import os
 import os.path
@@ -24,9 +24,9 @@ tax = ''
 save = ''
 model_csv = ''
 csv_instance = ''
+gblocks_state = "T"
 for i in range(1,n):
     if sys.argv[i] == "-G": ## required
-        print(sys.argv[i])
         genes =  sys.argv[i+1].split(',')
     if sys.argv[i] == "-S": ## optional
         Species = sys.argv[i+1].split(',')
@@ -42,27 +42,53 @@ for i in range(1,n):
         align_type = sys.argv[i+1]
     if sys.argv[i] == "-R": ##optional
         replica = sys.argv[i+1]
+    if sys.argv[i] == '-C': ##optional
+        cpu = sys.argv[i+1]
+    if sys.argv[i] == '-RA': ##optional
+        ram = sys.argv[i+1]
+    if sys.argv[i] == '-GS':
+        gblocks_state = sys.argv[i+1]
+        
+        
+if os.path.exists(save):
+    print(f"{save} exists")
+else:
+    print(f"{save} does not exist")
+    sys.exit(0)
 
+# print(os.system("pwd"))
+# print(os.system("ls"))
+# print(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+# print(os.system("which phyml"))
+# print(genes)
+# print(Species)
+# print(interest)
+# print(align_type)
+
+#os.system("touch /home/bioinfo/Desktop/you/Gblocks_0.91b/test.py")
 try:
-    del_codeml_dir()
+   del_codeml_dir()
 except:
-    pass
+   pass
 path = path_dir()
 deletion_files()
 try:
     os.remove("Gene_Output.csv")
 except:
     print("")
-print("=========================================================")
-print("downloading and setup Gblocks and Jmodeltest ........ pleas wait")
-print("=========================================================")
+    
+    
 
-download()
+#print("=========================================================")
+#print("downloading and setup Gblocks and Jmodeltest ........ pleas wait")
+#print("=========================================================")
 
-try:
-    os.system("codeml")
-except ImportError:
-    os.system("sudo apt-get install -y paml")   
+#download()
+
+#try:
+#    os.system("codeml")
+#except ImportError:
+#    os.system("sudo apt-get install -y paml")   
 
 #try:
 #    os.system("codeml")
@@ -117,10 +143,13 @@ counts = 0
 inp_file = ''
 fetch = 1
 if inp_path:
+    genes = [
+    os.path.basename(file_path).replace(".fasta", "") for file_path in glob.glob(f"{inp_path}/*.fasta")
+    ]
     fetch = 0
-    inp_files = os.listdir(inp_path)
-    print(inp_files)
-    genes = [gene.split('.')[0] for gene in inp_files]
+    # inp_files = os.listdir(inp_path)
+    # print(inp_files)
+    # genes = [gene.split('.')[0] for gene in inp_files]
 #model = "Name,Model0, Model7,Model8,Model8a,Model2a,Model2,LRT(M7_vs_M8),LRT(M8a_vs_M8),LRT(M2a_vs_M2),p-v7vs8,p-v8avs8,p-v2avs2"
 LF = glob.glob("*")
 # if "Study_Output.csv" not in LF:
@@ -128,7 +157,7 @@ LF = glob.glob("*")
 
 codeml_creating_file()
 
-with open("Study_Output.csv", "w") as newfile:
+with open(f"Study_Output.csv", "w") as newfile:
     wr = csv.writer(newfile)
     wr.writerow(["Name","Model0", "Model7", "Model8","Model8a", "Model2a", "Model2", "LRT(M7_vs_M8)", "LRT(M8a_vs_M8)", "LRT(M2a_vs_M2)", "p-v7vs8", "p-v8avs8", "p-v2avs2"])
     
@@ -139,34 +168,37 @@ for g in genes:
     print("=========================================================")
     print("sequence fetching........ pleas wait")
     print("=========================================================")
-    if fetch == 0:
-        inp_file = inp_files[counts]
+    # if fetch == 0:
+    #     inp_file = inp_files[counts]
 
     list_empty, interestt = fetchingbyspecies(g,Species, interest, fetch, inp_path, inp_file)
     if list_empty == False:
         continue
     interest = interestt.lower()
     #key_list = fetching(tax, g)
+    ###
+    print(os.system("ls"))
+    print(list_empty, interestt)
     print("=========================================================")
     print("sequence MSA has been started ........ pleas wait")
     print("=========================================================")
     file_path = "ProteinSequences.fasta"
     diff_aligners(file_path , align_type)
-    os.system("python3 exit.py")
+    #os.system("python3 exit.py")
     if interest != '':
         reversedd(interest)
     else: reversedd(interest)
     print("=========================================================")
     print("sequence filtration........ pleas wait")
     print("=========================================================")
-    Gblocks()
+    Gblocks(gblocks_state)
     convert_fst_phy()
     rem_spaces()
     jmodel()
     try:
         partition, freq, pinvar = parsing_jmodeltest()
     except:
-        os.system("sudo apt install default-jdk")
+        #os.system("sudo apt install default-jdk")
         convert_fst_phy()
         rem_spaces()
         print("=========================================================")
@@ -181,18 +213,25 @@ for g in genes:
     print("=========================================================")
     print("bulding tree ........ pleas wait")
     print("=========================================================")
-    phyml(partition, freq, pinvar)
+    try:
+        os.system("sudo adduser --disabled-password --gecos '' atps")
+    except:
+        print("")
+    #os.system("su atps")
+    phyml(partition, freq, pinvar, replica)
     try:
         convert_to_newickTree()
     except:
-        os.system("sudo apt-get install -y phyml")
+        #os.system("sudo apt-get install -y phyml")
         phyml(partition, freq, pinvar, replica)
         convert_to_newickTree()
+    
     parsing_treefile()
     try:
         del_codeml_dir()
     except:
         pass
+       
     print("=========================================================")
     print("phylofit running and wingscore will excecute ........ pleas wait")
     print("=========================================================")
@@ -209,7 +248,7 @@ for g in genes:
     try:
         shutil.move("rub", 'codeml078')
     except:
-        os.system("sudo apt-get install -y paml")
+       # os.system("sudo apt-get install -y paml")
         model078()
         shutil.move("rub", 'codeml078')
     shutil.move("rst1", 'codeml078')
@@ -293,7 +332,7 @@ for g in genes:
     print("=========================================================")
     print("file saving ........")
     print("=========================================================")
-    saving_(g)
+    saving_(g, save)
     del_codeml_dir()
     counts += 1
     try:
@@ -318,5 +357,5 @@ c, z = mne.stats.bonferroni_correction(p22a, alpha=0.05)
 df['adj78'] = x
 df['adj88a'] = y
 df['adj22a'] = z
-df.to_csv(r"Study_Output_adjPvlaue.csv")
+df.to_csv(f"{save}/Study_Output_adjPvlaue.csv")
 number_of_fetched_species()
