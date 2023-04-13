@@ -82,7 +82,7 @@ $ docker run -it -v $HOME:$HOME c4dae898af64
 Optional- for ubuntu users. to custumize the CPUs and RAM inside the docker image, run the following command:
 
 ```console
-$ docker run --memory=4g --cpus=8 -it -v $HOME:$HOME c4dae898af64
+$ docker run --memory=4g --cpus=8 -it -v $HOME:$HOME e15e7f56e148
 ```
 
    # Example for a test run
