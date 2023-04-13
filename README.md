@@ -76,7 +76,7 @@ $ docker pull marwanjs/atps:latest
 
 
 ```console
-$ docker run -it -v $HOME:$HOME c4dae898af64
+$ docker run -it -v $HOME:$HOME e15e7f56e148
 ```
 
 Optional- for ubuntu users. to custumize the CPUs and RAM inside the docker image, run the following command:
