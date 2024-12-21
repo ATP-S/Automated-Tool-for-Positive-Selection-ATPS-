@@ -139,4 +139,20 @@ $ python3 ATPS.py -G TP53,ATM,CDX2,FOXA2,NF1 -S Homo_sapiens,Felis_catus,Rattus_
 ATPS is actively supported by our team. Please use the [Issues section](https://github.com/APS-P/APSP/issues) if you happen to find any errors.
 
 ## Citation
-Fadel, Y.M., Khaled, M., Emam, M. et al. Positive Selection Shapes Breast Cancer Tumor Suppressor Genes: Unveiling Insights into BRCA1, BRCA2, and MDC1 Stability. J Mol Evol (2024). https://doi.org/10.1007/s00239-024-10222-8
+
+If you use this repository in your work, please cite our paper:
+
+**Positive Selection Shapes Breast Cancer Tumor Suppressor Genes: Unveiling Insights into BRCA1, BRCA2, and MDC1 Stability**  
+Authors: Y.M. Fadel, M. Khaled, M. Emam, et al.  
+Published in: *Journal of Molecular Evolution* (2024)  
+DOI: [10.1007/s00239-024-10222-8](https://doi.org/10.1007/s00239-024-10222-8)
+
+### BibTeX
+```bibtex
+@article{fadel2024positive,
+  title={Positive Selection Shapes Breast Cancer Tumor Suppressor Genes: Unveiling Insights into BRCA1, BRCA2, and MDC1 Stability},
+  author={Fadel, Y.M. and Khaled, M. and Emam, M. and others},
+  journal={Journal of Molecular Evolution},
+  year={2024},
+  doi={10.1007/s00239-024-10222-8}
+}
