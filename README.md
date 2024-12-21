@@ -139,4 +139,4 @@ $ python3 ATPS.py -G TP53,ATM,CDX2,FOXA2,NF1 -S Homo_sapiens,Felis_catus,Rattus_
 ATPS is actively supported by our team. Please use the [Issues section](https://github.com/APS-P/APSP/issues) if you happen to find any errors.
 
 ## Citation
-Will be added after publication and official release.
+Fadel, Y.M., Khaled, M., Emam, M. et al. Positive Selection Shapes Breast Cancer Tumor Suppressor Genes: Unveiling Insights into BRCA1, BRCA2, and MDC1 Stability. J Mol Evol (2024). https://doi.org/10.1007/s00239-024-10222-8
