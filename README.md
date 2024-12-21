@@ -17,7 +17,7 @@ Another goal that came along the way, was to combine all popular tools in a posi
    # How it works?
 
 The flowchart below explains briefly how the program works:
-![Image for flowchart](https://github.com/APS-P/APSP/blob/main/images/work_flow.jpeg)
+![Image for flowchart](https://github.com/APS-P/APSP/blob/main/images/work_flow.png)
 
 - In the figure, we start with filling arguments from the table below depending on the preferred pipeline, the user chooses specie/s, gene/s, target specie/s, and the preferred MSA tool. The user could also state that they have a ready input file, in such case the fetch step will be skipped and it will start directly at the MSA step. 
 
