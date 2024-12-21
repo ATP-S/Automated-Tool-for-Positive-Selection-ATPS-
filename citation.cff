@@ -1,14 +1,14 @@
 cff-version: 1.2.0
-message: "PLEASE EDIT"
+message: "If you use this repository, please cite the following paper:"
 authors:
-- family-names: "YOUR_NAME_HERE"
-  given-names: "YOUR_NAME_HERE"
-  orcid: "https://orcid.org/0000-0000-0000-0000"
-- family-names: "Please EDIT"
-  given-names: "Please EDIT"
-  orcid: "https://orcid.org/0000-0000-0000-0000"
-title: "APSP"
-version: 1.0.0
-doi: PLEASE EDIT
-date-released: PLEASE EDIT
-url: "https://github.com/APS-P/APSP"
+  - family-names: Fadel
+    given-names: Y.M.
+  - family-names: Khaled
+    given-names: M.
+  - family-names: Emam
+    given-names: M.
+title: "Positive Selection Shapes Breast Cancer Tumor Suppressor Genes: Unveiling Insights into BRCA1, BRCA2, and MDC1 Stability"
+journal: "Journal of Molecular Evolution"
+year: 2024
+doi: 10.1007/s00239-024-10222-8
+url: https://doi.org/10.1007/s00239-024-10222-8
