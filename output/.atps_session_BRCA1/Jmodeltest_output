@@ -1,0 +1,79 @@
+-------------------------- jModeltest 2.1.7 v20150220 --------------------------
+(c) 2011-onwards D. Darriba, G.L. Taboada, R. Doallo and D. Posada,
+(1) Department of Biochemistry, Genetics and Immunology
+    University of Vigo, 36310 Vigo, Spain.
+(2) Department of Electronics and Systems
+    University of A Coruna, 15071 A Coruna, Spain.
+e-mail: ddarriba@udc.es, dposada@uvigo.es
+--------------------------------------------------------------------------------
+ 
+Sat Jan 03 17:24:50 CET 2026
+Windows 11 10.0, arch: amd64, bits: 64, numcores: 16
+ 
+--------------------------------------------------------------------------------
+Citation: Darriba D, Taboada GL, Doallo R and Posada D. 2012.
+          "jModelTest 2: more models, new heuristics and parallel computing".
+          Nature Methods 9(8), 772.
+--------------------------------------------------------------------------------
+ 
+jModelTest 2.1.7 v20150220
+Copyright (C) 2011 D. Darriba, G.L. Taboada, R. Doallo and D. Posada
+This program comes with ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome to redistribute it under certain conditions
+ 
+Notice: This program may contain errors. Please inspect results carefully.
+ 
+ 
+Arguments = -d E:\fields_of_study\bioinformatics\Youssef\new_atps\output\.atps_session_BRCA1\Reverse_Translation_Seq.txt-gb1.phy -s 3 -g 4 -t BIONJ -AICc -o E:\fields_of_study\bioinformatics\Youssef\new_atps\output\.atps_session_BRCA1\Jmodeltest_output -f -i
+
+Reading data file "Reverse_Translation_Seq.txt-gb1.phy"... OK.
+  number of sequences: 9
+  number of sites: 348
+ 
+ 
+---------------------------------------------------------------
+*                                                             *
+*        COMPUTATION OF LIKELIHOOD SCORES WITH PHYML          *
+*                                                             *
+---------------------------------------------------------------
+ 
+::Settings::
+ 
+ Phyml version = 3.0
+ Phyml binary = PhyML_3.0_win32.exe
+ Phyml path = E:\fields_of_study\bioinformatics\Youssef\new_atps\ATPS\assets\tools\jmodeltest-2.1.7\exe\phyml\
+ Candidate models = 24
+   number of substitution schemes = 3
+   including models with equal/unequal base frequencies (+F)
+   including models with/without a proportion of invariable sites (+I)
+   including models with/without rate variation among sites (+G) (nCat = 4)
+ Optimized free parameters (K) = substitution parameters + 15 branch lengths 
+ Base tree for likelihood calculations = BIONJ tree
+ 
+ 
+ 
+::Progress::
+ 
+Model 		 Exec. Time 	 Total Time 	 -lnL
+-------------------------------------------------------------------------
+JC+I		00h:00:00:03	00h:00:00:03	     520.7945	 (1/24)
+HKY+G		00h:00:00:03	00h:00:00:03	     503.3738	 (2/24)
+JC+I+G		00h:00:00:03	00h:00:00:04	     520.7941	 (3/24)
+GTR+I		00h:00:00:03	00h:00:00:04	     502.0098	 (4/24)
+JC+G		00h:00:00:03	00h:00:00:04	     520.7898	 (5/24)
+F81+G		00h:00:00:03	00h:00:00:04	     509.0676	 (6/24)
+K80+G		00h:00:00:04	00h:00:00:04	     515.2958	 (7/24)
+F81+I		00h:00:00:04	00h:00:00:05	     509.0720	 (8/24)
+HKY+I		00h:00:00:05	00h:00:00:05	     503.3730	 (9/24)
+F81+I+G		00h:00:00:05	00h:00:00:05	     509.0716	 (10/24)
+GTR+G		00h:00:00:06	00h:00:00:06	     502.0100	 (11/24)
+HKY		00h:00:00:03	00h:00:00:07	     503.3706	 (12/24)
+K80+I		00h:00:00:03	00h:00:00:07	     515.2999	 (13/24)
+F81		00h:00:00:03	00h:00:00:07	     509.0663	 (14/24)
+SYM+I+G		00h:00:00:07	00h:00:00:07	     514.1123	 (15/24)
+JC		00h:00:00:04	00h:00:00:08	     520.7884	 (16/24)
+K80		00h:00:00:04	00h:00:00:08	     515.2954	 (17/24)
+SYM+I		00h:00:00:04	00h:00:00:08	     514.1115	 (18/24)
+GTR		00h:00:00:04	00h:00:00:08	     502.0095	 (19/24)
+SYM+G		00h:00:00:08	00h:00:00:08	     514.1084	 (20/24)
+SYM		00h:00:00:04	00h:00:00:08	     514.1080	 (21/24)

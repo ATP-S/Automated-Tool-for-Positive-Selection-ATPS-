@@ -1,0 +1,12 @@
+
+muscle 5.3.win64 [d9725ac]  7.9Gb RAM, 16 cores
+Built Nov 10 2024 22:59:05
+(C) Copyright 2004-2021 Robert C. Edgar.
+https://drive5.com
+
+[align E:\fields_of_study\bioinformatics\Youssef\new_atps\output\.atps_session_BRCA1\ProteinSequences.fasta]
+Input: 9 seqs, avg length 123, max 123, min 123
+
+00:00 1.2Mb    11.1% Derep 1 uniques, 0 dupes
+00:00 1.2Mb   100.0% Derep 1 uniques, 8 dupes
+

@@ -1,0 +1,10 @@
+Homo sapiens
+Pan troglodytes
+Gorilla gorilla
+Pongo abelii
+Macaca mulatta
+Mus musculus
+Rattus norvegicus
+Bos taurus
+Canis lupus familiaris
+Felis catus

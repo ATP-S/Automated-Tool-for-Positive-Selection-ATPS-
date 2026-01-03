@@ -1,0 +1,58 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 20 20 200 450 
+%%Title: /mnt/e/fields_of_study/bioinformatics/Youssef/new_atps/output/.atps_session_BRCA1/Reverse_Translation_Seq.txt
+%%Creator Gblocks 0.91b
+%%Pages: 1
+
+/seq {
+newpath
+ 25   moveto
+0  10   rlineto
+  35   lineto
+0 -10 rlineto
+closepath
+fill
+} def
+
+/block {
+newpath
+ 10   moveto
+0  10   rlineto
+  20   lineto
+0 -10 rlineto
+closepath
+fill
+} def
+
+/sh1 {
+30 add
+} def
+
+/sh2 {
+31 add
+} def
+
+/Helvetica findfont 12 scalefont setfont
+
+gsave
+180 0 translate
+90 rotate
+
+newpath
+30 100 moveto
+(Blocks found by Gblocks version 0.91b for the file Reverse_Translation_Seq.txt-gb1PS) show
+30 80 moveto
+(Parameters used: 5 5 8 10 2) show
+
+1 sh1 376 sh2 seq
+
+1 sh1 60 sh2 block
+64 sh1 120 sh2 block
+124 sh1 180 sh2 block
+184 sh1 243 sh2 block
+247 sh1 303 sh2 block
+307 sh1 363 sh2 block
+
+grestore
+showpage
+%%EOF
