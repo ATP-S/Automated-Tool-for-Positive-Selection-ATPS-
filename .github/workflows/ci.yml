@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, master, refactor]
   pull_request:
-    branches: [main, master]
+    branches: [main, master, refactor]
 
 jobs:
   lint:
@@ -31,7 +31,7 @@ jobs:
 
       - name: Type check with MyPy
         run: mypy src --ignore-missing-imports
-        continue-on-error: true  # Remove this line once type hints are fully added
+        continue-on-error: true
 
   test:
     name: Test (Python ${{ matrix.python-version }})
@@ -56,4 +56,4 @@ jobs:
 
       - name: Run tests with pytest
         run: pytest tests/ -v --tb=short
-        continue-on-error: true  # Remove once tests are added
+        continue-on-error: true
