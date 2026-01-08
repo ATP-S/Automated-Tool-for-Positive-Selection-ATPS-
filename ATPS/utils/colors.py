@@ -1,13 +1,14 @@
 """Color schemes for sequence visualization in phylogenetic trees and alignments."""
+
 from __future__ import annotations
 
 import logging
-from typing import Dict, Iterable, List, Optional
+from collections.abc import Iterable
 
 logger = logging.getLogger(__name__)
 
 # Amino acid color scheme (based on physicochemical properties)
-AMINO_ACID_COLORS: Dict[str, str] = {
+AMINO_ACID_COLORS: dict[str, str] = {
     # Polar positive (basic) - green
     "K": "#109c4b",
     "R": "#109c4b",
@@ -41,7 +42,7 @@ AMINO_ACID_COLORS: Dict[str, str] = {
 }
 
 # Nucleotide color scheme
-NUCLEOTIDE_COLORS: Dict[str, str] = {
+NUCLEOTIDE_COLORS: dict[str, str] = {
     "A": "#22ca00",  # green (Adenine)
     "T": "#d82626",  # red (Thymine)
     "U": "#d82626",  # red (Uracil - RNA)
@@ -56,7 +57,7 @@ NUCLEOTIDE_COLORS: Dict[str, str] = {
 DEFAULT_COLOR = "#cccccc"
 
 
-def get_color_scheme(sequence_type: str = "aa") -> Dict[str, str]:
+def get_color_scheme(sequence_type: str = "aa") -> dict[str, str]:
     """Get the color scheme dictionary for a sequence type.
 
     Args:
@@ -77,9 +78,9 @@ def get_color_scheme(sequence_type: str = "aa") -> Dict[str, str]:
 def get_colors(
     sequences: Iterable[str],
     sequence_type: str = "aa",
-    color_scheme: Optional[Dict[str, str]] = None,
+    color_scheme: dict[str, str] | None = None,
     default_color: str = DEFAULT_COLOR,
-) -> List[str]:
+) -> list[str]:
     """Generate colors for each character in sequences for visualization.
 
     Args:
@@ -119,7 +120,7 @@ def get_colors(
 def get_color(
     char: str,
     sequence_type: str = "aa",
-    color_scheme: Optional[Dict[str, str]] = None,
+    color_scheme: dict[str, str] | None = None,
     default_color: str = DEFAULT_COLOR,
 ) -> str:
     """Get the color for a single character.

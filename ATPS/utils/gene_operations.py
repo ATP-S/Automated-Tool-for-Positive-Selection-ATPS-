@@ -1,9 +1,9 @@
 """Gene sequence operations for reverse translation and alignment processing."""
+
 from __future__ import annotations
 
 import logging
 from pathlib import Path
-from typing import Dict, List, Optional, Union
 
 logger = logging.getLogger(__name__)
 
@@ -12,6 +12,7 @@ try:
     from Bio import SeqIO
     from Bio.Seq import Seq
     from Bio.SeqRecord import SeqRecord
+
     _HAS_BIOPYTHON = True
 except ImportError:
     SeqIO = None
@@ -30,7 +31,7 @@ def reverse_translate_alignment(
     coding_sequences_file: Path | str,
     protein_alignment_file: Path | str,
     output_file: Path | str,
-    interest_species: Optional[str] = None,
+    interest_species: str | None = None,
 ) -> Path:
     """Convert protein alignment back to codon-aligned nucleotide sequences.
 
@@ -66,12 +67,8 @@ def reverse_translate_alignment(
         raise FileNotFoundError(f"Protein alignment file not found: {protein_path}")
 
     # Load sequences as dictionaries
-    coding_dict: Dict[str, SeqRecord] = SeqIO.to_dict(
-        SeqIO.parse(str(coding_path), "fasta")
-    )
-    protein_dict: Dict[str, SeqRecord] = SeqIO.to_dict(
-        SeqIO.parse(str(protein_path), "fasta")
-    )
+    coding_dict: dict[str, SeqRecord] = SeqIO.to_dict(SeqIO.parse(str(coding_path), "fasta"))
+    protein_dict: dict[str, SeqRecord] = SeqIO.to_dict(SeqIO.parse(str(protein_path), "fasta"))
 
     # Get species list and optionally reorder with interest species first
     species_list = list(coding_dict.keys())
@@ -96,7 +93,7 @@ def reverse_translate_alignment(
 
         # Split coding sequence into codons (triplets)
         coding_seq = str(coding_dict[species].seq)
-        codons = [coding_seq[i:i + 3] for i in range(0, len(coding_seq), 3)]
+        codons = [coding_seq[i : i + 3] for i in range(0, len(coding_seq), 3)]
 
         # Get aligned protein sequence
         aligned_protein = str(protein_dict[species].seq)
@@ -121,7 +118,7 @@ def reverse_translate_alignment(
     return output_path
 
 
-def _map_codons_to_alignment(codons: List[str], aligned_protein: str) -> str:
+def _map_codons_to_alignment(codons: list[str], aligned_protein: str) -> str:
     """Map codons to aligned protein sequence, inserting gap codons.
 
     Args:
@@ -223,6 +220,7 @@ def reversedd(interest: str) -> None:
         interest: The species of interest.
     """
     import warnings
+
     warnings.warn(
         "reversedd() is deprecated; use reverse_translate_alignment() instead.",
         DeprecationWarning,

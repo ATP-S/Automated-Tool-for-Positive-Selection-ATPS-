@@ -1,23 +1,24 @@
 """Multiple sequence alignment wrappers for MUSCLE, Clustal Omega, and MAFFT."""
+
 from __future__ import annotations
 
 import logging
 import subprocess
 from enum import Enum
 from pathlib import Path
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 
 
 class Aligner(str, Enum):
     """Supported alignment methods."""
+
     MUSCLE = "muscle"
     CLUSTALO = "clustalo"
     MAFFT = "mafft"
 
     @classmethod
-    def from_short(cls, code: str) -> "Aligner":
+    def from_short(cls, code: str) -> Aligner:
         """Convert short codes to Aligner enum.
 
         Args:
@@ -39,8 +40,8 @@ def run_alignment(
     input_file: Path | str,
     output_file: Path | str = "Alignment.ali",
     aligner: Aligner | str = Aligner.MUSCLE,
-    aligner_exe: Optional[str] = None,
-    extra_args: Optional[list[str]] = None,
+    aligner_exe: str | None = None,
+    extra_args: list[str] | None = None,
 ) -> Path:
     """Run multiple sequence alignment using the specified aligner.
 
@@ -72,8 +73,10 @@ def run_alignment(
         else:
             try:
                 aligner = Aligner(aligner.lower())
-            except ValueError:
-                raise ValueError(f"Unknown aligner '{aligner}'. Use: {[a.value for a in Aligner]}")
+            except ValueError as e:
+                raise ValueError(
+                    f"Unknown aligner '{aligner}'. Use: {[a.value for a in Aligner]}"
+                ) from e
 
     exe = aligner_exe or aligner.value
     extra = extra_args or []
@@ -102,8 +105,10 @@ def run_alignment(
                 output_path.write_text(result.stdout)
         else:
             result = subprocess.run(cmd, capture_output=True, text=True)
-    except FileNotFoundError:
-        raise RuntimeError(f"{aligner.value} executable not found: '{exe}'. Please install it.")
+    except FileNotFoundError as e:
+        raise RuntimeError(
+            f"{aligner.value} executable not found: '{exe}'. Please install it."
+        ) from e
 
     # Write logs for debugging
     log_dir = output_path.parent if output_path.parent.exists() else Path.cwd()
@@ -124,7 +129,12 @@ def run_alignment(
 def diff_aligners(file_path: str, align_type: str) -> None:
     """DEPRECATED: Use `run_alignment(input_file, aligner=...)` instead."""
     import warnings
-    warnings.warn("diff_aligners() is deprecated; use run_alignment() instead.", DeprecationWarning, stacklevel=2)
+
+    warnings.warn(
+        "diff_aligners() is deprecated; use run_alignment() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
 
     if align_type.lower() not in ("mu", "cl", "mf"):
         logger.error("Unknown alignment type '%s'. Exiting.", align_type)

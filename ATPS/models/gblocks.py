@@ -1,12 +1,11 @@
 """Gblocks wrapper for trimming poorly aligned regions from sequence alignments."""
+
 from __future__ import annotations
 
 import logging
-import os
 import platform
-import shutil
 import subprocess
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
@@ -20,20 +19,19 @@ _IS_WINDOWS = platform.system() == "Windows"
 
 def _windows_path_to_wsl(win_path: Path) -> str:
     """Convert a Windows path to WSL path format.
-    
     E.g., C:\\Users\\name\\file.txt -> /mnt/c/Users/name/file.txt
     """
     # Resolve to absolute path
     abs_path = win_path.resolve()
     path_str = str(abs_path)
-    
+
     # Handle drive letter (C: -> /mnt/c)
-    if len(path_str) >= 2 and path_str[1] == ':':
+    if len(path_str) >= 2 and path_str[1] == ":":
         drive = path_str[0].lower()
-        rest = path_str[2:].replace('\\', '/')
+        rest = path_str[2:].replace("\\", "/")
         return f"/mnt/{drive}{rest}"
-    
-    return path_str.replace('\\', '/')
+
+    return path_str.replace("\\", "/")
 
 
 def run_gblocks(
@@ -50,7 +48,7 @@ def run_gblocks(
         output_suffix: Suffix Gblocks appends to the output (default "-gb1").
         gblocks_exe: Path to Gblocks executable (defaults to bundled tool).
         skip: If True, skip Gblocks and just copy input to output path.
-        use_wsl: If True, use WSL to run Gblocks on Windows. 
+        use_wsl: If True, use WSL to run Gblocks on Windows.
                  If None (default), auto-detect based on OS.
 
     Returns:
@@ -78,19 +76,19 @@ def run_gblocks(
     # Auto-detect whether to use WSL
     if use_wsl is None:
         use_wsl = _IS_WINDOWS
-    
+
     if use_wsl and _IS_WINDOWS:
         # Use WSL to run the Linux binary on Windows
         wsl_exe = _windows_path_to_wsl(exe)
         wsl_input = _windows_path_to_wsl(input_path)
-        
+
         # Build the command string to run via bash -c
         gblocks_cmd = f'"{wsl_exe}" "{wsl_input}" -t=c -e={output_suffix} -b5=h -d=y -b2=0'
         cmd = ["wsl", "bash", "-c", gblocks_cmd]
         logger.info("Running Gblocks via WSL: %s", gblocks_cmd)
-        
+
         result = subprocess.run(cmd, capture_output=True, text=True)
-        
+
         # WSL may return exit code 1 due to PATH translation warnings, but Gblocks may still succeed
         # Check if output file was created to determine actual success
         if result.returncode != 0:
@@ -104,7 +102,7 @@ def run_gblocks(
         cmd = [str(exe), str(input_path), "-t=c", "-e=" + output_suffix, "-b5=h", "-d=y", "-b2=0"]
         logger.info("Running Gblocks: %s", " ".join(cmd))
         result = subprocess.run(cmd, capture_output=True, text=True)
-        
+
         if result.returncode != 0:
             logger.error("Gblocks failed:\n%s", result.stderr)
             raise RuntimeError(f"Gblocks failed (rc={result.returncode}): {result.stderr}")
@@ -127,7 +125,9 @@ def remove_spaces(input_file: Path | str, output_file: Path | str | None = None)
     if not input_path.exists():
         raise FileNotFoundError(f"Input file not found: {input_path}")
 
-    out_path = Path(output_file) if output_file else input_path.with_suffix(input_path.suffix + ".fst")
+    out_path = (
+        Path(output_file) if output_file else input_path.with_suffix(input_path.suffix + ".fst")
+    )
 
     content = input_path.read_text()
     cleaned = content.replace(" ", "")
@@ -143,7 +143,10 @@ def remove_spaces(input_file: Path | str, output_file: Path | str | None = None)
 def Gblocks(state: str) -> None:
     """DEPRECATED: Use `run_gblocks(input_file, skip=state.lower() != 't')` instead."""
     import warnings
-    warnings.warn("Gblocks() is deprecated; use run_gblocks() instead.", DeprecationWarning, stacklevel=2)
+
+    warnings.warn(
+        "Gblocks() is deprecated; use run_gblocks() instead.", DeprecationWarning, stacklevel=2
+    )
 
     input_file = Path("Reverse_Translation_Seq.txt")
     run_gblocks(input_file, skip=(state.lower() != "t"))
@@ -152,10 +155,12 @@ def Gblocks(state: str) -> None:
 def rem_spaces() -> None:
     """DEPRECATED: Use `remove_spaces(input_file)` instead."""
     import warnings
-    warnings.warn("rem_spaces() is deprecated; use remove_spaces() instead.", DeprecationWarning, stacklevel=2)
+
+    warnings.warn(
+        "rem_spaces() is deprecated; use remove_spaces() instead.", DeprecationWarning, stacklevel=2
+    )
 
     remove_spaces("Reverse_Translation_Seq.txt-gb1")
 
 
 __all__ = ["run_gblocks", "remove_spaces", "Gblocks", "rem_spaces"]
-    

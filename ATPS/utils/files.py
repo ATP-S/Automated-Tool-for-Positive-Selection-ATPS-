@@ -1,12 +1,13 @@
 """File and session management utilities for ATPS pipeline."""
+
 from __future__ import annotations
 
 import logging
 import shutil
 import tempfile
+from collections.abc import Iterator
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Iterator, List, Optional, Set, Union
 
 logger = logging.getLogger(__name__)
 
@@ -39,7 +40,7 @@ class PipelineSession:
     """
 
     # Files that are always considered intermediate (can be deleted)
-    INTERMEDIATE_PATTERNS: List[str] = [
+    INTERMEDIATE_PATTERNS: list[str] = [
         "*.ali",
         "*.htm",
         "*.mod",
@@ -59,7 +60,7 @@ class PipelineSession:
     def __init__(
         self,
         output_dir: Path | str = ".",
-        gene_name: Optional[str] = None,
+        gene_name: str | None = None,
         keep_intermediates: bool = False,
         use_temp: bool = False,
     ) -> None:
@@ -76,10 +77,10 @@ class PipelineSession:
         self.keep_intermediates = keep_intermediates
         self.use_temp = use_temp
 
-        self._work_dir: Optional[Path] = None
-        self._temp_dir: Optional[tempfile.TemporaryDirectory] = None
-        self._files_to_keep: Set[Path] = set()
-        self._registered_files: Set[Path] = set()
+        self._work_dir: Path | None = None
+        self._temp_dir: tempfile.TemporaryDirectory | None = None
+        self._files_to_keep: set[Path] = set()
+        self._registered_files: set[Path] = set()
 
     @property
     def work_dir(self) -> Path:
@@ -88,7 +89,7 @@ class PipelineSession:
             raise RuntimeError("Session not started. Use 'with PipelineSession() as session:'")
         return self._work_dir
 
-    def __enter__(self) -> "PipelineSession":
+    def __enter__(self) -> PipelineSession:
         """Start the session and create the working directory."""
         if self.use_temp:
             self._temp_dir = tempfile.TemporaryDirectory(prefix="atps_")
@@ -192,7 +193,7 @@ class PipelineSession:
 @contextmanager
 def pipeline_session(
     output_dir: Path | str = ".",
-    gene_name: Optional[str] = None,
+    gene_name: str | None = None,
     keep_intermediates: bool = False,
 ) -> Iterator[PipelineSession]:
     """Functional interface for PipelineSession.
@@ -215,7 +216,7 @@ def pipeline_session(
 CODEML_MODELS = ["codeml078", "codeml8a", "codeml2", "codeml2a"]
 
 
-def create_codeml_dirs(base_dir: Path | str = ".") -> List[Path]:
+def create_codeml_dirs(base_dir: Path | str = ".") -> list[Path]:
     """Create directories for codeml model outputs.
 
     Args:
@@ -258,8 +259,8 @@ def delete_codeml_dirs(base_dir: Path | str = ".") -> None:
 # File Operations
 # ---------------------------------------------------------------------------
 def delete_files(
-    files: List[Path | str],
-    base_dir: Optional[Path | str] = None,
+    files: list[Path | str],
+    base_dir: Path | str | None = None,
     ignore_missing: bool = True,
 ) -> int:
     """Delete a list of files.
@@ -297,8 +298,8 @@ def delete_files(
 
 
 def delete_by_patterns(
-    patterns: List[str],
-    base_dir: Optional[Path | str] = None,
+    patterns: list[str],
+    base_dir: Path | str | None = None,
 ) -> int:
     """Delete files matching glob patterns.
 
@@ -325,7 +326,7 @@ def delete_by_patterns(
     return deleted
 
 
-def cleanup_intermediate_files(base_dir: Optional[Path | str] = None) -> int:
+def cleanup_intermediate_files(base_dir: Path | str | None = None) -> int:
     """Delete common intermediate files from pipeline operations.
 
     This replaces the old deletion_files() function with pattern-based cleanup.
@@ -386,8 +387,8 @@ def cleanup_intermediate_files(base_dir: Optional[Path | str] = None) -> int:
 def save_gene_results(
     gene_name: str,
     destination: Path | str,
-    source_dir: Optional[Path | str] = None,
-    exclude_patterns: Optional[List[str]] = None,
+    source_dir: Path | str | None = None,
+    exclude_patterns: list[str] | None = None,
 ) -> Path:
     """Save gene analysis results to a dedicated directory.
 
@@ -459,6 +460,7 @@ def save_gene_results(
 def saving_(gene_name: str, save: str) -> None:
     """DEPRECATED: Use `save_gene_results()` instead."""
     import warnings
+
     warnings.warn(
         "saving_() is deprecated; use save_gene_results() instead.",
         DeprecationWarning,
@@ -470,6 +472,7 @@ def saving_(gene_name: str, save: str) -> None:
 def deletion_files() -> None:
     """DEPRECATED: Use `cleanup_intermediate_files()` instead."""
     import warnings
+
     warnings.warn(
         "deletion_files() is deprecated; use cleanup_intermediate_files() instead.",
         DeprecationWarning,
@@ -481,6 +484,7 @@ def deletion_files() -> None:
 def del_codeml_dir() -> None:
     """DEPRECATED: Use `delete_codeml_dirs()` instead."""
     import warnings
+
     warnings.warn(
         "del_codeml_dir() is deprecated; use delete_codeml_dirs() instead.",
         DeprecationWarning,
@@ -492,6 +496,7 @@ def del_codeml_dir() -> None:
 def creat_codeml_dir() -> None:
     """DEPRECATED: Use `create_codeml_dirs()` instead."""
     import warnings
+
     warnings.warn(
         "creat_codeml_dir() is deprecated; use create_codeml_dirs() instead.",
         DeprecationWarning,

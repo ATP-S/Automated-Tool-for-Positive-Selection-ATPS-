@@ -32,61 +32,61 @@ import gc
 import logging
 import sys
 from pathlib import Path
-from typing import List, Optional, Tuple
 
-# Configure logging
+import mne
+import numpy as np
+import pandas as pd
+
+# Optional third-party imports with graceful fallback
+# try:
+#     import numpy as np
+#     _HAS_NUMPY = True
+# except ImportError:
+#     np = None
+#     _HAS_NUMPY = False
+# try:
+#     import pandas as pd
+#     _HAS_PANDAS = True
+# except ImportError:
+#     pd = None
+#     _HAS_PANDAS = False
+# try:
+#     import mne
+#     _HAS_MNE = True
+# except ImportError:
+#     mne = None
+#     _HAS_MNE = False
+# Local ATPS imports
+from ATPS.models.codeml import codeml_output, hashing, model078, model2, model2a, model8a
+from ATPS.models.gblocks import remove_spaces, run_gblocks
+from ATPS.models.jmodeltest import run_jmodeltest
+from ATPS.models.phyml import run_phyml
+from ATPS.utils.alignment import Aligner, run_alignment
+from ATPS.utils.converters import convert_fasta_to_phylip
+from ATPS.utils.fetchers import count_fetched_species, fetch_and_save_sequences
+from ATPS.utils.files import (
+    PipelineSession,
+    create_codeml_dirs,
+    delete_codeml_dirs,
+)
+from ATPS.utils.gene_operations import reverse_translate_alignment
+from ATPS.utils.parsers import (
+    map_beb_to_original_positions,
+    parse_beb_results,
+    parse_jmodeltest,
+    parse_jmodeltest_fallback,
+    remove_branch_lengths,
+)
+
+# ---------------------------------------------------------------------------
+# Module-level setup (after all imports)
+# ---------------------------------------------------------------------------
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 logger = logging.getLogger(__name__)
-
-# Optional imports with graceful fallback
-try:
-    import numpy as np
-    _HAS_NUMPY = True
-except ImportError:
-    np = None
-    _HAS_NUMPY = False
-
-try:
-    import pandas as pd
-    _HAS_PANDAS = True
-except ImportError:
-    pd = None
-    _HAS_PANDAS = False
-
-try:
-    import mne
-    _HAS_MNE = True
-except ImportError:
-    mne = None
-    _HAS_MNE = False
-
-# Import ATPS modules
-from ATPS.utils.files import (
-    PipelineSession,
-    cleanup_intermediate_files,
-    create_codeml_dirs,
-    delete_codeml_dirs,
-    save_gene_results,
-)
-from ATPS.utils.fetchers import fetch_and_save_sequences, count_fetched_species
-from ATPS.utils.gene_operations import reverse_translate_alignment
-from ATPS.utils.alignment import run_alignment, Aligner
-from ATPS.utils.converters import convert_fasta_to_phylip
-from ATPS.utils.parsers import (
-    parse_jmodeltest,
-    parse_jmodeltest_fallback,
-    remove_branch_lengths,
-    parse_beb_results,
-    map_beb_to_original_positions,
-)
-from ATPS.models.gblocks import run_gblocks, remove_spaces
-from ATPS.models.jmodeltest import run_jmodeltest
-from ATPS.models.phyml import run_phyml
-from ATPS.models.codeml import model078, model8a, model2a, model2, codeml_output, hashing
 
 
 # ---------------------------------------------------------------------------
@@ -105,57 +105,66 @@ def parse_arguments() -> argparse.Namespace:
     )
 
     parser.add_argument(
-        "-G", "--genes",
+        "-G",
+        "--genes",
         type=str,
         required=True,
         help="Comma-separated list of gene names",
     )
     parser.add_argument(
-        "-S", "--species",
+        "-S",
+        "--species",
         type=str,
         default="",
         help="Comma-separated list of species names",
     )
     parser.add_argument(
-        "-O", "--output",
+        "-O",
+        "--output",
         type=str,
         required=True,
         help="Output directory path",
     )
     parser.add_argument(
-        "-I", "--interest",
+        "-I",
+        "--interest",
         type=str,
         default="",
         help="Species of interest for branch-site models",
     )
     parser.add_argument(
-        "-IF", "--input-folder",
+        "-IF",
+        "--input-folder",
         type=str,
         default="",
         help="Input folder containing FASTA files",
     )
     parser.add_argument(
-        "-A", "--aligner",
+        "-A",
+        "--aligner",
         type=str,
         default="muscle",
         choices=["muscle", "clustalo", "mafft"],
         help="Alignment method (default: muscle)",
     )
     parser.add_argument(
-        "-R", "--replicates",
+        "-R",
+        "--replicates",
         type=int,
         default=100,
         help="Bootstrap replicates for PhyML (default: 100)",
     )
     parser.add_argument(
-        "-GS", "--gblocks-stringency",
+        "-GS",
+        "--gblocks-stringency",
         type=str,
         default="T",
         choices=["T", "F"],
         help="Gblocks stringency (T=strict, F=relaxed)",
     )
     parser.add_argument(
-        "-E", "--email",
+        "-E",
+        "--email",
         type=str,
         default="",
         help="Email for NCBI Entrez queries",
@@ -171,7 +180,8 @@ def parse_arguments() -> argparse.Namespace:
         help="Keep intermediate files for debugging",
     )
     parser.add_argument(
-        "-v", "--verbose",
+        "-v",
+        "--verbose",
         action="store_true",
         help="Enable verbose logging",
     )
@@ -184,12 +194,12 @@ def parse_arguments() -> argparse.Namespace:
 # ---------------------------------------------------------------------------
 def run_sequence_fetching(
     gene: str,
-    species_list: Optional[List[str]],
+    species_list: list[str] | None,
     interest_species: str,
-    input_folder: Optional[Path],
+    input_folder: Path | None,
     email: str,
     work_dir: Path,
-) -> Tuple[bool, str]:
+) -> tuple[bool, str]:
     """Fetch sequences for a gene.
 
     Args:
@@ -322,7 +332,7 @@ def run_model_selection(
     work_dir: Path,
     phylip_file: Path,
     fast_mode: bool = False,
-) -> Tuple[str, str, str]:
+) -> tuple[str, str, str]:
     """Run jModelTest for model selection.
 
     Args:
@@ -338,7 +348,7 @@ def run_model_selection(
     logger.info("=" * 60)
 
     output_file = work_dir / "Jmodeltest_output"
-    
+
     # Fast mode uses 3 schemes (24 models) instead of 11 (88 models)
     num_schemes = 3 if fast_mode else 11
     run_jmodeltest(phylip_file, output_file, num_substitution_schemes=num_schemes)
@@ -414,6 +424,7 @@ def run_tree_building(
     newick_file = work_dir / "Species_Phylogenetic_tree_newick.nwk"
     if Path(tree_file) != newick_file:
         import shutil
+
         shutil.copy2(tree_file, newick_file)
 
     # Remove branch lengths for codeml
@@ -426,7 +437,7 @@ def run_codeml_analysis(
     work_dir: Path,
     interest_species: str,
     gene: str,
-) -> List:
+) -> list:
     """Run codeml positive selection analysis.
 
     Args:
@@ -503,11 +514,11 @@ def apply_multiple_testing_correction(
     Returns:
         Path to corrected output file.
     """
-    if not _HAS_PANDAS or not _HAS_NUMPY or not _HAS_MNE:
-        logger.warning(
-            "pandas, numpy, or mne not available. Skipping multiple testing correction."
-        )
-        return output_file
+    # if not _HAS_PANDAS or not _HAS_NUMPY or not _HAS_MNE:
+    #     logger.warning(
+    #         "pandas, numpy, or mne not available. Skipping multiple testing correction."
+    #     )
+    #     return output_file
 
     logger.info("Applying Bonferroni correction to p-values")
 
@@ -547,7 +558,9 @@ def run_pipeline(args: argparse.Namespace) -> int:
     """
     # Parse arguments
     genes = [g.strip() for g in args.genes.split(",") if g.strip()]
-    species_list = [s.strip() for s in args.species.split(",") if s.strip()] if args.species else None
+    species_list = (
+        [s.strip() for s in args.species.split(",") if s.strip()] if args.species else None
+    )
     output_dir = Path(args.output)
     input_folder = Path(args.input_folder) if args.input_folder else None
     interest_species = args.interest.lower() if args.interest else ""
@@ -579,11 +592,23 @@ def run_pipeline(args: argparse.Namespace) -> int:
     study_output = output_dir / "Study_Output.csv"
     with open(study_output, "w", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow([
-            "Name", "Model0", "Model7", "Model8", "Model8a",
-            "Model2a", "Model2", "LRT(M7_vs_M8)", "LRT(M8a_vs_M8)",
-            "LRT(M2a_vs_M2)", "p-v7vs8", "p-v8avs8", "p-v2avs2",
-        ])
+        writer.writerow(
+            [
+                "Name",
+                "Model0",
+                "Model7",
+                "Model8",
+                "Model8a",
+                "Model2a",
+                "Model2",
+                "LRT(M7_vs_M8)",
+                "LRT(M8a_vs_M8)",
+                "LRT(M2a_vs_M2)",
+                "p-v7vs8",
+                "p-v8avs8",
+                "p-v2avs2",
+            ]
+        )
 
     # Process each gene
     successful_genes = 0
@@ -628,9 +653,7 @@ def run_pipeline(args: argparse.Namespace) -> int:
                 partition, freq, pinvar = run_model_selection(work_dir, phylip_file, fast_mode)
 
                 # Step 6: Tree building
-                run_tree_building(
-                    work_dir, phylip_file, partition, freq, pinvar, replicates
-                )
+                run_tree_building(work_dir, phylip_file, partition, freq, pinvar, replicates)
 
                 # Step 7: Codeml analysis
                 models = run_codeml_analysis(work_dir, interest, gene)
@@ -652,6 +675,7 @@ def run_pipeline(args: argparse.Namespace) -> int:
                 logger.error("Failed to process gene %s: %s", gene, e)
                 if args.verbose:
                     import traceback
+
                     traceback.print_exc()
                 continue
 
@@ -668,7 +692,9 @@ def run_pipeline(args: argparse.Namespace) -> int:
     # Post-processing
     logger.info("")
     logger.info("=" * 70)
-    logger.info("Pipeline complete: %d/%d genes processed successfully", successful_genes, len(genes))
+    logger.info(
+        "Pipeline complete: %d/%d genes processed successfully", successful_genes, len(genes)
+    )
     logger.info("=" * 70)
 
     if successful_genes > 0:
@@ -699,6 +725,7 @@ def main() -> int:
     except Exception as e:
         logger.error("Pipeline failed: %s", e)
         import traceback
+
         traceback.print_exc()
         return 1
 

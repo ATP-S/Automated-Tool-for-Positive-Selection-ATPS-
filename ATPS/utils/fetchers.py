@@ -1,9 +1,9 @@
 """Sequence fetching utilities for retrieving gene/protein data from NCBI or local files."""
+
 from __future__ import annotations
 
 import logging
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
 
 logger = logging.getLogger(__name__)
 
@@ -12,6 +12,7 @@ try:
     from Bio import Entrez, SeqIO
     from Bio.Seq import Seq
     from Bio.SeqRecord import SeqRecord
+
     _HAS_BIOPYTHON = True
 except ImportError:
     Entrez = None
@@ -22,13 +23,14 @@ except ImportError:
 
 try:
     import pandas as pd
+
     _HAS_PANDAS = True
 except ImportError:
     pd = None
     _HAS_PANDAS = False
 
 
-def _get_longest_valid_sequence(sequences: List[str]) -> Optional[str]:
+def _get_longest_valid_sequence(sequences: list[str]) -> str | None:
     """Get the longest sequence that is a valid coding sequence.
 
     A valid CDS:
@@ -69,10 +71,10 @@ def _get_longest_valid_sequence(sequences: List[str]) -> Optional[str]:
 
 def fetch_sequences_from_ncbi(
     protein: str,
-    species_list: List[str],
+    species_list: list[str],
     email: str,
-    interest_species: Optional[str] = None,
-) -> Tuple[Dict[str, str], Dict[str, str], Optional[str]]:
+    interest_species: str | None = None,
+) -> tuple[dict[str, str], dict[str, str], str | None]:
     """Fetch gene sequences from NCBI nuccore database.
 
     Args:
@@ -98,8 +100,8 @@ def fetch_sequences_from_ncbi(
         raise ValueError("Email address is required for NCBI Entrez queries.")
 
     Entrez.email = email
-    seq_dict: Dict[str, str] = {}
-    protein_dict: Dict[str, str] = {}
+    seq_dict: dict[str, str] = {}
+    protein_dict: dict[str, str] = {}
     filter_gene = f"[gene={protein}]"
     interest = interest_species
 
@@ -156,7 +158,7 @@ def fetch_sequences_from_ncbi(
                 # Extract sequence (after the header line)
                 seq_start = gene.find("]\n")
                 if seq_start != -1:
-                    sequence = gene[seq_start + 2:].replace("\n", "").strip()
+                    sequence = gene[seq_start + 2 :].replace("\n", "").strip()
                     if sequence:
                         candidate_sequences.append(sequence)
 
@@ -191,7 +193,7 @@ def fetch_sequences_from_ncbi(
 def fetch_sequences_from_file(
     gene_path: Path | str,
     protein: str,
-) -> Dict[str, str]:
+) -> dict[str, str]:
     """Load sequences from a local FASTA file.
 
     Args:
@@ -221,7 +223,7 @@ def fetch_sequences_from_file(
 
 
 def write_sequences_to_fasta(
-    sequences: Dict[str, str],
+    sequences: dict[str, str],
     output_file: Path | str,
     description: str = "",
 ) -> Path:
@@ -256,13 +258,13 @@ def write_sequences_to_fasta(
 
 def fetch_and_save_sequences(
     protein: str,
-    species_list: Optional[List[str]] = None,
-    interest_species: Optional[str] = None,
+    species_list: list[str] | None = None,
+    interest_species: str | None = None,
     fetch_from_ncbi: bool = True,
-    gene_path: Optional[Path | str] = None,
-    email: Optional[str] = None,
+    gene_path: Path | str | None = None,
+    email: str | None = None,
     output_dir: Path | str = ".",
-) -> Tuple[bool, Optional[str]]:
+) -> tuple[bool, str | None]:
     """Fetch sequences and save to FASTA files.
 
     This is the main entry point that combines fetching and saving.
@@ -365,14 +367,15 @@ def count_fetched_species(
 # ---------------------------------------------------------------------------
 def fetchingbyspecies(
     protein: str,
-    List_species: Optional[List[str]] = None,
-    interest: Optional[str] = None,
-    fetch: Optional[int] = None,
-    gene_path: Optional[str] = None,
-    inp_path: Optional[str] = None,
-) -> Tuple[bool, Optional[str]]:
+    List_species: list[str] | None = None,
+    interest: str | None = None,
+    fetch: int | None = None,
+    gene_path: str | None = None,
+    inp_path: str | None = None,
+) -> tuple[bool, str | None]:
     """DEPRECATED: Use `fetch_and_save_sequences()` instead."""
     import warnings
+
     warnings.warn(
         "fetchingbyspecies() is deprecated; use fetch_and_save_sequences() instead.",
         DeprecationWarning,
@@ -389,9 +392,10 @@ def fetchingbyspecies(
     )
 
 
-def _extracted_from_fetchingbyspecies_95(gene_path: str, protein: str) -> Dict[str, str]:
+def _extracted_from_fetchingbyspecies_95(gene_path: str, protein: str) -> dict[str, str]:
     """DEPRECATED: Use `fetch_sequences_from_file()` instead."""
     import warnings
+
     warnings.warn(
         "_extracted_from_fetchingbyspecies_95() is deprecated; use fetch_sequences_from_file() instead.",
         DeprecationWarning,
@@ -403,6 +407,7 @@ def _extracted_from_fetchingbyspecies_95(gene_path: str, protein: str) -> Dict[s
 def number_of_fetched_species() -> None:
     """DEPRECATED: Use `count_fetched_species()` instead."""
     import warnings
+
     warnings.warn(
         "number_of_fetched_species() is deprecated; use count_fetched_species() instead.",
         DeprecationWarning,
@@ -411,7 +416,7 @@ def number_of_fetched_species() -> None:
     count_fetched_species()
 
 
-def get_max_str_index(lst: List[str]) -> Tuple[int, str]:
+def get_max_str_index(lst: list[str]) -> tuple[int, str]:
     """Get the index and value of the longest string in a list.
 
     Args:

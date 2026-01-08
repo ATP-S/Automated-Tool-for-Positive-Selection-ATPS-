@@ -1,4 +1,5 @@
 """Parsers for jModelTest, tree files, and codeml BEB output."""
+
 from __future__ import annotations
 
 import logging
@@ -6,7 +7,6 @@ import re
 import shutil
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Optional, Tuple
 
 logger = logging.getLogger(__name__)
 
@@ -28,10 +28,10 @@ class JModelTestResult:
     partition: str
     frequencies: str
     pinvar: str
-    model_name: Optional[str] = None
+    model_name: str | None = None
 
     @property
-    def freq_list(self) -> List[float]:
+    def freq_list(self) -> list[float]:
         """Parse frequencies string into list of floats."""
         if not self.frequencies:
             return []
@@ -41,7 +41,7 @@ class JModelTestResult:
             return []
 
     @property
-    def pinvar_float(self) -> Optional[float]:
+    def pinvar_float(self) -> float | None:
         """Parse pinvar as float."""
         try:
             return float(self.pinvar)
@@ -64,8 +64,8 @@ class BEBSite:
     position: int
     amino_acid: str
     probability: float
-    omega: Optional[float] = None
-    original_position: Optional[int] = None
+    omega: float | None = None
+    original_position: int | None = None
 
 
 # ---------------------------------------------------------------------------
@@ -196,7 +196,7 @@ def parse_jmodeltest_fallback(
         raise ValueError("Could not find model ranking section in jModelTest output")
 
     # Extract model names from ranking
-    ranking_section = content[start_idx + 85:stop_idx - 84]
+    ranking_section = content[start_idx + 85 : stop_idx - 84]
     model_names = []
     for line in ranking_section.split("\n"):
         if line.strip():
@@ -275,7 +275,7 @@ def parse_jmodeltest_fallback(
 # ---------------------------------------------------------------------------
 def remove_branch_lengths(
     input_file: Path | str,
-    output_file: Optional[Path | str] = None,
+    output_file: Path | str | None = None,
 ) -> Path:
     """Remove branch lengths from a Newick tree file.
 
@@ -321,7 +321,7 @@ def remove_branch_lengths(
 # ---------------------------------------------------------------------------
 def parse_beb_results(
     codeml_output: Path | str,
-) -> List[BEBSite]:
+) -> list[BEBSite]:
     """Parse Bayes Empirical Bayes (BEB) results from codeml output.
 
     Args:
@@ -390,10 +390,10 @@ def parse_beb_results(
 
 
 def map_beb_to_original_positions(
-    beb_sites: List[BEBSite],
+    beb_sites: list[BEBSite],
     gblocks_html: Path | str,
-    output_csv: Optional[Path | str] = None,
-) -> List[BEBSite]:
+    output_csv: Path | str | None = None,
+) -> list[BEBSite]:
     """Map BEB positions back to original sequence positions.
 
     Gblocks removes poorly aligned regions, so BEB positions need to be
@@ -430,8 +430,7 @@ def map_beb_to_original_positions(
     # Convert to codon positions (divide by 3) and create ranges
     codon_positions = [p // 3 for p in positions]
     ranges = [
-        (codon_positions[i], codon_positions[i + 1])
-        for i in range(0, len(codon_positions) - 1, 2)
+        (codon_positions[i], codon_positions[i + 1]) for i in range(0, len(codon_positions) - 1, 2)
     ]
 
     logger.debug("Gblocks ranges: %s", ranges)
@@ -474,7 +473,7 @@ def map_beb_to_original_positions(
 # ---------------------------------------------------------------------------
 # Legacy API (deprecated) — kept for backward compatibility
 # ---------------------------------------------------------------------------
-def parsing_jmodeltest() -> Tuple[str, str, str]:
+def parsing_jmodeltest() -> tuple[str, str, str]:
     """DEPRECATED: Use `parse_jmodeltest()` instead."""
     import warnings
 
@@ -487,7 +486,7 @@ def parsing_jmodeltest() -> Tuple[str, str, str]:
     return result.partition, result.frequencies, result.pinvar
 
 
-def spare_parse() -> Tuple[str, str, str]:
+def spare_parse() -> tuple[str, str, str]:
     """DEPRECATED: Use `parse_jmodeltest_fallback()` instead."""
     import warnings
 
@@ -535,7 +534,7 @@ def Positive_selection_sites(
     BEB_list: str,
     interest: str,
     path: str,
-) -> List[int]:
+) -> list[int]:
     """DEPRECATED: Use `map_beb_to_original_positions()` instead."""
     import warnings
 

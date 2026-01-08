@@ -1,9 +1,9 @@
 """Phylogenetic tree visualization utilities."""
+
 from __future__ import annotations
 
 import logging
 from pathlib import Path
-from typing import Dict, List, Optional, Union
 
 logger = logging.getLogger(__name__)
 
@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 try:
     from Bio import Phylo
     from Bio.Phylo.BaseTree import Clade, Tree
+
     _HAS_BIOPYTHON = True
 except ImportError:
     Phylo = None
@@ -20,6 +21,7 @@ except ImportError:
 
 try:
     import matplotlib.pyplot as plt
+
     _HAS_MATPLOTLIB = True
 except ImportError:
     plt = None
@@ -41,7 +43,7 @@ def _check_matplotlib() -> None:
 def load_tree(
     tree_file: Path | str,
     tree_format: str = "newick",
-) -> "Tree":
+) -> Tree:
     """Load a phylogenetic tree from file.
 
     Args:
@@ -70,7 +72,7 @@ def load_tree(
 def draw_ascii_tree(
     tree_file: Path | str,
     tree_format: str = "newick",
-    output_file: Optional[Path | str] = None,
+    output_file: Path | str | None = None,
 ) -> str:
     """Draw an ASCII representation of a phylogenetic tree.
 
@@ -88,6 +90,7 @@ def draw_ascii_tree(
 
     # Capture ASCII output
     import io
+
     output = io.StringIO()
     Phylo.draw_ascii(tree, file=output)
     ascii_tree = output.getvalue()
@@ -102,14 +105,14 @@ def draw_ascii_tree(
 def visualize_tree(
     tree_file: Path | str,
     tree_format: str = "newick",
-    interest_species: Optional[str] = None,
+    interest_species: str | None = None,
     highlight_color: str = "salmon",
     rooted: bool = True,
-    output_file: Optional[Path | str] = None,
+    output_file: Path | str | None = None,
     figsize: tuple = (12, 8),
     show: bool = True,
     dpi: int = 150,
-) -> Optional["Tree"]:
+) -> Tree | None:
     """Visualize a phylogenetic tree with optional species highlighting.
 
     Args:
@@ -138,12 +141,14 @@ def visualize_tree(
 
     # Highlight species of interest
     if interest_species:
-        interest_key = str(interest_species).lower()
+        # interest_key = str(interest_species).lower()
         try:
             # Find and highlight the clade containing the species
             mrca = tree.common_ancestor({"name": interest_species})
             mrca.color = highlight_color
-            logger.info("Highlighted species '%s' with color '%s'", interest_species, highlight_color)
+            logger.info(
+                "Highlighted species '%s' with color '%s'", interest_species, highlight_color
+            )
         except Exception as e:
             logger.warning("Could not highlight species '%s': %s", interest_species, e)
 
@@ -152,7 +157,7 @@ def visualize_tree(
 
     try:
         Phylo.draw(tree, axes=ax, do_show=False)
-        ax.set_title(f"Phylogenetic Tree")
+        ax.set_title("Phylogenetic Tree")
 
         if output_file:
             output_path = Path(output_file)
@@ -174,9 +179,9 @@ def visualize_tree(
 
 
 def highlight_clades(
-    tree: "Tree",
-    clade_colors: Dict[str, str],
-) -> "Tree":
+    tree: Tree,
+    clade_colors: dict[str, str],
+) -> Tree:
     """Highlight multiple clades in a tree with different colors.
 
     Args:
@@ -199,7 +204,7 @@ def highlight_clades(
     return tree
 
 
-def get_tree_statistics(tree: "Tree") -> Dict[str, Union[int, float, List[str]]]:
+def get_tree_statistics(tree: Tree) -> dict[str, int | float | list[str]]:
     """Get basic statistics about a phylogenetic tree.
 
     Args:
@@ -236,7 +241,7 @@ def compare_trees(
     tree1_file: Path | str,
     tree2_file: Path | str,
     tree_format: str = "newick",
-) -> Dict[str, any]:
+) -> dict[str, any]:
     """Compare two phylogenetic trees.
 
     Args:
@@ -303,4 +308,4 @@ __all__ = [
     "compare_trees",
     # Legacy
     "visualization_tree",
-]   
+]

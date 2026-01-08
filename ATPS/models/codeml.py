@@ -8,16 +8,16 @@ Behavior:
   the `codeml` command (must be available on PATH or provided as full path).
 - `codeml_output` parses the model outputs and writes `Gene_Output.csv`.
 """
+
 from __future__ import annotations
 
 import csv
+import logging
 import os
 import re
 import shutil
 import subprocess
 from pathlib import Path
-from typing import List
-import logging
 
 try:
     from scipy.stats import chi2
@@ -27,8 +27,7 @@ except Exception:  # pragma: no cover - present at runtime if scipy installed
 logger = logging.getLogger(__name__)
 
 
-
-def _parser_from_fileobj(fileobj) -> List[float]:
+def _parser_from_fileobj(fileobj) -> list[float]:
     lis = []
     for line in fileobj:
         if "lnL" in line:
@@ -58,12 +57,14 @@ def codeml_output(state: int, protein: str):
         list containing the same fields written to `Gene_Output.csv`.
     """
     if chi2 is None:
-        logger.warning("scipy not available; p-values will be empty. Install scipy to enable p-value computation.")
+        logger.warning(
+            "scipy not available; p-values will be empty. Install scipy to enable p-value computation."
+        )
         compute_pvals = False
     else:
         compute_pvals = True
 
-    def parser_path(path: Path) -> List[float]:
+    def parser_path(path: Path) -> list[float]:
         if not path.exists():
             return []
         with path.open("r") as fh:
@@ -113,36 +114,40 @@ def codeml_output(state: int, protein: str):
     out_path = Path("Gene_Output.csv")
     with out_path.open("w", newline="") as newfile:
         wr = csv.writer(newfile)
-        wr.writerow([
-            "Name",
-            "Model0",
-            "Model7",
-            "Model8",
-            "Model8a",
-            "Model2a",
-            "Model2",
-            "LRT(M7_vs_M8)",
-            "LRT(M8a_vs_M8)",
-            "LRT(M2a_vs_M2)",
-            "p-v7vs8",
-            "p-v8avs8",
-            "p-v2avs2",
-        ])
-        wr.writerow([
-            protein,
-            models078[0] if len(models078) > 0 else "",
-            models078[1] if len(models078) > 1 else "",
-            models078[2] if len(models078) > 2 else "",
-            model8a[0] if len(model8a) > 0 else "",
-            model2a[0] if len(model2a) > 0 else "",
-            model2[0] if len(model2) > 0 else "",
-            lrt78,
-            lrt88a,
-            lrt22a,
-            chi78,
-            chi88a,
-            chi22a,
-        ])
+        wr.writerow(
+            [
+                "Name",
+                "Model0",
+                "Model7",
+                "Model8",
+                "Model8a",
+                "Model2a",
+                "Model2",
+                "LRT(M7_vs_M8)",
+                "LRT(M8a_vs_M8)",
+                "LRT(M2a_vs_M2)",
+                "p-v7vs8",
+                "p-v8avs8",
+                "p-v2avs2",
+            ]
+        )
+        wr.writerow(
+            [
+                protein,
+                models078[0] if len(models078) > 0 else "",
+                models078[1] if len(models078) > 1 else "",
+                models078[2] if len(models078) > 2 else "",
+                model8a[0] if len(model8a) > 0 else "",
+                model2a[0] if len(model2a) > 0 else "",
+                model2[0] if len(model2) > 0 else "",
+                lrt78,
+                lrt88a,
+                lrt22a,
+                chi78,
+                chi88a,
+                chi22a,
+            ]
+        )
 
     return [
         protein,
@@ -201,8 +206,10 @@ def _run_codeml(codeml_cmd: str = "codeml", cwd: Path | None = None):
         cwd = Path.cwd()
     try:
         completed = subprocess.run([codeml_cmd], cwd=str(cwd), capture_output=True, text=True)
-    except FileNotFoundError:
-        raise RuntimeError(f"codeml executable not found: '{codeml_cmd}'. Provide full path or install PAML.")
+    except FileNotFoundError as e:
+        raise RuntimeError(
+            f"codeml executable not found: '{codeml_cmd}'. Provide full path or install PAML."
+        ) from e
     # write logs for debugging into the working directory
     (cwd / "codeml_stdout.txt").write_text(completed.stdout)
     (cwd / "codeml_stderr.txt").write_text(completed.stderr)
@@ -299,14 +306,14 @@ __all__ = [
 #     model2a = [""]
 #     model2 = [""]
 #     lrt22a = ''
-    
+
 #     if state == 1:
 #         reader2a = open("codeml2a/codeml2a_mlc.txt","r")
 #         model2a = parser(reader2a)
-        
+
 #         reader2 = open("codeml2/codeml2_mlc.txt","r")
 #         model2 = parser(reader2)
-        
+
 #         lrt22a = 2*(model2a[0] - model2[0])
 
 #     lrt78 = 2*(models078[2] - models078[1])
@@ -322,7 +329,7 @@ __all__ = [
 #         return [protein, models078[0], models078[1], models078[2], model8a[0], model2a[0], model2[0],lrt78, lrt88a, lrt22a, chi78, chi88a, chi22a]
 
 
-# def hashing(interest):  
+# def hashing(interest):
 #     """
 #         Function that sets an indicator for the gene of interest for codeml
 
@@ -341,8 +348,8 @@ __all__ = [
 #     newick_open.close()
 #     print(newick_read)
 #     newick_create.write(newick_read)
-    
-    
+
+
 # def model078():
 #     """
 #         Function that Runs Codeml models 0,7,8
@@ -352,7 +359,7 @@ __all__ = [
 #     f.writelines(m)
 #     f.close()
 #     os.system("codeml")
-    
+
 # def model8a():
 #     """
 #         Function that Runs Codeml model 8a
@@ -392,16 +399,16 @@ __all__ = [
 #     """
 #         function that creates configuration files for codeml
 #     """
-    
-    
+
+
 #     c078 = """          seqfile = Reverse_Translation_Seq.txt-gb1.fst * fasta file
-#          treefile = Species_Phylogenetic_tree_newick_nodistances.nwk * 
+#          treefile = Species_Phylogenetic_tree_newick_nodistances.nwk *
 #           outfile = codeml078_mlc.txt
 
 #             noisy = 9   * 0,1,2,3,9: how much rubbish on the screen
 #           verbose = 1   * 1: detailed output, 0: concise output
 #           runmode = 0   * 0: user tree;  1: semi-automatic;  2: automatic
-#                         * 3: StepwiseAddition; (4,5):PerturbationNNI 
+#                         * 3: StepwiseAddition; (4,5):PerturbationNNI
 
 #           seqtype = 1   * 1:codons; 2:AAs; 3:codons-->AAs
 #         CodonFreq = 2   * 0:1/61 each, 1:F1X4, 2:F3X4, 3:codon table
@@ -415,7 +422,7 @@ __all__ = [
 
 #         fix_kappa = 0   * 1: kappa fixed, 0: kappa to be estimated
 #             kappa = 2   * initial or fixed kappa
-#         fix_omega = 0   * 1: omega or omega_1 fixed, 0: estimate 
+#         fix_omega = 0   * 1: omega or omega_1 fixed, 0: estimate
 #             omega = 2   * initial or fixed omega, for codons or codon-transltd AAs
 
 #         fix_alpha = 1   * 0: estimate gamma shape parameter; 1: fix it at alpha
@@ -435,13 +442,13 @@ __all__ = [
 #     * see the tree file lysozyme.trees for specification of node (branch) labels"""
 
 #     c8a = """          seqfile = Reverse_Translation_Seq.txt-gb1.fst * fasta file
-#          treefile = Species_Phylogenetic_tree_newick_nodistances.nwk * 
+#          treefile = Species_Phylogenetic_tree_newick_nodistances.nwk *
 #           outfile = codeml8a_mlc.txt
 
 #             noisy = 9   * 0,1,2,3,9: how much rubbish on the screen
 #           verbose = 1   * 1: detailed output, 0: concise output
 #           runmode = 0   * 0: user tree;  1: semi-automatic;  2: automatic
-#                         * 3: StepwiseAddition; (4,5):PerturbationNNI 
+#                         * 3: StepwiseAddition; (4,5):PerturbationNNI
 
 #           seqtype = 1   * 1:codons; 2:AAs; 3:codons-->AAs
 #         CodonFreq = 2   * 0:1/61 each, 1:F1X4, 2:F3X4, 3:codon table
@@ -455,7 +462,7 @@ __all__ = [
 
 #         fix_kappa = 0   * 1: kappa fixed, 0: kappa to be estimated
 #             kappa = 2   * initial or fixed kappa
-#         fix_omega = 1   * 1: omega or omega_1 fixed, 0: estimate 
+#         fix_omega = 1   * 1: omega or omega_1 fixed, 0: estimate
 #             omega = 1   * initial or fixed omega, for codons or codon-transltd AAs
 
 #         fix_alpha = 1   * 0: estimate gamma shape parameter; 1: fix it at alpha
@@ -475,13 +482,13 @@ __all__ = [
 #     * see the tree file lysozyme.trees for specification of node (branch) labels"""
 
 #     c2a = """          seqfile = Reverse_Translation_Seq.txt-gb1.fst * fasta file
-#          treefile = Species_Phylogenetic_tree_newick_Interst#.nwk * 
+#          treefile = Species_Phylogenetic_tree_newick_Interst#.nwk *
 #           outfile = codeml2a_mlc.txt
 
 #             noisy = 9   * 0,1,2,3,9: how much rubbish on the screen
 #           verbose = 1   * 1: detailed output, 0: concise output
 #           runmode = 0   * 0: user tree;  1: semi-automatic;  2: automatic
-#                         * 3: StepwiseAddition; (4,5):PerturbationNNI 
+#                         * 3: StepwiseAddition; (4,5):PerturbationNNI
 
 #           seqtype = 1   * 1:codons; 2:AAs; 3:codons-->AAs
 #         CodonFreq = 2   * 0:1/61 each, 1:F1X4, 2:F3X4, 3:codon table
@@ -495,7 +502,7 @@ __all__ = [
 
 #         fix_kappa = 0   * 1: kappa fixed, 0: kappa to be estimated
 #             kappa = 2   * initial or fixed kappa
-#         fix_omega = 0   * 1: omega or omega_1 fixed, 0: estimate 
+#         fix_omega = 0   * 1: omega or omega_1 fixed, 0: estimate
 #             omega = 2   * initial or fixed omega, for codons or codon-transltd AAs
 
 #         fix_alpha = 1   * 0: estimate gamma shape parameter; 1: fix it at alpha
@@ -515,13 +522,13 @@ __all__ = [
 #     * see the tree file lysozyme.trees for specification of node (branch) labels"""
 
 #     c2 = """          seqfile = Reverse_Translation_Seq.txt-gb1.fst * fasta file
-#          treefile = Species_Phylogenetic_tree_newick_Interst#.nwk * 
+#          treefile = Species_Phylogenetic_tree_newick_Interst#.nwk *
 #           outfile = codeml2_mlc.txt
 
 #             noisy = 9   * 0,1,2,3,9: how much rubbish on the screen
 #           verbose = 1   * 1: detailed output, 0: concise output
 #           runmode = 0   * 0: user tree;  1: semi-automatic;  2: automatic
-#                         * 3: StepwiseAddition; (4,5):PerturbationNNI 
+#                         * 3: StepwiseAddition; (4,5):PerturbationNNI
 
 #           seqtype = 1   * 1:codons; 2:AAs; 3:codons-->AAs
 #         CodonFreq = 2   * 0:1/61 each, 1:F1X4, 2:F3X4, 3:codon table
@@ -535,7 +542,7 @@ __all__ = [
 
 #         fix_kappa = 0   * 1: kappa fixed, 0: kappa to be estimated
 #             kappa = 2   * initial or fixed kappa
-#         fix_omega = 1   * 1: omega or omega_1 fixed, 0: estimate 
+#         fix_omega = 1   * 1: omega or omega_1 fixed, 0: estimate
 #             omega = 1   * initial or fixed omega, for codons or codon-transltd AAs
 
 #         fix_alpha = 1   * 0: estimate gamma shape parameter; 1: fix it at alpha
@@ -561,8 +568,8 @@ __all__ = [
 #     codeml2a.write(c2a)
 #     codeml2 = open("codeml2.ctl", "w")
 #     codeml2.write(c2)
-    
-    
+
+
 # def codeml_output(state, protein):
 #     """
 #         Function creates a spreadsheet for the p-values
@@ -590,14 +597,14 @@ __all__ = [
 #     model2a = [""]
 #     model2 = [""]
 #     lrt22a = ''
-    
+
 #     if state == 1:
 #         reader2a = open("codeml2a/codeml2a_mlc.txt","r")
 #         model2a = parser(reader2a)
-        
+
 #         reader2 = open("codeml2/codeml2_mlc.txt","r")
 #         model2 = parser(reader2)
-        
+
 #         lrt22a = 2*(model2a[0] - model2[0])
 
 #     lrt78 = 2*(models078[2] - models078[1])

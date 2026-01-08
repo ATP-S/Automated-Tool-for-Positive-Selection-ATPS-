@@ -1,14 +1,13 @@
 """Download and install external tools (jModelTest, Gblocks) for phylogenetic analysis."""
+
 from __future__ import annotations
 
 import logging
-import shutil
 import tarfile
 import zipfile
 from pathlib import Path
-from typing import Optional
-from urllib.request import urlretrieve
 from urllib.error import URLError
+from urllib.request import urlretrieve
 
 logger = logging.getLogger(__name__)
 
@@ -39,8 +38,8 @@ def _download_file(url: str, dest: Path, chunk_size: int = 8192) -> Path:
     try:
         urlretrieve(url, str(dest))
     except URLError as e:
-        raise RuntimeError(f"Failed to download {url}: {e}")
-    
+        raise RuntimeError(f"Failed to download {url}: {e}") from e
+
     logger.info("Download complete: %s (%.2f MB)", dest.name, dest.stat().st_size / 1024 / 1024)
     return dest
 
@@ -78,7 +77,7 @@ def _extract_tar(archive: Path, dest_dir: Path) -> Path:
 
 
 def download_jmodeltest(
-    dest_dir: Optional[Path | str] = None,
+    dest_dir: Path | str | None = None,
     url: str = JMODELTEST_URL,
     force: bool = False,
 ) -> Path:
@@ -121,7 +120,7 @@ def download_jmodeltest(
 
 
 def download_gblocks(
-    dest_dir: Optional[Path | str] = None,
+    dest_dir: Path | str | None = None,
     url: str = GBLOCKS_URL,
     force: bool = False,
 ) -> Path:
@@ -164,7 +163,7 @@ def download_gblocks(
 
 
 def download_all_tools(
-    dest_dir: Optional[Path | str] = None,
+    dest_dir: Path | str | None = None,
     force: bool = False,
 ) -> dict:
     """Download and install all required external tools.
@@ -193,7 +192,12 @@ def download_all_tools(
 def download() -> None:
     """DEPRECATED: Use `download_all_tools()` instead."""
     import warnings
-    warnings.warn("download() is deprecated; use download_all_tools() instead.", DeprecationWarning, stacklevel=2)
+
+    warnings.warn(
+        "download() is deprecated; use download_all_tools() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
 
     download_all_tools()
 

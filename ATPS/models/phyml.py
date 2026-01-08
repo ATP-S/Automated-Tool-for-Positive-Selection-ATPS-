@@ -1,11 +1,11 @@
 """PhyML wrapper for maximum-likelihood phylogenetic tree inference."""
+
 from __future__ import annotations
 
 import logging
 import shutil
 import subprocess
 from pathlib import Path
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 
@@ -59,12 +59,18 @@ def run_phyml(
 
     cmd = [
         str(exe),
-        "-i", str(input_path),
-        "-d", data_type,
-        "-b", str(bootstrap_replicates),
-        "-m", partition,
-        "-f", freq,
-        "-v", pinvar,
+        "-i",
+        str(input_path),
+        "-d",
+        data_type,
+        "-b",
+        str(bootstrap_replicates),
+        "-m",
+        partition,
+        "-f",
+        freq,
+        "-v",
+        pinvar,
     ]
 
     logger.info("Running PhyML: %s", " ".join(cmd))
@@ -119,7 +125,10 @@ def run_phyml(
 def phyml(partition: str, freq: str, pinvar: str, replica: int) -> None:
     """DEPRECATED: Use `run_phyml(input_file, ...)` instead."""
     import warnings
-    warnings.warn("phyml() is deprecated; use run_phyml() instead.", DeprecationWarning, stacklevel=2)
+
+    warnings.warn(
+        "phyml() is deprecated; use run_phyml() instead.", DeprecationWarning, stacklevel=2
+    )
 
     run_phyml(
         input_file="Reverse_Translation_Seq.txt-gb1.phy",
@@ -130,4 +139,4 @@ def phyml(partition: str, freq: str, pinvar: str, replica: int) -> None:
     )
 
 
-__all__ = ["run_phyml", "phyml"]    
+__all__ = ["run_phyml", "phyml"]

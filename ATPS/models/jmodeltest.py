@@ -1,10 +1,10 @@
 """jModelTest wrapper for nucleotide substitution model selection."""
+
 from __future__ import annotations
 
 import logging
 import subprocess
 from pathlib import Path
-from typing import List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +24,7 @@ def run_jmodeltest(
     include_invariant: bool = True,
     include_freq: bool = True,
     java_cmd: str = "java",
-    extra_args: Optional[List[str]] = None,
+    extra_args: list[str] | None = None,
 ) -> Path:
     """Run jModelTest to select the best-fit substitution model.
 
@@ -59,13 +59,20 @@ def run_jmodeltest(
     output_path = Path(output_file)
 
     cmd = [
-        java_cmd, "-jar", str(jar),
-        "-d", str(input_path),
-        "-s", str(num_substitution_schemes),
-        "-g", str(num_rate_categories),
-        "-t", tree_method,
+        java_cmd,
+        "-jar",
+        str(jar),
+        "-d",
+        str(input_path),
+        "-s",
+        str(num_substitution_schemes),
+        "-g",
+        str(num_rate_categories),
+        "-t",
+        tree_method,
         f"-{criterion}",
-        "-o", str(output_path),
+        "-o",
+        str(output_path),
     ]
 
     if include_freq:
@@ -100,7 +107,10 @@ def run_jmodeltest(
 def jmodel() -> None:
     """DEPRECATED: Use `run_jmodeltest(input_file)` instead."""
     import warnings
-    warnings.warn("jmodel() is deprecated; use run_jmodeltest() instead.", DeprecationWarning, stacklevel=2)
+
+    warnings.warn(
+        "jmodel() is deprecated; use run_jmodeltest() instead.", DeprecationWarning, stacklevel=2
+    )
 
     run_jmodeltest("Reverse_Translation_Seq.txt-gb1.phy")
 

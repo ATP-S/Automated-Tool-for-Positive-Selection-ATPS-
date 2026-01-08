@@ -1,19 +1,19 @@
 """PHAST wrapper for phylogenetic conservation analysis and wig-score computation."""
+
 from __future__ import annotations
 
 import logging
 import shutil
 import subprocess
-import os
 from pathlib import Path
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 
 # Optional imports for visualization
 try:
-    import pandas as pd
     import matplotlib.pyplot as plt
+    import pandas as pd
+
     _HAS_PLOTTING = True
 except ImportError:
     pd = None
@@ -106,8 +106,10 @@ def run_phylop(
     cmd = [
         phylop_cmd,
         "--wig-scores",
-        "--method", method,
-        "--mode", mode,
+        "--method",
+        method,
+        "--mode",
+        mode,
         str(model_path),
         str(align_path),
     ]
@@ -129,7 +131,7 @@ def plot_wigscores(
     output_image: Path | str = "wigscore.png",
     output_excel: Path | str | None = "phast_output.xlsx",
     dpi: int = 100,
-) -> Optional[Path]:
+) -> Path | None:
     """Parse wig-scores and generate a line plot.
 
     Args:
@@ -239,49 +241,49 @@ def run_phast_pipeline(
 # ---------------------------------------------------------------------------
 # Legacy API (deprecated) — kept for backward compatibility
 # ---------------------------------------------------------------------------
-def phast(gene: str) -> None:
-    """DEPRECATED: Use `run_phast_pipeline(gene)` instead."""
-    import warnings
-    warnings.warn("phast() is deprecated; use run_phast_pipeline() instead.", DeprecationWarning, stacklevel=2)
+# def phast(gene: str) -> None:
+#     """DEPRECATED: Use `run_phast_pipeline(gene)` instead."""
+#     import warnings
+#     warnings.warn("phast() is deprecated; use run_phast_pipeline() instead.", DeprecationWarning, stacklevel=2)
 
-    original = r"Species_Phylogenetic_tree.txt"
-    target = r"Species_Phylogenetic_tree.nwk"
-    shutil.copyfile(original , target)
-    try:
-        os.system("phyloFit --tree Species_Phylogenetic_tree.nwk Alignment.ali > "+gene+".mod")
-    except:
-        #os.system("sudo apt-get install -y phast")
-        os.system("phyloFit --tree Species_Phylogenetic_tree.nwk Alignment.ali > " + gene + ".mod")
-    try:
-       
-        shutil.move('phyloFit.mod', 'phyloFit.txt')
-    except:
-        #os.system("sudo apt-get install -y phast")
-        os.system("phyloFit --tree Species_Phylogenetic_tree.nwk Alignment.ali > " + gene + ".mod")
-        shutil.move('phyloFit.mod', 'phyloFit.txt')
-        
-    os.system("phyloP --wig-scores --method LRT --mode CONACC phyloFit.txt Alignment.ali > wigscore")
-    file1 = open("wigscore","r")
-    df = pd.read_table('wigscore')
-    df.to_excel('phast_output.xlsx', 'Sheet1')
-    #df['fixed'] = df['fixed'].str.replace(r'\D', '').astype(float)
-    df.columns.values[0] = "Name"
-    df=df[df.Name.str.contains(r'[.]')]
-    print(df.head())
-    df.head()
-    df=df.astype(float)
-    plt.style.use('seaborn-whitegrid')
-    df=df.astype(float)
-    p=df.plot.line(color="#0e6655")
-    fig1 = plt.gcf()
-    p.set_facecolor('#d0d3d4')
-    #plt.draw()
-    #try:
-    #    plt.show()
-    #except:
-    #    plt.show()
-    #else:
-    fig1.savefig('wigscore.png', dpi=100)
+#     original = r"Species_Phylogenetic_tree.txt"
+#     target = r"Species_Phylogenetic_tree.nwk"
+#     shutil.copyfile(original , target)
+#     try:
+#         os.system("phyloFit --tree Species_Phylogenetic_tree.nwk Alignment.ali > "+gene+".mod")
+#     except:
+#         #os.system("sudo apt-get install -y phast")
+#         os.system("phyloFit --tree Species_Phylogenetic_tree.nwk Alignment.ali > " + gene + ".mod")
+#     try:
+
+#         shutil.move('phyloFit.mod', 'phyloFit.txt')
+#     except:
+#         #os.system("sudo apt-get install -y phast")
+#         os.system("phyloFit --tree Species_Phylogenetic_tree.nwk Alignment.ali > " + gene + ".mod")
+#         shutil.move('phyloFit.mod', 'phyloFit.txt')
+
+#     os.system("phyloP --wig-scores --method LRT --mode CONACC phyloFit.txt Alignment.ali > wigscore")
+#     file1 = open("wigscore")
+#     df = pd.read_table('wigscore')
+#     df.to_excel('phast_output.xlsx', 'Sheet1')
+#     #df['fixed'] = df['fixed'].str.replace(r'\D', '').astype(float)
+#     df.columns.values[0] = "Name"
+#     df=df[df.Name.str.contains(r'[.]')]
+#     print(df.head())
+#     df.head()
+#     df=df.astype(float)
+#     plt.style.use('seaborn-whitegrid')
+#     df=df.astype(float)
+#     p=df.plot.line(color="#0e6655")
+#     fig1 = plt.gcf()
+#     p.set_facecolor('#d0d3d4')
+#     #plt.draw()
+#     #try:
+#     #    plt.show()
+#     #except:
+#     #    plt.show()
+#     #else:
+#     fig1.savefig('wigscore.png', dpi=100)
 
 
 __all__ = [
@@ -289,5 +291,4 @@ __all__ = [
     "run_phylop",
     "plot_wigscores",
     "run_phast_pipeline",
-    "phast",
 ]

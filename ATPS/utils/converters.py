@@ -1,10 +1,10 @@
 """File format converters for phylogenetic analysis (FASTA, PHYLIP, Newick)."""
+
 from __future__ import annotations
 
 import logging
 import subprocess
 from pathlib import Path
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 
@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 try:
     from Bio import AlignIO, Phylo
     from Bio.Phylo import TreeConstruction
+
     _HAS_BIOPYTHON = True
 except ImportError:
     AlignIO = None
@@ -26,8 +27,8 @@ _JMODELTEST_JAR = _MODULE_DIR.parent / "assets" / "tools" / "jmodeltest-2.1.7" /
 
 def convert_fasta_to_phylip(
     input_file: Path | str,
-    output_file: Optional[Path | str] = None,
-    jar_path: Optional[Path | str] = None,
+    output_file: Path | str | None = None,
+    jar_path: Path | str | None = None,
     java_cmd: str = "java",
 ) -> Path:
     """Convert a FASTA file to PHYLIP format using jModelTest.
@@ -78,7 +79,7 @@ def convert_to_newick(
     alignment_file: Path | str,
     tree_file: Path | str,
     output_newick: Path | str = "Species_Phylogenetic_tree_newick.nwk",
-    output_phyloxml: Optional[Path | str] = None,
+    output_phyloxml: Path | str | None = None,
     alignment_format: str = "phylip-relaxed",
 ) -> Path:
     """Convert a phylogenetic tree to Newick format with parsimony optimization.
@@ -171,7 +172,9 @@ def convert_alignment_format(
     if not input_path.exists():
         raise FileNotFoundError(f"Input file not found: {input_path}")
 
-    logger.info("Converting %s (%s) -> %s (%s)", input_path, input_format, output_path, output_format)
+    logger.info(
+        "Converting %s (%s) -> %s (%s)", input_path, input_format, output_path, output_format
+    )
 
     alignment = AlignIO.read(str(input_path), input_format)
     AlignIO.write(alignment, str(output_path), output_format)
@@ -186,7 +189,12 @@ def convert_alignment_format(
 def convert_fst_phy() -> None:
     """DEPRECATED: Use `convert_fasta_to_phylip(input_file)` instead."""
     import warnings
-    warnings.warn("convert_fst_phy() is deprecated; use convert_fasta_to_phylip() instead.", DeprecationWarning, stacklevel=2)
+
+    warnings.warn(
+        "convert_fst_phy() is deprecated; use convert_fasta_to_phylip() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
 
     convert_fasta_to_phylip("Reverse_Translation_Seq.txt-gb1")
 
@@ -194,7 +202,12 @@ def convert_fst_phy() -> None:
 def convert_to_newickTree() -> None:
     """DEPRECATED: Use `convert_to_newick(alignment_file, tree_file)` instead."""
     import warnings
-    warnings.warn("convert_to_newickTree() is deprecated; use convert_to_newick() instead.", DeprecationWarning, stacklevel=2)
+
+    warnings.warn(
+        "convert_to_newickTree() is deprecated; use convert_to_newick() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
 
     convert_to_newick(
         alignment_file="Reverse_Translation_Seq.txt-gb1.phy",

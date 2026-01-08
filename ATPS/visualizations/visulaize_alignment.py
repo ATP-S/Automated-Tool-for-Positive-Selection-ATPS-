@@ -1,24 +1,28 @@
 """Sequence alignment visualization utilities using Bokeh."""
+
 from __future__ import annotations
 
 import logging
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Sequence, Union
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
 # Optional imports
 try:
     import numpy as np
+
     _HAS_NUMPY = True
 except ImportError:
     np = None
     _HAS_NUMPY = False
 
 try:
-    from bokeh.plotting import figure, show
-    from bokeh.models import ColumnDataSource, Range1d, Rect, Text
     from bokeh.layouts import gridplot
+    from bokeh.models import ColumnDataSource, Range1d, Rect, Text
+    from bokeh.plotting import figure, show
+
     _HAS_BOKEH = True
 except ImportError:
     figure = None
@@ -33,6 +37,7 @@ except ImportError:
 try:
     from Bio import AlignIO
     from Bio.Align import MultipleSeqAlignment
+
     _HAS_BIOPYTHON = True
 except ImportError:
     AlignIO = None
@@ -56,8 +61,8 @@ def _check_dependencies() -> None:
 
 def _get_alignment_colors(
     sequences: Sequence[str],
-    color_scheme: Optional[Dict[str, str]] = None,
-) -> List[str]:
+    color_scheme: dict[str, str] | None = None,
+) -> list[str]:
     """Get colors for each residue in the alignment.
 
     Args:
@@ -71,17 +76,31 @@ def _get_alignment_colors(
     if color_scheme is None:
         color_scheme = {
             # Hydrophobic (blue)
-            "A": "#80a0f0", "I": "#80a0f0", "L": "#80a0f0", "M": "#80a0f0", "V": "#80a0f0",
+            "A": "#80a0f0",
+            "I": "#80a0f0",
+            "L": "#80a0f0",
+            "M": "#80a0f0",
+            "V": "#80a0f0",
             # Aromatic (orange)
-            "F": "#f0a000", "W": "#f0a000", "Y": "#f0a000",
+            "F": "#f0a000",
+            "W": "#f0a000",
+            "Y": "#f0a000",
             # Polar (green)
-            "N": "#00ff00", "Q": "#00ff00", "S": "#00ff00", "T": "#00ff00",
+            "N": "#00ff00",
+            "Q": "#00ff00",
+            "S": "#00ff00",
+            "T": "#00ff00",
             # Positive (red)
-            "K": "#ff0000", "R": "#ff0000", "H": "#ff0000",
+            "K": "#ff0000",
+            "R": "#ff0000",
+            "H": "#ff0000",
             # Negative (magenta)
-            "D": "#c048c0", "E": "#c048c0",
+            "D": "#c048c0",
+            "E": "#c048c0",
             # Special (yellow/cyan)
-            "C": "#f0f000", "G": "#f0a000", "P": "#00ff00",
+            "C": "#f0f000",
+            "G": "#f0a000",
+            "P": "#00ff00",
             # Gap
             "-": "#ffffff",
             # Unknown
@@ -99,7 +118,7 @@ def _get_alignment_colors(
 def load_alignment(
     alignment_file: Path | str,
     file_format: str = "fasta",
-) -> "MultipleSeqAlignment":
+) -> MultipleSeqAlignment:
     """Load a multiple sequence alignment from file.
 
     Args:
@@ -121,17 +140,21 @@ def load_alignment(
         raise FileNotFoundError(f"Alignment file not found: {path}")
 
     alignment = AlignIO.read(str(path), file_format)
-    logger.info("Loaded alignment with %d sequences of length %d", len(alignment), alignment.get_alignment_length())
+    logger.info(
+        "Loaded alignment with %d sequences of length %d",
+        len(alignment),
+        alignment.get_alignment_length(),
+    )
 
     return alignment
 
 
 def view_alignment(
-    alignment: Union["MultipleSeqAlignment", Path, str],
+    alignment: MultipleSeqAlignment | Path | str,
     fontsize: str = "9pt",
     plot_width: int = 800,
-    color_scheme: Optional[Dict[str, str]] = None,
-    title: Optional[str] = None,
+    color_scheme: dict[str, str] | None = None,
+    title: str | None = None,
     show_plot: bool = True,
     file_format: str = "fasta",
 ) -> Any:
@@ -190,13 +213,15 @@ def view_alignment(
     recty = gy + 0.5  # Offset for rectangle centers
 
     # Create data source
-    source = ColumnDataSource(dict(
-        x=gx,
-        y=gy,
-        recty=recty,
-        text=text,
-        colors=colors,
-    ))
+    source = ColumnDataSource(
+        {
+            "x": gx,
+            "y": gy,
+            "recty": recty,
+            "text": text,
+            "colors": colors,
+        }
+    )
 
     # Calculate dimensions
     plot_height = num_seqs * 15 + 50
@@ -281,7 +306,7 @@ def view_alignment(
 
 
 def save_alignment_html(
-    alignment: Union["MultipleSeqAlignment", Path, str],
+    alignment: MultipleSeqAlignment | Path | str,
     output_file: Path | str,
     **kwargs,
 ) -> Path:
@@ -317,9 +342,9 @@ def save_alignment_html(
 
 
 def get_alignment_statistics(
-    alignment: Union["MultipleSeqAlignment", Path, str],
+    alignment: MultipleSeqAlignment | Path | str,
     file_format: str = "fasta",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Calculate basic statistics for an alignment.
 
     Args:
@@ -350,14 +375,8 @@ def get_alignment_statistics(
     comparisons = 0
     for i in range(num_seqs):
         for j in range(i + 1, num_seqs):
-            matches = sum(
-                1 for a, b in zip(sequences[i], sequences[j])
-                if a == b and a != "-"
-            )
-            non_gap = sum(
-                1 for a, b in zip(sequences[i], sequences[j])
-                if a != "-" and b != "-"
-            )
+            matches = sum(1 for a, b in zip(sequences[i], sequences[j]) if a == b and a != "-")
+            non_gap = sum(1 for a, b in zip(sequences[i], sequences[j]) if a != "-" and b != "-")
             if non_gap > 0:
                 identity_sum += matches / non_gap
                 comparisons += 1
