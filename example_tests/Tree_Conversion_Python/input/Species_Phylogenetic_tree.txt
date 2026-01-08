@@ -1,0 +1,1 @@
+(rattus_norvegicus:0.23022557,homo_sapiens:0.07285478,felis_catus:0.16573370);
