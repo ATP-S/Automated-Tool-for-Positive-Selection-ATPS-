@@ -3,11 +3,37 @@
 from __future__ import annotations
 
 import logging
+import os
+import shutil
 import subprocess
 from enum import Enum
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
+
+
+def _find_executable(name: str) -> str | None:
+    """Find an executable by name, checking PATH and common locations."""
+    # First check PATH via shutil.which
+    found = shutil.which(name)
+    if found:
+        return found
+
+    # Check common installation paths
+    user = os.environ.get("USER", "user")
+    common_paths = [
+        f"/home/{user}/miniconda3/bin/{name}",
+        f"/home/{user}/anaconda3/bin/{name}",
+        f"/usr/bin/{name}",
+        f"/usr/local/bin/{name}",
+        f"/opt/local/bin/{name}",
+    ]
+
+    for path in common_paths:
+        if Path(path).exists():
+            return path
+
+    return None
 
 
 class Aligner(str, Enum):
@@ -78,14 +104,26 @@ def run_alignment(
                     f"Unknown aligner '{aligner}'. Use: {[a.value for a in Aligner]}"
                 ) from e
 
-    exe = aligner_exe or aligner.value
+    exe = aligner_exe or _find_executable(aligner.value) or aligner.value
     extra = extra_args or []
 
     # Build command based on aligner
     if aligner == Aligner.MUSCLE:
         # MUSCLE 5 uses -align/-output, MUSCLE 3 uses -in/-out
-        # Try MUSCLE 5 syntax first (more common now)
-        cmd = [exe, "-align", str(input_path), "-output", str(output_path)] + extra
+        # Detect version by checking if -align is supported
+        version_check = subprocess.run(
+            [exe, "-version"], capture_output=True, text=True
+        )
+        version_output = version_check.stdout + version_check.stderr
+
+        # MUSCLE 3.x returns version like "MUSCLE v3.8.1551"
+        # MUSCLE 5.x returns version like "muscle 5.1.linux64"
+        if "v3." in version_output or "3." in version_output.split()[0:2]:
+            # MUSCLE 3.x syntax
+            cmd = [exe, "-in", str(input_path), "-out", str(output_path)] + extra
+        else:
+            # MUSCLE 5.x syntax
+            cmd = [exe, "-align", str(input_path), "-output", str(output_path)] + extra
         use_stdout = False
     elif aligner == Aligner.CLUSTALO:
         cmd = [exe, "-i", str(input_path), "-o", str(output_path)] + extra

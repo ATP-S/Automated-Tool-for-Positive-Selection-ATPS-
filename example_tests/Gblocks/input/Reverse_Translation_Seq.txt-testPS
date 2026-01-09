@@ -1,0 +1,58 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 20 20 200 1241 
+%%Title: example_tests/Gblocks/input/Reverse_Translation_Seq.txt
+%%Creator Gblocks 0.91b
+%%Pages: 1
+
+/seq {
+newpath
+ 25   moveto
+0  10   rlineto
+  35   lineto
+0 -10 rlineto
+closepath
+fill
+} def
+
+/block {
+newpath
+ 10   moveto
+0  10   rlineto
+  20   lineto
+0 -10 rlineto
+closepath
+fill
+} def
+
+/sh1 {
+30 add
+} def
+
+/sh2 {
+31 add
+} def
+
+/Helvetica findfont 12 scalefont setfont
+
+gsave
+180 0 translate
+90 rotate
+
+newpath
+30 100 moveto
+(Blocks found by Gblocks version 0.91b for the file Reverse_Translation_Seq.txt-testPS) show
+30 80 moveto
+(Parameters used: 2 2 8 10 2) show
+
+1 sh1 1191 sh2 seq
+
+1 sh1 111 sh2 block
+124 sh1 144 sh2 block
+148 sh1 177 sh2 block
+184 sh1 225 sh2 block
+232 sh1 561 sh2 block
+565 sh1 1191 sh2 block
+
+grestore
+showpage
+%%EOF

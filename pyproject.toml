@@ -11,7 +11,7 @@ license = {text = "MIT"}
 requires-python = ">=3.9"
 authors = [
     {name = "Marwan", email = "mar.khaled@nu.edu.eg"},
-    {name = "Youssef", email = "youssef@nu.edu.eg"}
+    {name = "Youssef", email = "yofadel@nu.edu.eg"}
 ]
 keywords = [
     "bioinformatics",

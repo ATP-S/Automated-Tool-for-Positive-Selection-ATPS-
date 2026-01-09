@@ -1,0 +1,572 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://gmpg.org/xfn/11">
+	<title>jModelTest Output</title>
+
+	<link rel="stylesheet" href="resources/style.css" type="text/css" media="screen" />
+	<!--[if IE]>
+	<style type="text/css">
+	  .clearfix {
+		zoom: 1;
+		display: block; 
+		} 
+	</style>
+	<![endif]-->
+
+</head>
+
+<body>
+
+<div id="container1">
+<div id="container2">
+ 
+	<div id="header">
+		<div id="logo">
+			<a href="http://code.google.com/p/jmodeltest2">
+				<img src="resources/logo0.png" style="width:129px; height:80px;"/>
+			</a>
+		</div>
+		<div id="header-links">
+			<ul>
+				<li  class="header_button"><a href="http://code.google.com/p/jmodeltest2" title="Home">Home</a></li>
+				<li  class="header_button_span"><a href="https://groups.google.com/group/jmodeltest" title="Group">Discussion group</a></li>
+				<li  class="header_button"><a href="https://groups.google.com/forum/#!forum/jmodeltest" title="Forum">Forum</a></li>
+				<li  class="header_button"><a href="mailto:ddarriba@udc.es" title="Contact">Contact</a></li>
+			</ul>
+		</div>
+		<div id="menul1">
+			<ul>
+				<li  class="selection_button"><a href="#program-meta" title="Meta">Meta</a></li>
+				<li  class="selection_button"><a href="#settings" title="Settings">Settings</a></li>
+				<li  class="selection_button"><a href="#results" title="Input Data">Results</a></li>
+					<li class="selection_button_span"><a>Selection</a></li>
+
+			</ul>
+		</div>
+		<div id="menul2">
+			<ul>
+									<li  class="selection_button_na">
+					<a href="#aic" title="AIC">AIC</a></li>
+					<li  class="selection_button">
+					<a href="#aicc" title="AICc">AICc</a></li>
+					<li  class="selection_button_na">
+					<a href="#bic" title="BIC">BIC</a></li>
+					<li  class="selection_button_na">
+					<a href="#dt" title="DT">DT</a></li>
+			</ul>
+		</div><!--menu-->
+		<div style="clear:both;"></div>
+	</div><!--header-->
+
+<div id="clearfix">
+
+<div id="page">
+		<div id="content">
+
+<div id="program-meta">
+	<h1><a name="program-meta"></a>Application Meta</h1>
+	<h3>jModeltest 2.1</h3>
+	(c) 2011-onwards D. Darriba, G.L. Taboada, R. Doallo and D. Posada,<br/>
+    (1) Department of Biochemistry, Genetics and Immunology<br/>
+        University of Vigo, 36310 Vigo, Spain.<br/>
+    (2) Department of Electronics and Systems<br/>
+        University of A Coruna, 15071 A Coruna, Spain.<br/>
+    e-mail: ddarriba@udc.es, dposada@uvigo.es<br/>
+<br/>
+	<hr/>
+	Fri Jan 09 23:04:42 EET 2026 <br/> Linux 6.8.0-90-generic, arch: amd64, bits: 64, numcores: 16<br/>
+	
+	<p></p> 
+	<table align="center">
+	<tr valign="top"><td>Citation:</td><td align="left"> Darriba D, Taboada GL, Doallo R and Posada D. 2012. "jModelTest 2: more models, new heuristics and parallel computing". Nature Methods 9, 772.</td></tr>
+    </table>
+	<p></p>
+
+	 
+	Notice: This program may contain errors. Please inspect results carefully.<br/>
+	 <br/>
+ 
+</div>
+
+<p class="back-to-top"><a href="#" onclick="scrollTo(0,0);return false;" title="Back to top" class="top"><img src="resources/topIcon.gif" alt="Back to top" class="top" /> Back to top <img src="resources/topIcon.gif" alt="Back to top" class="top" /></a></p>
+
+	<h1><a name="settings"></a>Settings </h1>
+
+		 Arguments = -d /mnt/cc547df2-f550-4f0b-888a-eb04ece2a496/thesis/Automated-Tool-for-Positive-Selection-ATPS-/example_tests/jModelTest_Model_Selection/input/Reverse_Translation_Seq.txt-gb1.phy -s 11 -g 4 -t BIONJ -AICc -o /tmp/pytest-of-engy/pytest-11/test_jmodeltest_basic0/Jmodeltest_output -f -i <br/>
+		 Input Alignment: "/mnt/cc547df2-f550-4f0b-888a-eb04ece2a496/thesis/Automated-Tool-for-Positive-Selection-ATPS-/example_tests/jModelTest_Model_Selection/input/Reverse_Translation_Seq.txt-gb1.phy"<br/>
+		 NumTaxa = 3<br/>
+		 Length = 1,161<br/> 
+		 Phyml version = 3.0<br/>
+		 Phyml binary = PhyML_3.0_linux64<br/>
+		 Candidate models = 88<br/>
+		  number of substitution schemes = 11<br/>
+		  including models with equal/unequal base frequencies (+F)<br/>
+		  including models with/without a proportion of invariable sites (+I)<br/>
+		  including models with/without rate variation among sites (+G) (nCat = 4)<br/>
+		 Optimized free parameters (K) = Substitution parameters + 3 branch lengths <br/>
+		 
+		 Base tree for likelihood calculations = BioNJ<br/>
+		 Tree topology search operation = Best of {NNI, SPR}<br/>
+
+<p class="back-to-top"><a href="#" onclick="scrollTo(0,0);return false;" title="Back to top" class="top"><img src="resources/topIcon.gif" alt="Back to top" class="top" /> Back to top <img src="resources/topIcon.gif" alt="Back to top" class="top" /></a></p>
+
+<h1> <a name="results"></a>Model Optimization Results </h1>
+
+<div id="sorted-models">
+<table class="model-info">
+<tr><th> ID </th><th> Name </th><th> Partition </th><th> -lnL </th><th> p </th><th> fA </th><th> fC </th><th> fG </th><th> fT </th><th> ti/tv </th><th> R(a) </th><th> R(b) </th><th> R(c) </th><th> R(d) </th><th> R(e) </th><th> R(f) </th><th> p-inv </th><th> shape </th></tr>
+<tr><td> 1</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06594865,felis_catus:0.11119770,rattus_norvegicus:0.14549274);&useBranchLengths=true">JC</a></td><td> 000000 </td><td> 3009.4184 </td><td> 3 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td></tr>
+<tr><td> 2</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06770488,felis_catus:0.13086654,rattus_norvegicus:0.17656220);&useBranchLengths=true">JC+I</a></td><td> 000000 </td><td> 2999.1868 </td><td> 4 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 0.4950 </td><td> - </td></tr>
+<tr><td> 3</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06915607,felis_catus:0.13532186,rattus_norvegicus:0.18319567);&useBranchLengths=true">JC+G</a></td><td> 000000 </td><td> 2999.1844 </td><td> 4 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 0.5180 </td></tr>
+<tr><td> 4</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06921876,felis_catus:0.13563198,rattus_norvegicus:0.18371124);&useBranchLengths=true">JC+I+G</a></td><td> 000000 </td><td> 2999.1844 </td><td> 5 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 0.1940 </td><td> 0.8700 </td></tr>
+<tr><td> 5</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06588369,felis_catus:0.11172094,rattus_norvegicus:0.14555474);&useBranchLengths=true">F81</a></td><td> 000000 </td><td> 2991.6884 </td><td> 6 </td><td> 0.2328 </td><td> 0.3083 </td><td> 0.2563 </td><td> 0.2026 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td></tr>
+<tr><td> 6</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06737454,felis_catus:0.13300278,rattus_norvegicus:0.17750514);&useBranchLengths=true">F81+I</a></td><td> 000000 </td><td> 2981.1502 </td><td> 7 </td><td> 0.2321 </td><td> 0.3095 </td><td> 0.2555 </td><td> 0.2030 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 0.4990 </td><td> - </td></tr>
+<tr><td> 7</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06887059,felis_catus:0.13771502,rattus_norvegicus:0.18437965);&useBranchLengths=true">F81+G</a></td><td> 000000 </td><td> 2981.1480 </td><td> 7 </td><td> 0.2321 </td><td> 0.3095 </td><td> 0.2555 </td><td> 0.2030 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 0.5060 </td></tr>
+<tr><td> 8</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06892255,felis_catus:0.13812685,rattus_norvegicus:0.18503487);&useBranchLengths=true">F81+I+G</a></td><td> 000000 </td><td> 2981.1479 </td><td> 8 </td><td> 0.2321 </td><td> 0.3095 </td><td> 0.2555 </td><td> 0.2030 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 0.1920 </td><td> 0.8380 </td></tr>
+<tr><td> 9</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06629133,felis_catus:0.11295864,rattus_norvegicus:0.14881025);&useBranchLengths=true">K80</a></td><td> 010010 </td><td> 2968.2032 </td><td> 4 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.5065 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td></tr>
+<tr><td> 10</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06925194,felis_catus:0.14919414,rattus_norvegicus:0.20834604);&useBranchLengths=true">K80+I</a></td><td> 010010 </td><td> 2953.3094 </td><td> 5 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.9005 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 0.5620 </td><td> - </td></tr>
+<tr><td> 11</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07176771,felis_catus:0.15670288,rattus_norvegicus:0.21961253);&useBranchLengths=true">K80+G</a></td><td> 010010 </td><td> 2953.3197 </td><td> 5 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.9502 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 0.3540 </td></tr>
+<tr><td> 12</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07219414,felis_catus:0.15830116,rattus_norvegicus:0.22209231);&useBranchLengths=true">K80+I+G</a></td><td> 010010 </td><td> 2953.3191 </td><td> 6 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.9586 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 0.1610 </td><td> 0.5090 </td></tr>
+<tr><td> 13</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06617599,felis_catus:0.11368006,rattus_norvegicus:0.14885300);&useBranchLengths=true">HKY</a></td><td> 010010 </td><td> 2948.2277 </td><td> 7 </td><td> 0.2313 </td><td> 0.3118 </td><td> 0.2567 </td><td> 0.2002 </td><td> 1.5143 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td></tr>
+<tr><td> 14</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06891910,felis_catus:0.15223954,rattus_norvegicus:0.20854859);&useBranchLengths=true">HKY+I</a></td><td> 010010 </td><td> 2932.9761 </td><td> 8 </td><td> 0.2315 </td><td> 0.3118 </td><td> 0.2571 </td><td> 0.1996 </td><td> 1.9192 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 0.5610 </td><td> - </td></tr>
+<tr><td> 15</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07155430,felis_catus:0.16088944,rattus_norvegicus:0.22128315);&useBranchLengths=true">HKY+G</a></td><td> 010010 </td><td> 2932.9381 </td><td> 8 </td><td> 0.2313 </td><td> 0.3121 </td><td> 0.2570 </td><td> 0.1997 </td><td> 1.9801 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 0.3500 </td></tr>
+<tr><td> 16</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07198462,felis_catus:0.16275903,rattus_norvegicus:0.22416290);&useBranchLengths=true">HKY+I+G</a></td><td> 010010 </td><td> 2932.9317 </td><td> 9 </td><td> 0.2313 </td><td> 0.3121 </td><td> 0.2569 </td><td> 0.1997 </td><td> 1.9905 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 0.1600 </td><td> 0.5010 </td></tr>
+<tr><td> 17</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06624405,felis_catus:0.11328175,rattus_norvegicus:0.14908792);&useBranchLengths=true">TrNef</a></td><td> 010020 </td><td> 2966.3353 </td><td> 5 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.0000 </td><td> 2.5668 </td><td> 1.0000 </td><td> 1.0000 </td><td> 3.4589 </td><td> 1.0000 </td><td> - </td><td> - </td></tr>
+<tr><td> 18</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06981089,felis_catus:0.14859394,rattus_norvegicus:0.20744416);&useBranchLengths=true">TrNef+I</a></td><td> 010020 </td><td> 2951.7252 </td><td> 6 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.0000 </td><td> 3.0991 </td><td> 1.0000 </td><td> 1.0000 </td><td> 4.5067 </td><td> 1.0000 </td><td> 0.5560 </td><td> - </td></tr>
+<tr><td> 19</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07255685,felis_catus:0.15809391,rattus_norvegicus:0.22096528);&useBranchLengths=true">TrNef+G</a></td><td> 010020 </td><td> 2951.4518 </td><td> 6 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.0000 </td><td> 3.1414 </td><td> 1.0000 </td><td> 1.0000 </td><td> 4.7415 </td><td> 1.0000 </td><td> - </td><td> 0.3570 </td></tr>
+<tr><td> 20</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07301265,felis_catus:0.16049048,rattus_norvegicus:0.22475360);&useBranchLengths=true">TrNef+I+G</a></td><td> 010020 </td><td> 2951.4163 </td><td> 7 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.0000 </td><td> 3.1559 </td><td> 1.0000 </td><td> 1.0000 </td><td> 4.7958 </td><td> 1.0000 </td><td> 0.1640 </td><td> 0.5100 </td></tr>
+<tr><td> 21</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06612447,felis_catus:0.11413518,rattus_norvegicus:0.14920017);&useBranchLengths=true">TrN</a></td><td> 010020 </td><td> 2946.0772 </td><td> 8 </td><td> 0.2363 </td><td> 0.3067 </td><td> 0.2616 </td><td> 0.1954 </td><td> - </td><td> 1.0000 </td><td> 2.5923 </td><td> 1.0000 </td><td> 1.0000 </td><td> 3.6420 </td><td> 1.0000 </td><td> - </td><td> - </td></tr>
+<tr><td> 22</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06972231,felis_catus:0.15197616,rattus_norvegicus:0.20745335);&useBranchLengths=true">TrN+I</a></td><td> 010020 </td><td> 2931.1351 </td><td> 9 </td><td> 0.2358 </td><td> 0.3074 </td><td> 0.2613 </td><td> 0.1955 </td><td> - </td><td> 1.0000 </td><td> 3.1297 </td><td> 1.0000 </td><td> 1.0000 </td><td> 4.8071 </td><td> 1.0000 </td><td> 0.5530 </td><td> - </td></tr>
+<tr><td> 23</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07272734,felis_catus:0.16359827,rattus_norvegicus:0.22448329);&useBranchLengths=true">TrN+G</a></td><td> 010020 </td><td> 2930.7438 </td><td> 9 </td><td> 0.2361 </td><td> 0.3073 </td><td> 0.2615 </td><td> 0.1951 </td><td> - </td><td> 1.0000 </td><td> 3.1834 </td><td> 1.0000 </td><td> 1.0000 </td><td> 5.1513 </td><td> 1.0000 </td><td> - </td><td> 0.3510 </td></tr>
+<tr><td> 24</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07325899,felis_catus:0.16657690,rattus_norvegicus:0.22879797);&useBranchLengths=true">TrN+I+G</a></td><td> 010020 </td><td> 2930.6953 </td><td> 10 </td><td> 0.2361 </td><td> 0.3073 </td><td> 0.2615 </td><td> 0.1951 </td><td> - </td><td> 1.0000 </td><td> 3.2034 </td><td> 1.0000 </td><td> 1.0000 </td><td> 5.2242 </td><td> 1.0000 </td><td> 0.1640 </td><td> 0.4980 </td></tr>
+<tr><td> 25</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06638590,felis_catus:0.11296451,rattus_norvegicus:0.14868887);&useBranchLengths=true">TPM1</a></td><td> 012210 </td><td> 2968.0241 </td><td> 5 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.0000 </td><td> 2.8246 </td><td> 0.8751 </td><td> 0.8751 </td><td> 2.8246 </td><td> 1.0000 </td><td> - </td><td> - </td></tr>
+<tr><td> 26</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06921707,felis_catus:0.14970411,rattus_norvegicus:0.20852465);&useBranchLengths=true">TPM1+I</a></td><td> 012210 </td><td> 2953.0695 </td><td> 6 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.0000 </td><td> 3.4108 </td><td> 0.7923 </td><td> 0.7923 </td><td> 3.4108 </td><td> 1.0000 </td><td> 0.5630 </td><td> - </td></tr>
+<tr><td> 27</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07185393,felis_catus:0.15676487,rattus_norvegicus:0.21917261);&useBranchLengths=true">TPM1+G</a></td><td> 012210 </td><td> 2953.1016 </td><td> 6 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.0000 </td><td> 3.5013 </td><td> 0.7966 </td><td> 0.7966 </td><td> 3.5013 </td><td> 1.0000 </td><td> - </td><td> 0.3540 </td></tr>
+<tr><td> 28</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07228616,felis_catus:0.15838022,rattus_norvegicus:0.22173106);&useBranchLengths=true">TPM1+I+G</a></td><td> 012210 </td><td> 2953.1040 </td><td> 7 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.0000 </td><td> 3.5186 </td><td> 0.7970 </td><td> 0.7970 </td><td> 3.5186 </td><td> 1.0000 </td><td> 0.1620 </td><td> 0.5110 </td></tr>
+<tr><td> 29</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06630632,felis_catus:0.11370833,rattus_norvegicus:0.14868230);&useBranchLengths=true">TPM1uf</a></td><td> 012210 </td><td> 2947.9264 </td><td> 8 </td><td> 0.2310 </td><td> 0.3120 </td><td> 0.2570 </td><td> 0.2001 </td><td> - </td><td> 1.0000 </td><td> 2.8564 </td><td> 0.8410 </td><td> 0.8410 </td><td> 2.8564 </td><td> 1.0000 </td><td> - </td><td> - </td></tr>
+<tr><td> 30</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06890513,felis_catus:0.15303607,rattus_norvegicus:0.20869689);&useBranchLengths=true">TPM1uf+I</a></td><td> 012210 </td><td> 2932.5894 </td><td> 9 </td><td> 0.2311 </td><td> 0.3121 </td><td> 0.2574 </td><td> 0.1994 </td><td> - </td><td> 1.0000 </td><td> 3.4368 </td><td> 0.7444 </td><td> 0.7444 </td><td> 3.4368 </td><td> 1.0000 </td><td> 0.5620 </td><td> - </td></tr>
+<tr><td> 31</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07168042,felis_catus:0.16112563,rattus_norvegicus:0.22073613);&useBranchLengths=true">TPM1uf+G</a></td><td> 012210 </td><td> 2932.5869 </td><td> 9 </td><td> 0.2310 </td><td> 0.3123 </td><td> 0.2573 </td><td> 0.1995 </td><td> - </td><td> 1.0000 </td><td> 3.5456 </td><td> 0.7483 </td><td> 0.7483 </td><td> 3.5456 </td><td> 1.0000 </td><td> - </td><td> 0.3510 </td></tr>
+<tr><td> 32</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07211982,felis_catus:0.16303189,rattus_norvegicus:0.22372801);&useBranchLengths=true">TPM1uf+I+G</a></td><td> 012210 </td><td> 2932.5851 </td><td> 10 </td><td> 0.2310 </td><td> 0.3123 </td><td> 0.2573 </td><td> 0.1995 </td><td> - </td><td> 1.0000 </td><td> 3.5672 </td><td> 0.7484 </td><td> 0.7484 </td><td> 3.5672 </td><td> 1.0000 </td><td> 0.1610 </td><td> 0.5020 </td></tr>
+<tr><td> 33</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06632784,felis_catus:0.11323412,rattus_norvegicus:0.14877440);&useBranchLengths=true">TPM2</a></td><td> 010212 </td><td> 2967.9642 </td><td> 5 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.1473 </td><td> 3.2261 </td><td> 1.1473 </td><td> 1.0000 </td><td> 3.2261 </td><td> 1.0000 </td><td> - </td><td> - </td></tr>
+<tr><td> 34</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06915338,felis_catus:0.15005110,rattus_norvegicus:0.20873559);&useBranchLengths=true">TPM2+I</a></td><td> 010212 </td><td> 2953.0298 </td><td> 6 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.2148 </td><td> 4.2000 </td><td> 1.2148 </td><td> 1.0000 </td><td> 4.2000 </td><td> 1.0000 </td><td> 0.5630 </td><td> - </td></tr>
+<tr><td> 35</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07174920,felis_catus:0.15746609,rattus_norvegicus:0.21984533);&useBranchLengths=true">TPM2+G</a></td><td> 010212 </td><td> 2953.0301 </td><td> 6 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.2279 </td><td> 4.3312 </td><td> 1.2279 </td><td> 1.0000 </td><td> 4.3312 </td><td> 1.0000 </td><td> - </td><td> 0.3530 </td></tr>
+<tr><td> 36</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07217000,felis_catus:0.15922921,rattus_norvegicus:0.22263149);&useBranchLengths=true">TPM2+I+G</a></td><td> 010212 </td><td> 2953.0291 </td><td> 7 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.2296 </td><td> 4.3573 </td><td> 1.2296 </td><td> 1.0000 </td><td> 4.3573 </td><td> 1.0000 </td><td> 0.1620 </td><td> 0.5070 </td></tr>
+<tr><td> 37</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06613319,felis_catus:0.11394383,rattus_norvegicus:0.14867211);&useBranchLengths=true">TPM2uf</a></td><td> 010212 </td><td> 2947.7120 </td><td> 8 </td><td> 0.2294 </td><td> 0.3118 </td><td> 0.2586 </td><td> 0.2002 </td><td> - </td><td> 1.2280 </td><td> 3.4374 </td><td> 1.2280 </td><td> 1.0000 </td><td> 3.4374 </td><td> 1.0000 </td><td> - </td><td> - </td></tr>
+<tr><td> 38</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06865953,felis_catus:0.15370497,rattus_norvegicus:0.20905115);&useBranchLengths=true">TPM2uf+I</a></td><td> 010212 </td><td> 2932.3155 </td><td> 9 </td><td> 0.2289 </td><td> 0.3118 </td><td> 0.2597 </td><td> 0.1996 </td><td> - </td><td> 1.3642 </td><td> 4.6142 </td><td> 1.3642 </td><td> 1.0000 </td><td> 4.6142 </td><td> 1.0000 </td><td> 0.5620 </td><td> - </td></tr>
+<tr><td> 39</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07143288,felis_catus:0.16235400,rattus_norvegicus:0.22179795);&useBranchLengths=true">TPM2uf+G</a></td><td> 010212 </td><td> 2932.2683 </td><td> 9 </td><td> 0.2288 </td><td> 0.3120 </td><td> 0.2596 </td><td> 0.1996 </td><td> - </td><td> 1.3853 </td><td> 4.8025 </td><td> 1.3853 </td><td> 1.0000 </td><td> 4.8025 </td><td> 1.0000 </td><td> - </td><td> 0.3480 </td></tr>
+<tr><td> 40</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07186786,felis_catus:0.16451186,rattus_norvegicus:0.22517013);&useBranchLengths=true">TPM2uf+I+G</a></td><td> 010212 </td><td> 2932.2620 </td><td> 10 </td><td> 0.2288 </td><td> 0.3120 </td><td> 0.2596 </td><td> 0.1996 </td><td> - </td><td> 1.3894 </td><td> 4.8410 </td><td> 1.3894 </td><td> 1.0000 </td><td> 4.8410 </td><td> 1.0000 </td><td> 0.1600 </td><td> 0.4940 </td></tr>
+<tr><td> 41</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06537049,felis_catus:0.11124922,rattus_norvegicus:0.14764457);&useBranchLengths=true">TPM3</a></td><td> 012012 </td><td> 2964.4984 </td><td> 5 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.7404 </td><td> 4.2435 </td><td> 1.0000 </td><td> 1.7404 </td><td> 4.2435 </td><td> 1.0000 </td><td> - </td><td> - </td></tr>
+<tr><td> 42</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06790911,felis_catus:0.14877318,rattus_norvegicus:0.21164757);&useBranchLengths=true">TPM3+I</a></td><td> 012012 </td><td> 2948.9758 </td><td> 6 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 2.2216 </td><td> 6.3113 </td><td> 1.0000 </td><td> 2.2216 </td><td> 6.3113 </td><td> 1.0000 </td><td> 0.5700 </td><td> - </td></tr>
+<tr><td> 43</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07062634,felis_catus:0.15640542,rattus_norvegicus:0.22326125);&useBranchLengths=true">TPM3+G</a></td><td> 012012 </td><td> 2949.0180 </td><td> 6 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 2.3053 </td><td> 6.6487 </td><td> 1.0000 </td><td> 2.3053 </td><td> 6.6487 </td><td> 1.0000 </td><td> - </td><td> 0.3380 </td></tr>
+<tr><td> 44</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07107999,felis_catus:0.15826680,rattus_norvegicus:0.22621811);&useBranchLengths=true">TPM3+I+G</a></td><td> 012012 </td><td> 2949.0252 </td><td> 7 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 2.3196 </td><td> 6.7091 </td><td> 1.0000 </td><td> 2.3196 </td><td> 6.7091 </td><td> 1.0000 </td><td> 0.1580 </td><td> 0.4810 </td></tr>
+<tr><td> 45</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06611545,felis_catus:0.11355940,rattus_norvegicus:0.14937707);&useBranchLengths=true">TPM3uf</a></td><td> 012012 </td><td> 2947.0545 </td><td> 8 </td><td> 0.2313 </td><td> 0.3090 </td><td> 0.2567 </td><td> 0.2030 </td><td> - </td><td> 1.3803 </td><td> 3.8170 </td><td> 1.0000 </td><td> 1.3803 </td><td> 3.8170 </td><td> 1.0000 </td><td> - </td><td> - </td></tr>
+<tr><td> 46</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06856092,felis_catus:0.15360060,rattus_norvegicus:0.21297662);&useBranchLengths=true">TPM3uf+I</a></td><td> 012012 </td><td> 2931.4908 </td><td> 9 </td><td> 0.2316 </td><td> 0.3085 </td><td> 0.2572 </td><td> 0.2027 </td><td> - </td><td> 1.6281 </td><td> 5.4400 </td><td> 1.0000 </td><td> 1.6281 </td><td> 5.4400 </td><td> 1.0000 </td><td> 0.5680 </td><td> - </td></tr>
+<tr><td> 47</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07120539,felis_catus:0.16152033,rattus_norvegicus:0.22509746);&useBranchLengths=true">TPM3uf+G</a></td><td> 012012 </td><td> 2931.5463 </td><td> 9 </td><td> 0.2315 </td><td> 0.3087 </td><td> 0.2571 </td><td> 0.2028 </td><td> - </td><td> 1.6417 </td><td> 5.6258 </td><td> 1.0000 </td><td> 1.6417 </td><td> 5.6258 </td><td> 1.0000 </td><td> - </td><td> 0.3410 </td></tr>
+<tr><td> 48</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07167087,felis_catus:0.16331867,rattus_norvegicus:0.22762845);&useBranchLengths=true">TPM3uf+I+G</a></td><td> 012012 </td><td> 2931.5527 </td><td> 10 </td><td> 0.2314 </td><td> 0.3087 </td><td> 0.2571 </td><td> 0.2028 </td><td> - </td><td> 1.6437 </td><td> 5.6557 </td><td> 1.0000 </td><td> 1.6437 </td><td> 5.6557 </td><td> 1.0000 </td><td> 0.1580 </td><td> 0.4860 </td></tr>
+<tr><td> 49</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06633845,felis_catus:0.11328588,rattus_norvegicus:0.14900639);&useBranchLengths=true">TIM1ef</a></td><td> 012230 </td><td> 2966.1583 </td><td> 6 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.0000 </td><td> 2.4094 </td><td> 0.8762 </td><td> 0.8762 </td><td> 3.2445 </td><td> 1.0000 </td><td> - </td><td> - </td></tr>
+<tr><td> 50</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06977615,felis_catus:0.14895032,rattus_norvegicus:0.20741546);&useBranchLengths=true">TIM1ef+I</a></td><td> 012230 </td><td> 2951.4942 </td><td> 7 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.0000 </td><td> 2.7902 </td><td> 0.7982 </td><td> 0.7982 </td><td> 4.0509 </td><td> 1.0000 </td><td> 0.5560 </td><td> - </td></tr>
+<tr><td> 51</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07261687,felis_catus:0.15818068,rattus_norvegicus:0.22060224);&useBranchLengths=true">TIM1ef+G</a></td><td> 012230 </td><td> 2951.2384 </td><td> 7 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.0000 </td><td> 2.8233 </td><td> 0.7977 </td><td> 0.7977 </td><td> 4.2590 </td><td> 1.0000 </td><td> - </td><td> 0.3570 </td></tr>
+<tr><td> 52</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07308702,felis_catus:0.16048642,rattus_norvegicus:0.22425969);&useBranchLengths=true">TIM1ef+I+G</a></td><td> 012230 </td><td> 2951.2061 </td><td> 8 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.0000 </td><td> 2.8375 </td><td> 0.7979 </td><td> 0.7979 </td><td> 4.3040 </td><td> 1.0000 </td><td> 0.1630 </td><td> 0.5090 </td></tr>
+<tr><td> 53</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06625379,felis_catus:0.11417086,rattus_norvegicus:0.14907856);&useBranchLengths=true">TIM1</a></td><td> 012230 </td><td> 2945.7770 </td><td> 9 </td><td> 0.2360 </td><td> 0.3068 </td><td> 0.2619 </td><td> 0.1953 </td><td> - </td><td> 1.0000 </td><td> 2.3830 </td><td> 0.8419 </td><td> 0.8419 </td><td> 3.3516 </td><td> 1.0000 </td><td> - </td><td> - </td></tr>
+<tr><td> 54</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06972416,felis_catus:0.15285420,rattus_norvegicus:0.20792782);&useBranchLengths=true">TIM1+I</a></td><td> 012230 </td><td> 2930.7418 </td><td> 10 </td><td> 0.2354 </td><td> 0.3076 </td><td> 0.2617 </td><td> 0.1953 </td><td> - </td><td> 1.0000 </td><td> 2.7332 </td><td> 0.7465 </td><td> 0.7465 </td><td> 4.2059 </td><td> 1.0000 </td><td> 0.5550 </td><td> - </td></tr>
+<tr><td> 55</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07283990,felis_catus:0.16401351,rattus_norvegicus:0.22417595);&useBranchLengths=true">TIM1+G</a></td><td> 012230 </td><td> 2930.3795 </td><td> 10 </td><td> 0.2356 </td><td> 0.3075 </td><td> 0.2620 </td><td> 0.1949 </td><td> - </td><td> 1.0000 </td><td> 2.7730 </td><td> 0.7441 </td><td> 0.7441 </td><td> 4.4891 </td><td> 1.0000 </td><td> - </td><td> 0.3510 </td></tr>
+<tr><td> 56</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07339614,felis_catus:0.16697096,rattus_norvegicus:0.22844193);&useBranchLengths=true">TIM1+I+G</a></td><td> 012230 </td><td> 2930.3360 </td><td> 11 </td><td> 0.2356 </td><td> 0.3075 </td><td> 0.2620 </td><td> 0.1949 </td><td> - </td><td> 1.0000 </td><td> 2.7872 </td><td> 0.7419 </td><td> 0.7419 </td><td> 4.5453 </td><td> 1.0000 </td><td> 0.1620 </td><td> 0.4960 </td></tr>
+<tr><td> 57</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06628289,felis_catus:0.11354322,rattus_norvegicus:0.14911713);&useBranchLengths=true">TIM2ef</a></td><td> 010232 </td><td> 2966.1010 </td><td> 6 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.1425 </td><td> 2.7451 </td><td> 1.1425 </td><td> 1.0000 </td><td> 3.6966 </td><td> 1.0000 </td><td> - </td><td> - </td></tr>
+<tr><td> 58</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06970815,felis_catus:0.14928568,rattus_norvegicus:0.20762370);&useBranchLengths=true">TIM2ef+I</a></td><td> 010232 </td><td> 2951.4546 </td><td> 7 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.1949 </td><td> 3.3940 </td><td> 1.1949 </td><td> 1.0000 </td><td> 4.9305 </td><td> 1.0000 </td><td> 0.5560 </td><td> - </td></tr>
+<tr><td> 59</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07250660,felis_catus:0.15886002,rattus_norvegicus:0.22125614);&useBranchLengths=true">TIM2ef+G</a></td><td> 010232 </td><td> 2951.1712 </td><td> 7 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.2067 </td><td> 3.4581 </td><td> 1.2067 </td><td> 1.0000 </td><td> 5.2174 </td><td> 1.0000 </td><td> - </td><td> 0.3560 </td></tr>
+<tr><td> 60</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07297643,felis_catus:0.16133925,rattus_norvegicus:0.22518060);&useBranchLengths=true">TIM2ef+I+G</a></td><td> 010232 </td><td> 2951.1354 </td><td> 8 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.2090 </td><td> 3.4798 </td><td> 1.2090 </td><td> 1.0000 </td><td> 5.2833 </td><td> 1.0000 </td><td> 0.1630 </td><td> 0.5060 </td></tr>
+<tr><td> 61</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06610448,felis_catus:0.11439620,rattus_norvegicus:0.14901912);&useBranchLengths=true">TIM2</a></td><td> 010232 </td><td> 2945.5704 </td><td> 9 </td><td> 0.2343 </td><td> 0.3067 </td><td> 0.2636 </td><td> 0.1954 </td><td> - </td><td> 1.2220 </td><td> 2.8617 </td><td> 1.2220 </td><td> 1.0000 </td><td> 4.0217 </td><td> 1.0000 </td><td> - </td><td> - </td></tr>
+<tr><td> 62</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06945727,felis_catus:0.15320012,rattus_norvegicus:0.20773613);&useBranchLengths=true">TIM2+I</a></td><td> 010232 </td><td> 2930.5193 </td><td> 10 </td><td> 0.2333 </td><td> 0.3075 </td><td> 0.2637 </td><td> 0.1955 </td><td> - </td><td> 1.3198 </td><td> 3.6064 </td><td> 1.3198 </td><td> 1.0000 </td><td> 5.5222 </td><td> 1.0000 </td><td> 0.5540 </td><td> - </td></tr>
+<tr><td> 63</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07255859,felis_catus:0.16484595,rattus_norvegicus:0.22453479);&useBranchLengths=true">TIM2+G</a></td><td> 010232 </td><td> 2930.1204 </td><td> 10 </td><td> 0.2336 </td><td> 0.3074 </td><td> 0.2640 </td><td> 0.1951 </td><td> - </td><td> 1.3373 </td><td> 3.6952 </td><td> 1.3373 </td><td> 1.0000 </td><td> 5.9571 </td><td> 1.0000 </td><td> - </td><td> 0.3500 </td></tr>
+<tr><td> 64</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07309460,felis_catus:0.16801734,rattus_norvegicus:0.22939731);&useBranchLengths=true">TIM2+I+G</a></td><td> 010232 </td><td> 2930.0720 </td><td> 11 </td><td> 0.2336 </td><td> 0.3073 </td><td> 0.2640 </td><td> 0.1951 </td><td> - </td><td> 1.3424 </td><td> 3.7301 </td><td> 1.3424 </td><td> 1.0000 </td><td> 6.0589 </td><td> 1.0000 </td><td> 0.1620 </td><td> 0.4920 </td></tr>
+<tr><td> 65</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06531072,felis_catus:0.11150020,rattus_norvegicus:0.14788313);&useBranchLengths=true">TIM3ef</a></td><td> 012032 </td><td> 2962.6204 </td><td> 6 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.7593 </td><td> 3.6400 </td><td> 1.0000 </td><td> 1.7593 </td><td> 4.9059 </td><td> 1.0000 </td><td> - </td><td> - </td></tr>
+<tr><td> 66</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06865112,felis_catus:0.14827944,rattus_norvegicus:0.21118100);&useBranchLengths=true">TIM3ef+I</a></td><td> 012032 </td><td> 2947.2681 </td><td> 7 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 2.3806 </td><td> 5.3360 </td><td> 1.0000 </td><td> 2.3806 </td><td> 7.9109 </td><td> 1.0000 </td><td> 0.5640 </td><td> - </td></tr>
+<tr><td> 67</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07158033,felis_catus:0.15833589,rattus_norvegicus:0.22610290);&useBranchLengths=true">TIM3ef+G</a></td><td> 012032 </td><td> 2947.0395 </td><td> 7 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 2.5272 </td><td> 5.6560 </td><td> 1.0000 </td><td> 2.5272 </td><td> 8.7125 </td><td> 1.0000 </td><td> - </td><td> 0.3380 </td></tr>
+<tr><td> 68</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07211852,felis_catus:0.16095351,rattus_norvegicus:0.23002590);&useBranchLengths=true">TIM3ef+I+G</a></td><td> 012032 </td><td> 2947.0130 </td><td> 8 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 2.5595 </td><td> 5.7366 </td><td> 1.0000 </td><td> 2.5595 </td><td> 8.8844 </td><td> 1.0000 </td><td> 0.1580 </td><td> 0.4740 </td></tr>
+<tr><td> 69</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06609087,felis_catus:0.11401620,rattus_norvegicus:0.14985403);&useBranchLengths=true">TIM3</a></td><td> 012032 </td><td> 2944.8968 </td><td> 9 </td><td> 0.2363 </td><td> 0.3040 </td><td> 0.2616 </td><td> 0.1981 </td><td> - </td><td> 1.3897 </td><td> 3.1958 </td><td> 1.0000 </td><td> 1.3897 </td><td> 4.4988 </td><td> 1.0000 </td><td> - </td><td> - </td></tr>
+<tr><td> 70</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06946573,felis_catus:0.15285739,rattus_norvegicus:0.21171849);&useBranchLengths=true">TIM3+I</a></td><td> 012032 </td><td> 2929.6968 </td><td> 10 </td><td> 0.2359 </td><td> 0.3042 </td><td> 0.2613 </td><td> 0.1987 </td><td> - </td><td> 1.6711 </td><td> 4.3998 </td><td> 1.0000 </td><td> 1.6711 </td><td> 6.7485 </td><td> 1.0000 </td><td> 0.5600 </td><td> - </td></tr>
+<tr><td> 71</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07234511,felis_catus:0.16338373,rattus_norvegicus:0.22693639);&useBranchLengths=true">TIM3+G</a></td><td> 012032 </td><td> 2929.4404 </td><td> 10 </td><td> 0.2361 </td><td> 0.3041 </td><td> 0.2615 </td><td> 0.1983 </td><td> - </td><td> 1.6911 </td><td> 4.5054 </td><td> 1.0000 </td><td> 1.6911 </td><td> 7.2196 </td><td> 1.0000 </td><td> - </td><td> 0.3450 </td></tr>
+<tr><td> 72</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07285241,felis_catus:0.16620302,rattus_norvegicus:0.23101183);&useBranchLengths=true">TIM3+I+G</a></td><td> 012032 </td><td> 2929.4071 </td><td> 11 </td><td> 0.2361 </td><td> 0.3041 </td><td> 0.2615 </td><td> 0.1983 </td><td> - </td><td> 1.6994 </td><td> 4.5461 </td><td> 1.0000 </td><td> 1.6994 </td><td> 7.3347 </td><td> 1.0000 </td><td> 0.1600 </td><td> 0.4870 </td></tr>
+<tr><td> 73</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06547428,felis_catus:0.11148954,rattus_norvegicus:0.14762793);&useBranchLengths=true">TVMef</a></td><td> 012314 </td><td> 2964.1578 </td><td> 7 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.9082 </td><td> 4.2075 </td><td> 0.9834 </td><td> 1.5525 </td><td> 4.2075 </td><td> 1.0000 </td><td> - </td><td> - </td></tr>
+<tr><td> 74</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06774418,felis_catus:0.14999937,rattus_norvegicus:0.21218485);&useBranchLengths=true">TVMef+I</a></td><td> 012314 </td><td> 2948.5415 </td><td> 8 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 2.4621 </td><td> 6.0048 </td><td> 0.8931 </td><td> 1.7803 </td><td> 6.0048 </td><td> 1.0000 </td><td> 0.5710 </td><td> - </td></tr>
+<tr><td> 75</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07065534,felis_catus:0.15736195,rattus_norvegicus:0.22356784);&useBranchLengths=true">TVMef+G</a></td><td> 012314 </td><td> 2948.5995 </td><td> 8 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 2.5684 </td><td> 6.3571 </td><td> 0.9067 </td><td> 1.8579 </td><td> 6.3571 </td><td> 1.0000 </td><td> - </td><td> 0.3370 </td></tr>
+<tr><td> 76</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07114472,felis_catus:0.15904776,rattus_norvegicus:0.22624313);&useBranchLengths=true">TVMef+I+G</a></td><td> 012314 </td><td> 2948.6097 </td><td> 9 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 2.5854 </td><td> 6.4169 </td><td> 0.9090 </td><td> 1.8705 </td><td> 6.4169 </td><td> 1.0000 </td><td> 0.1550 </td><td> 0.4770 </td></tr>
+<tr><td> 77</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06618832,felis_catus:0.11381457,rattus_norvegicus:0.14920796);&useBranchLengths=true">TVM</a></td><td> 012314 </td><td> 2946.3950 </td><td> 10 </td><td> 0.2294 </td><td> 0.3090 </td><td> 0.2586 </td><td> 0.2030 </td><td> - </td><td> 1.6160 </td><td> 3.8752 </td><td> 1.0342 </td><td> 1.2109 </td><td> 3.8752 </td><td> 1.0000 </td><td> - </td><td> - </td></tr>
+<tr><td> 78</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06826918,felis_catus:0.15559477,rattus_norvegicus:0.21367282);&useBranchLengths=true">TVM+I</a></td><td> 012314 </td><td> 2930.6344 </td><td> 11 </td><td> 0.2291 </td><td> 0.3084 </td><td> 0.2598 </td><td> 0.2027 </td><td> - </td><td> 2.0191 </td><td> 5.4177 </td><td> 0.9773 </td><td> 1.2710 </td><td> 5.4177 </td><td> 1.0000 </td><td> 0.5700 </td><td> - </td></tr>
+<tr><td> 79</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07119344,felis_catus:0.16312113,rattus_norvegicus:0.22521359);&useBranchLengths=true">TVM+G</a></td><td> 012314 </td><td> 2930.7181 </td><td> 11 </td><td> 0.2289 </td><td> 0.3086 </td><td> 0.2597 </td><td> 0.2028 </td><td> - </td><td> 2.0635 </td><td> 5.6751 </td><td> 1.0118 </td><td> 1.2974 </td><td> 5.6751 </td><td> 1.0000 </td><td> - </td><td> 0.3390 </td></tr>
+<tr><td> 80</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07166989,felis_catus:0.16487793,rattus_norvegicus:0.22798056);&useBranchLengths=true">TVM+I+G</a></td><td> 012314 </td><td> 2930.7290 </td><td> 12 </td><td> 0.2289 </td><td> 0.3087 </td><td> 0.2597 </td><td> 0.2028 </td><td> - </td><td> 2.0715 </td><td> 5.7209 </td><td> 1.0169 </td><td> 1.3020 </td><td> 5.7209 </td><td> 1.0000 </td><td> 0.1570 </td><td> 0.4810 </td></tr>
+<tr><td> 81</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06541138,felis_catus:0.11172599,rattus_norvegicus:0.14786101);&useBranchLengths=true">SYM</a></td><td> 012345 </td><td> 2962.2855 </td><td> 8 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 1.9217 </td><td> 3.6037 </td><td> 0.9804 </td><td> 1.5703 </td><td> 4.8526 </td><td> 1.0000 </td><td> - </td><td> - </td></tr>
+<tr><td> 82</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06847581,felis_catus:0.14944442,rattus_norvegicus:0.21161691);&useBranchLengths=true">SYM+I</a></td><td> 012345 </td><td> 2946.8402 </td><td> 9 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 2.5872 </td><td> 5.0178 </td><td> 0.8698 </td><td> 1.9077 </td><td> 7.4364 </td><td> 1.0000 </td><td> 0.5650 </td><td> - </td></tr>
+<tr><td> 83</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07158763,felis_catus:0.15939771,rattus_norvegicus:0.22648007);&useBranchLengths=true">SYM+G</a></td><td> 012345 </td><td> 2946.6260 </td><td> 9 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 2.7480 </td><td> 5.3152 </td><td> 0.8703 </td><td> 2.0202 </td><td> 8.1813 </td><td> 1.0000 </td><td> - </td><td> 0.3370 </td></tr>
+<tr><td> 84</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07214677,felis_catus:0.16172724,rattus_norvegicus:0.22994898);&useBranchLengths=true">SYM+I+G</a></td><td> 012345 </td><td> 2946.6031 </td><td> 10 </td><td> - </td><td> - </td><td> - </td><td> - </td><td> - </td><td> 2.7783 </td><td> 5.3803 </td><td> 0.8709 </td><td> 2.0417 </td><td> 8.3254 </td><td> 1.0000 </td><td> 0.1580 </td><td> 0.4730 </td></tr>
+<tr><td> 85</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06616127,felis_catus:0.11427755,rattus_norvegicus:0.14963417);&useBranchLengths=true">GTR</a></td><td> 012345 </td><td> 2944.2479 </td><td> 11 </td><td> 0.2343 </td><td> 0.3040 </td><td> 0.2636 </td><td> 0.1981 </td><td> - </td><td> 1.6185 </td><td> 3.2384 </td><td> 1.0286 </td><td> 1.2198 </td><td> 4.5549 </td><td> 1.0000 </td><td> - </td><td> - </td></tr>
+<tr><td> 86</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06916570,felis_catus:0.15461988,rattus_norvegicus:0.21219622);&useBranchLengths=true">GTR+I</a></td><td> 012345 </td><td> 2928.8862 </td><td> 12 </td><td> 0.2333 </td><td> 0.3042 </td><td> 0.2638 </td><td> 0.1987 </td><td> - </td><td> 2.0049 </td><td> 4.3169 </td><td> 0.9431 </td><td> 1.3126 </td><td> 6.5987 </td><td> 1.0000 </td><td> 0.5620 </td><td> - </td></tr>
+<tr><td> 87</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07224904,felis_catus:0.16478967,rattus_norvegicus:0.22674679);&useBranchLengths=true">GTR+G</a></td><td> 012345 </td><td> 2928.6581 </td><td> 12 </td><td> 0.2336 </td><td> 0.3041 </td><td> 0.2640 </td><td> 0.1983 </td><td> - </td><td> 2.0461 </td><td> 4.4504 </td><td> 0.9641 </td><td> 1.3350 </td><td> 7.1057 </td><td> 1.0000 </td><td> - </td><td> 0.3440 </td></tr>
+<tr><td> 88</td><td><a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07276142,felis_catus:0.16753172,rattus_norvegicus:0.23099039);&useBranchLengths=true">GTR+I+G</a></td><td> 012345 </td><td> 2928.6295 </td><td> 13 </td><td> 0.2336 </td><td> 0.3041 </td><td> 0.2640 </td><td> 0.1983 </td><td> - </td><td> 2.0610 </td><td> 4.4992 </td><td> 0.9678 </td><td> 1.3416 </td><td> 7.2276 </td><td> 1.0000 </td><td> 0.1600 </td><td> 0.4850 </td></tr>
+</table>
+</div><!--sorted-models-->
+  <div id="topologies">
+  <p>
+  There are 1 different topologies. The following table shows the models supporting each topology and the rank according to each Information Criterion, as well as Robinson-Foulds and Euclidean distances with the tree of the best-fit model.
+  </p>
+  <table class="topologies-info">
+  <tr><th class="col-id"> ID </th>
+      <th class="col-models"> Models </th>
+      <th class="col-topo"> Topology </th>
+      <th/>
+      <th> AIC </th>
+      <th> BIC </th>
+      <th> AICc </th>
+      <th> DT </th>
+  </tr>
+  <tr>
+    <td rowspan="5" class="col-id"> 0</td>
+    <td rowspan="5" class="col-models">
+    <div class="topo-scroll"> 
+      JC JC+I JC+G JC+I+G F81 F81+I F81+G F81+I+G K80 K80+I K80+G K80+I+G HKY HKY+I HKY+G HKY+I+G TrNef TrNef+I TrNef+G TrNef+I+G TrN TrN+I TrN+G TrN+I+G TPM1 TPM1+I TPM1+G TPM1+I+G TPM1uf TPM1uf+I TPM1uf+G TPM1uf+I+G TPM2 TPM2+I TPM2+G TPM2+I+G TPM2uf TPM2uf+I TPM2uf+G TPM2uf+I+G TPM3 TPM3+I TPM3+G TPM3+I+G TPM3uf TPM3uf+I TPM3uf+G TPM3uf+I+G TIM1ef TIM1ef+I TIM1ef+G TIM1ef+I+G TIM1 TIM1+I TIM1+G TIM1+I+G TIM2ef TIM2ef+I TIM2ef+G TIM2ef+I+G TIM2 TIM2+I TIM2+G TIM2+I+G TIM3ef TIM3ef+I TIM3ef+G TIM3ef+I+G TIM3 TIM3+I TIM3+G TIM3+I+G TVMef TVMef+I TVMef+G TVMef+I+G TVM TVM+I TVM+G TVM+I+G SYM SYM+I SYM+G SYM+I+G GTR GTR+I GTR+G GTR+I+G 
+    </div>
+    </td>
+    <td rowspan="5" class="col-topo">
+    <div class="topo-scroll">
+      <a href="http://www.phylowidget.org/full/?tree=(homo_sapiens,felis_catus,rattus_norvegicus);">(homo_sapiens,felis_catus,rattus_norvegicus);</a>
+    </div>
+    </td>
+    <th>RANK</th>
+      <td class="topo-rank"> - </td>
+      <td class="topo-rank"> - </td>
+      <td class="topo-rank">0</td>
+      <td class="topo-rank"> - </td>
+    </tr>
+    <tr>
+    <th>Weight</th>
+      <td class="topo-rank"> - </td>
+      <td class="topo-rank"> - </td>
+      <td class="topo-rank">1.0000</td>
+      <td class="topo-rank"> - </td>
+    </tr>
+    <tr>
+    <th>RF</th>
+      <td class="topo-rank"> - </td>
+      <td class="topo-rank"> - </td>
+      <td class="topo-rank">0</td>
+      <td class="topo-rank"> - </td>
+    </tr>
+    <tr>
+    <th>AVG Distance</th>
+      <td class="topo-rank"> - </td>
+      <td class="topo-rank"> - </td>
+      <td class="topo-rank">3.4045e-02</td>
+      <td class="topo-rank"> - </td>
+    </tr>
+    <tr>
+    <th>Distance VAR</th>
+      <td class="topo-rank"> - </td>
+      <td class="topo-rank"> - </td>
+      <td class="topo-rank">1.3364e-03</td>
+      <td class="topo-rank"> - </td>
+    </tr>
+  </table>
+  </div><!--sorted-models-->
+<p class="back-to-top"><a href="#" onclick="scrollTo(0,0);return false;" title="Back to top" class="top"><img src="resources/topIcon.gif" alt="Back to top" class="top" /> Back to top <img src="resources/topIcon.gif" alt="Back to top" class="top" /></a></p>
+
+
+
+
+
+
+
+<div class="selection">   
+<h1> <a name="aicc"></a>AICc Selection Results </h1>
+<div class="selection-upper"> 
+	<div class="selection_best_model">
+		<h2 style="text-align: center;"> Model selected </h2>
+		<table class="model_info">
+		<tr><th>   Model </th><td colspan="2">TIM3+G</tr>
+		<tr><th>   partition </th><td colspan="2"> 012032</tr>
+		<tr><th>   -lnL </th><td colspan="2"> 2929.4404</tr>
+		<tr><th>   K </th><td colspan="2"> 10</tr>
+		<tr><th>   freqA </th><td> 0.2361</td><th>   R(a) </th><td> 1.6911 </td></tr>
+		<tr><th>   freqC </th><td> 0.3041</td><th>   R(b) </th><td> 4.5054 </td></tr>
+		<tr><th>   freqG </th><td> 0.2615</td><th>   R(c) </th><td> 1.0000 </td></tr>
+		<tr><th>   freqT </th><td> 0.1983</td><th>   R(d) </th><td> 1.6911 </td></tr>
+		<tr><th>   ti/tv </th><td> - </td><th>   R(e) </th><td> 7.2196 </td></tr>
+		<tr><th></th><td></td><th>   R(f) </th><td> 1.0000 </td></tr>
+		<tr><th>   p-inv </th><td> -</td><th>   gamma </th><td> 0.3450 </td></tr>
+		</table>
+	</div> <!--selection_best_model-->
+<div class="selection_best_tree">
+
+	<h2 style="text-align: center;"> Best model tree </h2>
+	
+		<div class="newick-tree">
+		(homo_sapiens:0.07234511,felis_catus:0.16338373,rattus_norvegicus:0.22693639);
+		</div><!--best-tree-newick-->
+	<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07234511,felis_catus:0.16338373,rattus_norvegicus:0.22693639);&useBranchLengths=true">Display best model tree in PhyloWidget</a>
+	</div><!--selection_best_tree-->
+</div><!--selection-upper-->
+
+<div class="selection-lower">
+<div class="selection_results">
+	<table class="selection_table">
+		<tr>
+		<th>Model</th><th> -lnL  </th><th>  K      </th><th>   AICc </th><th>delta</th><th>   weight</th><th> cumWeight</th>
+		</tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07234511,felis_catus:0.16338373,rattus_norvegicus:0.22693639);&useBranchLengths=true">TIM3+G</a> </td><td>2929.4404</td><td>10</td><td>5879.0721</td><td>0.0000</td><td>0.1189</td><td>0.1189</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06946573,felis_catus:0.15285739,rattus_norvegicus:0.21171849);&useBranchLengths=true">TIM3+I</a> </td><td>2929.6968</td><td>10</td><td>5879.5849</td><td>0.5128</td><td>0.0920</td><td>0.2108</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07272734,felis_catus:0.16359827,rattus_norvegicus:0.22448329);&useBranchLengths=true">TrN+G</a> </td><td>2930.7438</td><td>9</td><td>5879.6439</td><td>0.5718</td><td>0.0893</td><td>0.3001</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06972231,felis_catus:0.15197616,rattus_norvegicus:0.20745335);&useBranchLengths=true">TrN+I</a> </td><td>2931.1351</td><td>9</td><td>5880.4265</td><td>1.3544</td><td>0.0604</td><td>0.3605</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07255859,felis_catus:0.16484595,rattus_norvegicus:0.22453479);&useBranchLengths=true">TIM2+G</a> </td><td>2930.1204</td><td>10</td><td>5880.4321</td><td>1.3600</td><td>0.0602</td><td>0.4207</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07283990,felis_catus:0.16401351,rattus_norvegicus:0.22417595);&useBranchLengths=true">TIM1+G</a> </td><td>2930.3795</td><td>10</td><td>5880.9503</td><td>1.8782</td><td>0.0465</td><td>0.4672</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07285241,felis_catus:0.16620302,rattus_norvegicus:0.23101183);&useBranchLengths=true">TIM3+I+G</a> </td><td>2929.4071</td><td>11</td><td>5881.0440</td><td>1.9719</td><td>0.0443</td><td>0.5116</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06856092,felis_catus:0.15360060,rattus_norvegicus:0.21297662);&useBranchLengths=true">TPM3uf+I</a> </td><td>2931.4908</td><td>9</td><td>5881.1380</td><td>2.0658</td><td>0.0423</td><td>0.5539</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06945727,felis_catus:0.15320012,rattus_norvegicus:0.20773613);&useBranchLengths=true">TIM2+I</a> </td><td>2930.5193</td><td>10</td><td>5881.2298</td><td>2.1577</td><td>0.0404</td><td>0.5943</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07120539,felis_catus:0.16152033,rattus_norvegicus:0.22509746);&useBranchLengths=true">TPM3uf+G</a> </td><td>2931.5463</td><td>9</td><td>5881.2490</td><td>2.1769</td><td>0.0400</td><td>0.6343</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07325899,felis_catus:0.16657690,rattus_norvegicus:0.22879797);&useBranchLengths=true">TrN+I+G</a> </td><td>2930.6953</td><td>10</td><td>5881.5820</td><td>2.5099</td><td>0.0339</td><td>0.6682</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07224904,felis_catus:0.16478967,rattus_norvegicus:0.22674679);&useBranchLengths=true">GTR+G</a> </td><td>2928.6581</td><td>12</td><td>5881.5880</td><td>2.5159</td><td>0.0338</td><td>0.7020</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06972416,felis_catus:0.15285420,rattus_norvegicus:0.20792782);&useBranchLengths=true">TIM1+I</a> </td><td>2930.7418</td><td>10</td><td>5881.6749</td><td>2.6028</td><td>0.0323</td><td>0.7343</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07155430,felis_catus:0.16088944,rattus_norvegicus:0.22128315);&useBranchLengths=true">HKY+G</a> </td><td>2932.9381</td><td>8</td><td>5882.0012</td><td>2.9291</td><td>0.0275</td><td>0.7618</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06916570,felis_catus:0.15461988,rattus_norvegicus:0.21219622);&useBranchLengths=true">GTR+I</a> </td><td>2928.8862</td><td>12</td><td>5882.0442</td><td>2.9721</td><td>0.0269</td><td>0.7887</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06891910,felis_catus:0.15223954,rattus_norvegicus:0.20854859);&useBranchLengths=true">HKY+I</a> </td><td>2932.9761</td><td>8</td><td>5882.0773</td><td>3.0052</td><td>0.0265</td><td>0.8151</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07309460,felis_catus:0.16801734,rattus_norvegicus:0.22939731);&useBranchLengths=true">TIM2+I+G</a> </td><td>2930.0720</td><td>11</td><td>5882.3738</td><td>3.3016</td><td>0.0228</td><td>0.8380</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07143288,felis_catus:0.16235400,rattus_norvegicus:0.22179795);&useBranchLengths=true">TPM2uf+G</a> </td><td>2932.2683</td><td>9</td><td>5882.6929</td><td>3.6208</td><td>0.0194</td><td>0.8574</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06865953,felis_catus:0.15370497,rattus_norvegicus:0.20905115);&useBranchLengths=true">TPM2uf+I</a> </td><td>2932.3155</td><td>9</td><td>5882.7873</td><td>3.7152</td><td>0.0185</td><td>0.8759</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07339614,felis_catus:0.16697096,rattus_norvegicus:0.22844193);&useBranchLengths=true">TIM1+I+G</a> </td><td>2930.3360</td><td>11</td><td>5882.9017</td><td>3.8296</td><td>0.0175</td><td>0.8935</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07167087,felis_catus:0.16331867,rattus_norvegicus:0.22762845);&useBranchLengths=true">TPM3uf+I+G</a> </td><td>2931.5527</td><td>10</td><td>5883.2967</td><td>4.2246</td><td>0.0144</td><td>0.9078</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07168042,felis_catus:0.16112563,rattus_norvegicus:0.22073613);&useBranchLengths=true">TPM1uf+G</a> </td><td>2932.5869</td><td>9</td><td>5883.3302</td><td>4.2581</td><td>0.0141</td><td>0.9220</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06890513,felis_catus:0.15303607,rattus_norvegicus:0.20869689);&useBranchLengths=true">TPM1uf+I</a> </td><td>2932.5894</td><td>9</td><td>5883.3352</td><td>4.2630</td><td>0.0141</td><td>0.9361</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06826918,felis_catus:0.15559477,rattus_norvegicus:0.21367282);&useBranchLengths=true">TVM+I</a> </td><td>2930.6344</td><td>11</td><td>5883.4986</td><td>4.4265</td><td>0.0130</td><td>0.9491</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07276142,felis_catus:0.16753172,rattus_norvegicus:0.23099039);&useBranchLengths=true">GTR+I+G</a> </td><td>2928.6295</td><td>13</td><td>5883.5763</td><td>4.5042</td><td>0.0125</td><td>0.9616</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07119344,felis_catus:0.16312113,rattus_norvegicus:0.22521359);&useBranchLengths=true">TVM+G</a> </td><td>2930.7181</td><td>11</td><td>5883.6659</td><td>4.5938</td><td>0.0120</td><td>0.9735</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07198462,felis_catus:0.16275903,rattus_norvegicus:0.22416290);&useBranchLengths=true">HKY+I+G</a> </td><td>2932.9317</td><td>9</td><td>5884.0197</td><td>4.9476</td><td>0.0100</td><td>0.9835</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07186786,felis_catus:0.16451186,rattus_norvegicus:0.22517013);&useBranchLengths=true">TPM2uf+I+G</a> </td><td>2932.2620</td><td>10</td><td>5884.7152</td><td>5.6431</td><td>0.0071</td><td>0.9906</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07211982,felis_catus:0.16303189,rattus_norvegicus:0.22372801);&useBranchLengths=true">TPM1uf+I+G</a> </td><td>2932.5851</td><td>10</td><td>5885.3615</td><td>6.2894</td><td>0.0051</td><td>0.9957</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07166989,felis_catus:0.16487793,rattus_norvegicus:0.22798056);&useBranchLengths=true">TVM+I+G</a> </td><td>2930.7290</td><td>12</td><td>5885.7297</td><td>6.6576</td><td>0.0043</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06609087,felis_catus:0.11401620,rattus_norvegicus:0.14985403);&useBranchLengths=true">TIM3</a> </td><td>2944.8968</td><td>9</td><td>5907.9499</td><td>28.8778</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07158033,felis_catus:0.15833589,rattus_norvegicus:0.22610290);&useBranchLengths=true">TIM3ef+G</a> </td><td>2947.0395</td><td>7</td><td>5908.1760</td><td>29.1039</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06612447,felis_catus:0.11413518,rattus_norvegicus:0.14920017);&useBranchLengths=true">TrN</a> </td><td>2946.0772</td><td>8</td><td>5908.2795</td><td>29.2074</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06865112,felis_catus:0.14827944,rattus_norvegicus:0.21118100);&useBranchLengths=true">TIM3ef+I</a> </td><td>2947.2681</td><td>7</td><td>5908.6332</td><td>29.5611</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06610448,felis_catus:0.11439620,rattus_norvegicus:0.14901912);&useBranchLengths=true">TIM2</a> </td><td>2945.5704</td><td>9</td><td>5909.2973</td><td>30.2251</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06625379,felis_catus:0.11417086,rattus_norvegicus:0.14907856);&useBranchLengths=true">TIM1</a> </td><td>2945.7770</td><td>9</td><td>5909.7104</td><td>30.6383</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06790911,felis_catus:0.14877318,rattus_norvegicus:0.21164757);&useBranchLengths=true">TPM3+I</a> </td><td>2948.9758</td><td>6</td><td>5910.0244</td><td>30.9523</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07062634,felis_catus:0.15640542,rattus_norvegicus:0.22326125);&useBranchLengths=true">TPM3+G</a> </td><td>2949.0180</td><td>6</td><td>5910.1087</td><td>31.0366</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07211852,felis_catus:0.16095351,rattus_norvegicus:0.23002590);&useBranchLengths=true">TIM3ef+I+G</a> </td><td>2947.0130</td><td>8</td><td>5910.1509</td><td>31.0788</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06611545,felis_catus:0.11355940,rattus_norvegicus:0.14937707);&useBranchLengths=true">TPM3uf</a> </td><td>2947.0545</td><td>8</td><td>5910.2339</td><td>31.1618</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06617599,felis_catus:0.11368006,rattus_norvegicus:0.14885300);&useBranchLengths=true">HKY</a> </td><td>2948.2277</td><td>7</td><td>5910.5525</td><td>31.4804</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06616127,felis_catus:0.11427755,rattus_norvegicus:0.14963417);&useBranchLengths=true">GTR</a> </td><td>2944.2479</td><td>11</td><td>5910.7256</td><td>31.6535</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07158763,felis_catus:0.15939771,rattus_norvegicus:0.22648007);&useBranchLengths=true">SYM+G</a> </td><td>2946.6260</td><td>9</td><td>5911.4084</td><td>32.3362</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06613319,felis_catus:0.11394383,rattus_norvegicus:0.14867211);&useBranchLengths=true">TPM2uf</a> </td><td>2947.7120</td><td>8</td><td>5911.5491</td><td>32.4770</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06847581,felis_catus:0.14944442,rattus_norvegicus:0.21161691);&useBranchLengths=true">SYM+I</a> </td><td>2946.8402</td><td>9</td><td>5911.8368</td><td>32.7647</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06630632,felis_catus:0.11370833,rattus_norvegicus:0.14868230);&useBranchLengths=true">TPM1uf</a> </td><td>2947.9264</td><td>8</td><td>5911.9777</td><td>32.9056</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07107999,felis_catus:0.15826680,rattus_norvegicus:0.22621811);&useBranchLengths=true">TPM3+I+G</a> </td><td>2949.0252</td><td>7</td><td>5912.1475</td><td>33.0754</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06618832,felis_catus:0.11381457,rattus_norvegicus:0.14920796);&useBranchLengths=true">TVM</a> </td><td>2946.3950</td><td>10</td><td>5912.9813</td><td>33.9091</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06774418,felis_catus:0.14999937,rattus_norvegicus:0.21218485);&useBranchLengths=true">TVMef+I</a> </td><td>2948.5415</td><td>8</td><td>5913.2079</td><td>34.1358</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07065534,felis_catus:0.15736195,rattus_norvegicus:0.22356784);&useBranchLengths=true">TVMef+G</a> </td><td>2948.5995</td><td>8</td><td>5913.3241</td><td>34.2520</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07214677,felis_catus:0.16172724,rattus_norvegicus:0.22994898);&useBranchLengths=true">SYM+I+G</a> </td><td>2946.6031</td><td>10</td><td>5913.3976</td><td>34.3255</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07255685,felis_catus:0.15809391,rattus_norvegicus:0.22096528);&useBranchLengths=true">TrNef+G</a> </td><td>2951.4518</td><td>6</td><td>5914.9764</td><td>35.9043</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07114472,felis_catus:0.15904776,rattus_norvegicus:0.22624313);&useBranchLengths=true">TVMef+I+G</a> </td><td>2948.6097</td><td>9</td><td>5915.3758</td><td>36.3037</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06981089,felis_catus:0.14859394,rattus_norvegicus:0.20744416);&useBranchLengths=true">TrNef+I</a> </td><td>2951.7252</td><td>6</td><td>5915.5233</td><td>36.4511</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07250660,felis_catus:0.15886002,rattus_norvegicus:0.22125614);&useBranchLengths=true">TIM2ef+G</a> </td><td>2951.1712</td><td>7</td><td>5916.4396</td><td>37.3674</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07261687,felis_catus:0.15818068,rattus_norvegicus:0.22060224);&useBranchLengths=true">TIM1ef+G</a> </td><td>2951.2384</td><td>7</td><td>5916.5738</td><td>37.5017</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06925194,felis_catus:0.14919414,rattus_norvegicus:0.20834604);&useBranchLengths=true">K80+I</a> </td><td>2953.3094</td><td>5</td><td>5916.6707</td><td>37.5986</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07176771,felis_catus:0.15670288,rattus_norvegicus:0.21961253);&useBranchLengths=true">K80+G</a> </td><td>2953.3197</td><td>5</td><td>5916.6912</td><td>37.6191</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07301265,felis_catus:0.16049048,rattus_norvegicus:0.22475360);&useBranchLengths=true">TrNef+I+G</a> </td><td>2951.4163</td><td>7</td><td>5916.9298</td><td>37.8576</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06970815,felis_catus:0.14928568,rattus_norvegicus:0.20762370);&useBranchLengths=true">TIM2ef+I</a> </td><td>2951.4546</td><td>7</td><td>5917.0063</td><td>37.9341</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06977615,felis_catus:0.14895032,rattus_norvegicus:0.20741546);&useBranchLengths=true">TIM1ef+I</a> </td><td>2951.4942</td><td>7</td><td>5917.0855</td><td>38.0133</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06915338,felis_catus:0.15005110,rattus_norvegicus:0.20873559);&useBranchLengths=true">TPM2+I</a> </td><td>2953.0298</td><td>6</td><td>5918.1323</td><td>39.0602</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07174920,felis_catus:0.15746609,rattus_norvegicus:0.21984533);&useBranchLengths=true">TPM2+G</a> </td><td>2953.0301</td><td>6</td><td>5918.1331</td><td>39.0609</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06921707,felis_catus:0.14970411,rattus_norvegicus:0.20852465);&useBranchLengths=true">TPM1+I</a> </td><td>2953.0695</td><td>6</td><td>5918.2118</td><td>39.1397</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07185393,felis_catus:0.15676487,rattus_norvegicus:0.21917261);&useBranchLengths=true">TPM1+G</a> </td><td>2953.1016</td><td>6</td><td>5918.2760</td><td>39.2039</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07297643,felis_catus:0.16133925,rattus_norvegicus:0.22518060);&useBranchLengths=true">TIM2ef+I+G</a> </td><td>2951.1354</td><td>8</td><td>5918.3957</td><td>39.3236</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07308702,felis_catus:0.16048642,rattus_norvegicus:0.22425969);&useBranchLengths=true">TIM1ef+I+G</a> </td><td>2951.2061</td><td>8</td><td>5918.5371</td><td>39.4650</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07219414,felis_catus:0.15830116,rattus_norvegicus:0.22209231);&useBranchLengths=true">K80+I+G</a> </td><td>2953.3191</td><td>6</td><td>5918.7110</td><td>39.6388</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07217000,felis_catus:0.15922921,rattus_norvegicus:0.22263149);&useBranchLengths=true">TPM2+I+G</a> </td><td>2953.0291</td><td>7</td><td>5920.1553</td><td>41.0832</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07228616,felis_catus:0.15838022,rattus_norvegicus:0.22173106);&useBranchLengths=true">TPM1+I+G</a> </td><td>2953.1040</td><td>7</td><td>5920.3050</td><td>41.2329</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06531072,felis_catus:0.11150020,rattus_norvegicus:0.14788313);&useBranchLengths=true">TIM3ef</a> </td><td>2962.6204</td><td>6</td><td>5937.3136</td><td>58.2414</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06537049,felis_catus:0.11124922,rattus_norvegicus:0.14764457);&useBranchLengths=true">TPM3</a> </td><td>2964.4984</td><td>5</td><td>5939.0487</td><td>59.9765</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06541138,felis_catus:0.11172599,rattus_norvegicus:0.14786101);&useBranchLengths=true">SYM</a> </td><td>2962.2855</td><td>8</td><td>5940.6960</td><td>61.6239</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06547428,felis_catus:0.11148954,rattus_norvegicus:0.14762793);&useBranchLengths=true">TVMef</a> </td><td>2964.1578</td><td>7</td><td>5942.4127</td><td>63.3405</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06624405,felis_catus:0.11328175,rattus_norvegicus:0.14908792);&useBranchLengths=true">TrNef</a> </td><td>2966.3353</td><td>5</td><td>5942.7226</td><td>63.6505</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06628289,felis_catus:0.11354322,rattus_norvegicus:0.14911713);&useBranchLengths=true">TIM2ef</a> </td><td>2966.1010</td><td>6</td><td>5944.2749</td><td>65.2027</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06633845,felis_catus:0.11328588,rattus_norvegicus:0.14900639);&useBranchLengths=true">TIM1ef</a> </td><td>2966.1583</td><td>6</td><td>5944.3895</td><td>65.3173</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06629133,felis_catus:0.11295864,rattus_norvegicus:0.14881025);&useBranchLengths=true">K80</a> </td><td>2968.2032</td><td>4</td><td>5944.4409</td><td>65.3688</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06632784,felis_catus:0.11323412,rattus_norvegicus:0.14877440);&useBranchLengths=true">TPM2</a> </td><td>2967.9642</td><td>5</td><td>5945.9804</td><td>66.9083</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06638590,felis_catus:0.11296451,rattus_norvegicus:0.14868887);&useBranchLengths=true">TPM1</a> </td><td>2968.0241</td><td>5</td><td>5946.1002</td><td>67.0281</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06887059,felis_catus:0.13771502,rattus_norvegicus:0.18437965);&useBranchLengths=true">F81+G</a> </td><td>2981.1480</td><td>7</td><td>5976.3931</td><td>97.3210</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06737454,felis_catus:0.13300278,rattus_norvegicus:0.17750514);&useBranchLengths=true">F81+I</a> </td><td>2981.1502</td><td>7</td><td>5976.3976</td><td>97.3255</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06892255,felis_catus:0.13812685,rattus_norvegicus:0.18503487);&useBranchLengths=true">F81+I+G</a> </td><td>2981.1479</td><td>8</td><td>5978.4207</td><td>99.3486</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06588369,felis_catus:0.11172094,rattus_norvegicus:0.14555474);&useBranchLengths=true">F81</a> </td><td>2991.6884</td><td>6</td><td>5995.4495</td><td>116.3774</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06915607,felis_catus:0.13532186,rattus_norvegicus:0.18319567);&useBranchLengths=true">JC+G</a> </td><td>2999.1844</td><td>4</td><td>6006.4034</td><td>127.3313</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06770488,felis_catus:0.13086654,rattus_norvegicus:0.17656220);&useBranchLengths=true">JC+I</a> </td><td>2999.1868</td><td>4</td><td>6006.4081</td><td>127.3360</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06921876,felis_catus:0.13563198,rattus_norvegicus:0.18371124);&useBranchLengths=true">JC+I+G</a> </td><td>2999.1844</td><td>5</td><td>6008.4207</td><td>129.3485</td><td>0.0000</td><td>1.0000</td></tr>
+		<tr><td>
+		<a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.06594865,felis_catus:0.11119770,rattus_norvegicus:0.14549274);&useBranchLengths=true">JC</a> </td><td>3009.4184</td><td>3</td><td>6024.8576</td><td>145.7855</td><td>0.0000</td><td>1.0000</td></tr>
+		 </table>
+</div><!--selection_results-->
+<div class="selection-caption">
+<table class="selection_table"><tr><td>
+		-lnL:</td><td>negative log likelihod
+		 </td> </tr><tr><td>
+		 K:</td><td>	number of estimated parameters
+		 </td> </tr><tr><td>
+		 AICc:</td><td>	Corrected Akaike Information Criterion
+		 </td> </tr><tr><td>
+		 delta:	</td><td>AICc difference
+		 </td> </tr><tr><td>
+		 weight:</td><td>	AICc weight
+		 </td> </tr><tr><td>
+		 cumWeight:</td><td>cumulative AICc weight
+		 </td> </tr>
+	 </table>
+<h2>Confidence interval</h2>
+ <p class="confidence-list"> 
+There are 88 models in the 100.00% confidence interval:<br/>
+TIM3+G TIM3+I TrN+G TrN+I TIM2+G TIM1+G TIM3+I+G TPM3uf+I TIM2+I TPM3uf+G TrN+I+G GTR+G TIM1+I HKY+G GTR+I HKY+I TIM2+I+G TPM2uf+G TPM2uf+I TIM1+I+G TPM3uf+I+G TPM1uf+G TPM1uf+I TVM+I GTR+I+G TVM+G HKY+I+G TPM2uf+I+G TPM1uf+I+G TVM+I+G TIM3 TIM3ef+G TrN TIM3ef+I TIM2 TIM1 TPM3+I TPM3+G TIM3ef+I+G TPM3uf HKY GTR SYM+G TPM2uf SYM+I TPM1uf TPM3+I+G TVM TVMef+I TVMef+G SYM+I+G TrNef+G TVMef+I+G TrNef+I TIM2ef+G TIM1ef+G K80+I K80+G TrNef+I+G TIM2ef+I TIM1ef+I TPM2+I TPM2+G TPM1+I TPM1+G TIM2ef+I+G TIM1ef+I+G K80+I+G TPM2+I+G TPM1+I+G TIM3ef TPM3 SYM TVMef TrNef TIM2ef TIM1ef K80 TPM2 TPM1 F81+G F81+I F81+I+G F81 JC+G JC+I JC+I+G JC 
+</p>
+ </div><!--selection-caption-->
+  </div><!--selection-lower-->
+  
+  <div class="selection-distances">
+    <div class="euclidean-img">
+    	<img class="distances-img" src="images/Reverse_Translation_Seq.txt-gb1.phy.jmodeltest.20260109230441.html_eu_AICc.png"/><br/>
+    	Euclidean distances histogram from each model optimized tree to <a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07234511,felis_catus:0.16338373,rattus_norvegicus:0.22693639);&useBranchLengths=true">TIM3+G tree</a>.
+    </div>
+    <div class="rf-img">
+    	<img class="distances-img" src="images/Reverse_Translation_Seq.txt-gb1.phy.jmodeltest.20260109230441.html_rf_AICc.png"/><br/>
+    	Robinson-Foulds distances histogram from the different topologies to <a href="http://www.phylowidget.org/full/?tree=(homo_sapiens:0.07234511,felis_catus:0.16338373,rattus_norvegicus:0.22693639);&useBranchLengths=false">TIM3+G topology</a>.
+    </div>
+    <div style="clear:both;"></div>
+  </div><!--selection-distances-->
+
+</div><!--selection-->
+
+<p class="back-to-top"><a href="#" onclick="scrollTo(0,0);return false;" title="Back to top" class="top"><img src="resources/topIcon.gif" alt="Back to top" class="top" /> Back to top <img src="resources/topIcon.gif" alt="Back to top" class="top" /></a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div><!--/content-->
+
+	</div><!--/page-->
+	</div><!--/clearfix-->
+
+</div><!--/container2-->
+</div><!--/container1-->
+
+<div id="footer">
+<div id="footerinner">
+<p class="poweredBy">
+<span class="buttons">
+<a href="http://code.google.com/p/jmodeltest2" title="Home" class="home"><img src="resources/homeIcon.gif" alt="Back to home" class="home" /></a> 
+<a href="#" onclick="scrollTo(0,0);return false;" title="Back to top" class="top"><img src="resources/topIcon.gif" alt="Back to top" class="top" /></a>
+</span>
+<a href="http://code.google.com/p/jmodeltest2" rel="external">jModelTest 2.1</a>. D.Darriba, G.L.Taboada, R.Doallo and D.Posada
+</p>
+<div id="contact">
+    <a href="https://groups.google.com/forum/#!forum/jmodeltest">Forum</a>
+	-
+	<a href="http://groups.google.com/group/jmodeltest">Discussion group</a>
+	-
+	<a href="mailto:ddarriba@udc.es">Contact</a>
+</div>
+ 
+</div><!--/footerinner-->
+</div><!--/footer-->
+
+</body>
+</html>

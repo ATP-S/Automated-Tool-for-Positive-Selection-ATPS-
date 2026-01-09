@@ -103,9 +103,15 @@ def run_gblocks(
         logger.info("Running Gblocks: %s", " ".join(cmd))
         result = subprocess.run(cmd, capture_output=True, text=True)
 
+        # Gblocks may return exit code 1 even on success with warnings
+        # Check if output file was created to determine actual success
         if result.returncode != 0:
-            logger.error("Gblocks failed:\n%s", result.stderr)
-            raise RuntimeError(f"Gblocks failed (rc={result.returncode}): {result.stderr}")
+            if output_path.exists():
+                # Gblocks succeeded despite returning non-zero exit code
+                logger.warning("Gblocks completed with warnings (rc=%d)", result.returncode)
+            else:
+                logger.error("Gblocks failed:\n%s", result.stderr)
+                raise RuntimeError(f"Gblocks failed (rc={result.returncode}): {result.stderr}")
 
     logger.info("Gblocks output: %s", output_path)
     return output_path
